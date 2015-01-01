@@ -1,0 +1,191 @@
+
+% Language: english, slovak
+% Document type: article (bachelor thesis), report (master thesis)
+%%
+%% CHECK THE PLACE WITH "!!!!"
+%%
+
+%%
+%% !!!! select one for BACHELOR THESIS
+%%
+%\documentclass[a4paper,english,12pt,appendix]{article}
+\documentclass[a4paper,slovak,12pt,appendix]{article}
+
+%%
+%% !!!! select one for MASTER THESIS
+%%
+%\documentclass[a4paper,english,12pt,appendix]{report}
+%\documentclass[a4paper,slovak,12pt,appendix]{report}
+
+\usepackage{ifthen}
+\usepackage{mathtools}
+\newboolean{english}
+\newboolean{bachelor}
+
+%%
+%% !!!! for MASTER THESIS set to FALSE
+%%
+\setboolean{bachelor}{true}
+
+%%
+%% !!!! for SLOVAK VERSION set to FALSE
+%%
+\setboolean{english}{false}
+
+
+
+%%
+%% Formats and Defs
+%%
+\input{FormatsAndDefs.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% !!!! set your own definitions
+
+%-------definitions-----
+\newcommand{\Author}{Martin Černák}
+\newcommand{\Title}{Dynamické odporúčanie}
+\newcommand{\Supervisor}{prof. Ing. Pavol Návrat, PhD.}
+\newcommand{\Place}{Ústav informatiky a softvérového inžinierstva}
+\newcommand{\Year}{2015}
+\newcommand{\Month}{Máj}
+\newcommand{\FIIT}{FIIT-0000-00000}
+\newcommand{\Field}{9.2.1 Informatika}
+\newcommand{\Program}{Informatika}
+\newcommand{\ignore}[1]{}
+
+%%
+%% DON'T TOUCH
+%%
+%% PDF meta-data
+\hypersetup{%
+pdftitle={\Title},%
+pdfauthor={\Author},%
+pdfkeywords={here can come the keywords},%
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%
+%% Title Page
+%%
+\input{titlepage.tex}
+
+%%
+%% Anotation
+%%
+\pagenumbering{roman}\setcounter{page}{2}
+\input{anotation.tex}
+
+%%
+%% Declaration
+%%
+\input{declaration.tex}
+
+%%
+%% Contents
+%%
+%\pagestyle{empty}
+\newpage
+\tableofcontents{}
+
+%%
+%% Lists
+%%
+
+ \newpage
+% List of Figures
+ \listoffigures
+
+% \newpage
+% List of Tables
+% \listoftables
+
+ \newpage
+% List of Listings
+ \lstlistoflistings
+
+
+%%
+%% Clear Page And Set New Page Counter
+%%
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\ifthenelse {\boolean{bachelor}}
+{
+    \sectionfont{\sectionrule{0pt}{0pt}{-2ex}{0.5pt}}
+}
+{
+    \sectionfont{\sectionrule{0pt}{0pt}{-2ex}{0pt}}
+}
+
+%%
+%% Introduction
+%%
+\input{introduction.tex}
+
+%%
+%% analysis
+%%
+\input{analysis.tex}
+
+%%
+%% design
+%%
+\input{design.tex}
+
+%%
+%% test
+%%
+%\input{results.tex}
+
+%%
+%% Conclusion
+%%
+%\input{conclusions.tex}
+
+%%
+%% References
+%%
+\newpage
+\addcontentsline{toc}{section}{\refname}
+\bibliographystyle{plain}
+\begin{flushleft}
+\bibliography{references.bib}
+\end{flushleft}
+
+%%
+%% Appendix
+%%
+%\ifthenelse {\boolean{bachelor}}
+%{
+%}
+%{
+%   \ifthenelse {\boolean{english}}
+%   {
+%       \renewcommand{\appendixname}{Appendix}
+%       \renewcommand{\appendixtocname}{Appendix}
+%   }
+%   {
+%       \renewcommand{\appendixname}{Príloha}
+%       \renewcommand{\appendixtocname}{Prílohy}
+%   }
+%   \pagenumbering{bychapter}
+%}
+%\appendix
+%\input{appendix.tex}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%
+%% !!!! set your own details
+%%
+\begin{comment}
+[x] [Autor Dokumentu], [Nazov Stranky], [URL], [Datum Navstevy]
+\end{comment}

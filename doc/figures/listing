@@ -1,0 +1,24 @@
+jamie@alien:~/Locker/tests$ ./runTests locker-issues-test.js
+Waiting for the locker to startup...
+Running only tests locker-issues-test.js
+
+ Locker Core Issues
+
+  Issues #15 - Services do not spawn when called through the proxy A GET to /Me/slowStarter/firstPass
+    # should respond with 200
+      >> expected 200,
+	got	 404 (==) // rest-easy.js:233
+  Issues #15 - Services do not spawn when called through the proxy A POST to /Me/slowStarter/firstPass
+    # should respond with 200
+      >> expected 200,
+	got	 404 (==) // rest-easy.js:233
+  Issues #15 - Services do not spawn when called through the proxy A GET to /Me/slowStarter/another
+    # should respond with 200
+      >> expected 200,
+	got	 404 (==) // rest-easy.js:233
+  Issues #15 - Services do not spawn when called through the proxy A GET to /Me/slowStarter/more
+    # should respond with 200
+      >> expected 200,
+	got	 404 (==) // rest-easy.js:233
+
+# Broken >> 4 broken (0.032s)
