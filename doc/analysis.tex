@@ -170,6 +170,20 @@ Pracuje z modelom ktorí vytvára hodnotenie a súčasne sa učí na existujúci
 
 Na obídenie nedostatkov algoritmov kolaboratívneho filtrovania, niektoré aplikácie kombinujú tieto dve metódy.
 
+\section{Logistická funkcia}
+
+Logisticka funkcia sa často používa ako pravdepodobnostná funkcia. Funkcia má nasledujúci tvar: 
+
+\[f(t; a,m,n,\tau) = a*\frac{1 + me^{-t/\tau}}{1 + ne^{-t/\tau}}\]
+
+Vo väčšine prípadov sa používa špecialny prípad tejto funkcie meno signusoida.
+Signusoida ma $a = 1$, $m = 0$, $n = 0$ a $\tau = 1$ čiže:
+
+\[f(t) = \frac{1}{1 + e^{-t}}\]
+
+Graf tejto funkcie má tvar písmena S
+
+
 %\subsection{Evolúcia používateľských profilov}
 %
 %Evolúcia používateľských profilov je modelovaná pomocou dynamických Bayesianskych sieti (angl. Bayesian networks). Tieto siete reprezentujú dočasné závislosti medzi interakciami v rôznych časoch, to znamená že ak máme sekvenciu používateľových interakcií modelovanú modelmi Bayesianskych sieti pre rôzne časove úseky \( \in [0..T-1], \text{ teda } I_0, I_1, I_2, \ldots I_{T-1} \), použili sme dočasne odkazy na prepojenie uzlov v Bayesianskej sieti cez rôzne časove úseky.
