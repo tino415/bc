@@ -107,13 +107,6 @@ $requirements = array(
         'memo' => $imagickMemo,
     ),
     // PHP ini :
-    'phpSafeMode' => array(
-        'name' => 'PHP safe mode',
-        'mandatory' => false,
-        'condition' => $requirementsChecker->checkPhpIniOff("safe_mode"),
-        'by' => 'File uploading and console command execution',
-        'memo' => '"safe_mode" should be disabled at php.ini',
-    ),
     'phpExposePhp' => array(
         'name' => 'Expose PHP',
         'mandatory' => false,
@@ -131,7 +124,7 @@ $requirements = array(
     'phpSmtp' => array(
         'name' => 'PHP mail SMTP',
         'mandatory' => false,
-        'condition' => strlen(ini_get('SMTP')) > 0,
+        'condition' => strlen(ini_get('SMTP'))>0,
         'by' => 'Email sending',
         'memo' => 'PHP mail SMTP server required',
     ),
