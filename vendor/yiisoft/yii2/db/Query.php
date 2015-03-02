@@ -354,7 +354,7 @@ class Query extends Component implements QueryInterface
      * @param Connection|null $db
      * @return bool|string
      */
-    protected function queryScalar($selectExpression, $db)
+    private function queryScalar($selectExpression, $db)
     {
         $select = $this->select;
         $limit = $this->limit;

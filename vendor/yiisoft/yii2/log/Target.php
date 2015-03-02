@@ -266,10 +266,6 @@ abstract class Target extends Component
             return call_user_func($this->prefix, $message);
         }
 
-        if (Yii::$app === null) {
-            return '';
-        }
-
         $request = Yii::$app->getRequest();
         $ip = $request instanceof Request ? $request->getUserIP() : '-';
 

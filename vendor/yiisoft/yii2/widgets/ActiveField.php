@@ -43,8 +43,6 @@ class ActiveField extends Component
      *
      * - tag: the tag name of the container element. Defaults to "div".
      *
-     * If you set a custom `id` for the container element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = ['class' => 'form-group'];
@@ -56,9 +54,6 @@ class ActiveField extends Component
     /**
      * @var array the default options for the input tags. The parameter passed to individual input methods
      * (e.g. [[textInput()]]) will be merged with this property when rendering the input tag.
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $inputOptions = ['class' => 'form-control'];
@@ -69,8 +64,6 @@ class ActiveField extends Component
      *
      * - tag: the tag name of the container element. Defaults to "div".
      * - encode: whether to encode the error output. Defaults to true.
-     *
-     * If you set a custom `id` for the error element, you may need to adjust the [[$selectors]] accordingly.
      *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
@@ -278,8 +271,6 @@ class ActiveField extends Component
      *
      * If this parameter is false, no error tag will be rendered.
      *
-     * If you set a custom `id` for the error element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function error($options = [])
@@ -320,9 +311,6 @@ class ActiveField extends Component
      * @param string $type the input type (e.g. 'text', 'password')
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function input($type, $options = [])
@@ -340,9 +328,6 @@ class ActiveField extends Component
      * unless they are explicitly specified in `$options`.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function textInput($options = [])
@@ -365,9 +350,6 @@ class ActiveField extends Component
      * unless they are explicitly specified in `$options`.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function hiddenInput($options = [])
@@ -385,9 +367,6 @@ class ActiveField extends Component
      * unless they are explicitly specified in `$options`.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function passwordInput($options = [])
@@ -405,9 +384,6 @@ class ActiveField extends Component
      * unless they are explicitly specified in `$options`.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function fileInput($options = [])
@@ -427,9 +403,6 @@ class ActiveField extends Component
      * The model attribute value will be used as the content in the textarea.
      * @param array $options the tag options in terms of name-value pairs. These will be rendered as
      * the attributes of the resulting tag. The values will be HTML-encoded using [[Html::encode()]].
-     *
-     * If you set a custom `id` for the textarea element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function textarea($options = [])
@@ -457,9 +430,6 @@ class ActiveField extends Component
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
      * be HTML-encoded using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @param boolean $enclosedByLabel whether to enclose the radio within the label.
      * If true, the method will still use [[template]] to layout the checkbox and the error message
      * except that the radio is enclosed by the label tag.
@@ -501,9 +471,6 @@ class ActiveField extends Component
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
      * be HTML-encoded using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @param boolean $enclosedByLabel whether to enclose the checkbox within the label.
      * If true, the method will still use [[template]] to layout the checkbox and the error message
      * except that the checkbox is enclosed by the label tag.
@@ -560,8 +527,6 @@ class ActiveField extends Component
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
      * be HTML-encoded using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
      *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
-     *
      * @return static the field object itself
      */
     public function dropDownList($items, $options = [])
@@ -605,8 +570,6 @@ class ActiveField extends Component
      *
      * The rest of the options will be rendered as the attributes of the resulting tag. The values will
      * be HTML-encoded using [[Html::encode()]]. If a value is null, the corresponding attribute will not be rendered.
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
      *
      * @return static the field object itself
      */
@@ -701,8 +664,6 @@ class ActiveField extends Component
      *     'mask' => '99/99/9999',
      * ]);
      * ```
-     *
-     * If you set a custom `id` for the input element, you may need to adjust the [[$selectors]] accordingly.
      *
      * @param string $class the widget class name
      * @param array $config name-value pairs that will be used to initialize the widget

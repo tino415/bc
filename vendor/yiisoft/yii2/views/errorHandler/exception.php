@@ -89,8 +89,6 @@ html,body{
 .header pre{
     margin: 10px 0;
     overflow-y: scroll;
-    font-family: Courier, monospace;
-    font-size: 14px;
 }
 
 /* previous exceptions */
@@ -136,7 +134,6 @@ html,body{
     color: #aaa;
 }
 .header .previous pre{
-    font-family: Courier, monospace;
     font-size: 14px;
     margin: 10px 0;
 }

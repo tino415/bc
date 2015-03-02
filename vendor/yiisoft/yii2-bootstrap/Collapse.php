@@ -53,6 +53,8 @@ class Collapse extends Widget
      * - content: string, required, the content (HTML) of the group
      * - options: array, optional, the HTML attributes of the group
      * - contentOptions: optional, the HTML attributes of the group's content
+     *
+     * ```
      */
     public $items = [];
 

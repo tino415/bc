@@ -230,7 +230,7 @@ class Menu extends Widget
             $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 
             return strtr($template, [
-                '{url}' => Html::encode(Url::to($item['url'])),
+                '{url}' => Url::to($item['url']),
                 '{label}' => $item['label'],
             ]);
         } else {
