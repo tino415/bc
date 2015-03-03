@@ -48,21 +48,21 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionMain()
-    {
-        return $this->render('main');
-    }
-
-    public function actionSearch()
-    {
-        $model = new SearchForm();
-        return $this->render('search', ['model' => $model]);
-    }
-
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new SearchForm();
+        return $this->render('index', ['model' => $model]);
     }
+
+    public function actionSong($idskupiny, $idpiesne)
+    {
+        $model = \Yii::$app->superMusic->getSong($idskupiny, $idpiesne);
+        return $this->render('song', [
+            'model' => $model
+        ]);
+
+    }
+
 
     public function actionLogin()
     {
