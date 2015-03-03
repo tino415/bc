@@ -52,6 +52,11 @@ class SiteController extends Controller
         return $this->render('main');
     }
 
+    public function actionSearch()
+    {
+        return $this->render('search');
+    }
+
     public function actionIndex()
     {
         return $this->render('index');
