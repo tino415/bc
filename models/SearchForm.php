@@ -17,6 +17,8 @@ class SearchForm extends Model
      */
     public function rules()
     {
-        return [];
+        return [
+            ['phrase', 'required'],
+        ];
     }
 }
