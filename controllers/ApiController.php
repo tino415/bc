@@ -4,10 +4,9 @@ namespace app\controllers;
 
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
 use app\models\SearchForm;
+use app\models\Document;
 
 class ApiController extends Controller
 {
@@ -16,10 +15,9 @@ class ApiController extends Controller
         Yii::$app->response->format = 'json';
         $model = new SearchForm;
         if($model->load(Yii::$app->request->get())) 
-
             return [
                 'phrase' => $model->phrase,
-                'results' => Yii::$app->superMusic->searchSong($model->phrase),
+                'results' => Document::search($model->phrase),
             ];
         else return [
             'phrase' => 'None',

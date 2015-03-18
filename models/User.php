@@ -2,51 +2,109 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
-{
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+use Yii;
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+/**
+ * This is the model class for table "users".
+ *
+ * @property integer $id
+ * @property string $email
+ * @property string $password
+ * @property integer $role_id
+ * @property string $access_token
+ * @property string $auth_key
+ * @property string $username
+ */
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'users';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['email', 'password'], 'required'],
+            [['access_level', 'role_id'], 'integer'],
+            [['email', 'password'], 'string', 'max' => 255],
+            [['email'], 'unique'],
+            [['access_token', 'auth_key', 'username'], 'safe'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'email' => 'Email',
+            'password' => 'Password',
+            'role_id' => 'Role ID',
+            'access_token' => 'Access token',
+            'auth_key' => 'Authentisation key',
+            'username' => 'User name',
+        ];
+    }
+
+    /*
+     * Identity interface implementation
+     */
 
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
-
+    
     /**
      * @inheritdoc
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
+        return static::findOne(['access_token' => $token]);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
 
-        return null;
+    // End interface
+
+    public function validatePassword($password)
+    {
+        Yii::info("Validation pass ".$password);
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 
     /**
@@ -57,47 +115,8 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
-    {
-        return $this->authKey;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
-    }
-
-    /**
-     * Validates password
-     *
-     * @param  string  $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
-    public function validatePassword($password)
-    {
-        return $this->password === $password;
+        return static::find()
+            ->where(['OR', ['email' => $username], ['username' => $username]])
+            ->one();
     }
 }

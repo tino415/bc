@@ -78,17 +78,18 @@ function send() {
             $.each(data.results, function(index, value) {
                 console.log(value);
                 tags = '';
-                $.each(value.tags, function(index, tag) {
-                    tags += ' <span class="label label-info">' + tag + '</span> ';
-                });
                 console.log(index);
                 $('#results').append($('\
-    <div class="col-md-4">\
+    <div class="col-sm-6 col-md-4 col-lg-3">\
         <div class="panel panel-default">\
-        <div class="panel-heading"><h4>'+value.song+'</h4></div>\
+        <div class="panel-heading">\
+            <a href="'+value.link+'">\
+            <h4>'+value.name+'</h4>\
+            </a>\
+        </div>\
         <div class="modal-body">\
             <div>Interpret: <span>'+value.interpret+'</span></div>\
-        ' + tags + '\
+            <span class="label label-info">' +value.type+'</span>\
         </div>\
         </div>\
     </div>'

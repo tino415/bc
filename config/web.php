@@ -10,6 +10,11 @@ $config = [
         'superMusic' => [
             'class' => 'app\components\SuperMusic',
         ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'showScriptName' => false,
+            'enablePrettyUrl' => true,
+        ],
         'request' => [
             'cookieValidationKey' => 'Fze57lLclRQfBZuQdLrCBMsTm9V-sPjZ',
         ],

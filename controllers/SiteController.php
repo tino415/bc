@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SearchForm;
+use app\models\Document;
 
 class SiteController extends Controller
 {
@@ -50,17 +51,18 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = 'fluid';
         $model = new SearchForm();
         return $this->render('index', ['model' => $model]);
     }
 
-    public function actionSong($idskupiny, $idpiesne)
+    public function actionSong($id)
     {
-        $model = \Yii::$app->superMusic->getSong($idskupiny, $idpiesne);
+        $this->layout = 'fluid';
+        $model = Document::find($id)->one();
         return $this->render('song', [
             'model' => $model
         ]);
-
     }
 
 

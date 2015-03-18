@@ -83,17 +83,24 @@ Je viacero spôsobov ako uložiť profil používateľa, každý má svoje špec
 
 Profil kľúčových slov je matica o dimenziách používatelia x kľúčové slová. Na základe toho aké jednotlivé súradnice matice môžu dosahovať hodnoty 0 ak dané kľúčové slovo patrí do používateľovho profilu a 0 ak nie. Na obrázku 1. môžeme vidieť príklad v ktorom máme používateľa Používateľ 0 ktorý nemá žiadne kľúčové slová, následne Používateľa 1 ktorý používa kľúčové slová 1 a 2 a Používateľa 2 ktorý používa kľúčové slovo 1.
 
-\begin{figure}\begin{center}\includegraphics[scale=0.55]{keywordprfile}
-\caption{Ukážka profilu kľúčových slov.}\label{Profil klúčovích slov}
-\end{center}\end{figure}
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.55]{keywordprfile}
+		\caption{Ukážka profilu kľúčových slov.}
+			\label{Profil klúčovích slov}
+	\end{center}
+\end{figure}
 
 \paragraph{Profil sémantickej siete (angl. Semantic network profile)}
 
 Tento tip profilu sa používa najmä v systémoch používajúcich rozširovanie používateľských vyhľadávacích reťazcov. Základom tohoto profilu je sémantická sieť ktorej príklad môžeme vidieť na obrázku 2.
 
-\begin{figure}\begin{center}\includegraphics[scale=0.55]{semanticnetwork}
-\caption{Ukážka sémantickej siete}
-\end{center}\end{figure}
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.55]{semanticnetwork}
+		\caption{Ukážka sémantickej siete}
+	\end{center}
+\end{figure}
 
 Sémantická sieť je orientovaný graf v ktorom vrcholmi sú preferencie alebo vlastnosti dokumentov, zatiaľ čo hrany sú ich vzťahy. Vzťahy môžu byť niekoľkých typov:
 
@@ -126,7 +133,7 @@ Pravdepodobnosť že dosiahnem určitú kombináciu \(S = (s_0, s_1, \cdots ,s_n
 
 Jednou z možností ako zabezpečiť starnutie používateľského profilu je využiť funkciu exponenciálneho polčasu rozpadu. Táto funkcia sa hlavne využíva pri datovaní veku uhlíka, avšak dá sa použiť aj ako funkcia starnutia používateľových preferencií. Základom tohoto prístupu je následujúci vzorec:
 
-\[N(t) = N_0E^{-kt}\]
+\[N(t) = N_0e^{-k/t}\]
 
 Aby sme mohli tento algoritmus použiť, musíme si určiť polčas rozpadu preferencie. Následne si na základe polčasu rozpadu vypočítam parameter \(k\), Ten sa dá po odvodení určiť z následujúceho vzorca.
 
@@ -256,20 +263,20 @@ Graf tejto funkcie má tvar písmena S
 
 
 %\begin{lstlisting}[float=h,caption={Príklad listingu priamo v latex-u}, label={listing2},
-%   keywordstyle=\color{blue}\bfseries, ndkeywordstyle=\color{black}\bfseries, commentstyle=\color{red}\ttfamily,
-%   stringstyle=\color{green}\ttfamily, identifierstyle=\color{gray},backgroundcolor=\color{white},frame=single, frameround=ffff,captionpos=b,basicstyle=\scriptsize]
-%   Aenean consequat
-%   sapien a posuere
-%   tincidunt massa
-%   purus egestas nisl
-%   sed sollicitudin
-%   neque mi vel augue.
+%	keywordstyle=\color{blue}\bfseries, ndkeywordstyle=\color{black}\bfseries, commentstyle=\color{red}\ttfamily,
+%	stringstyle=\color{green}\ttfamily, identifierstyle=\color{gray},backgroundcolor=\color{white},frame=single, frameround=ffff,captionpos=b,basicstyle=\scriptsize]
+%	Aenean consequat
+%	sapien a posuere
+%	tincidunt massa
+%	purus egestas nisl
+%	sed sollicitudin
+%	neque mi vel augue.
 %\end{lstlisting}
 %
 %\begin{my_description}
-%   \item {\textbf{položka 1} - Tuto nasleduje popis položky 1.}
-%   \item {\textbf{položka 2} - Tuto nasleduje popis položky 2.}
-%   \item {\textbf{položka 3} - Tuto nasleduje popis položky 3.}
+%	\item {\textbf{položka 1} - Tuto nasleduje popis položky 1.}
+%	\item {\textbf{položka 2} - Tuto nasleduje popis položky 2.}
+%	\item {\textbf{položka 3} - Tuto nasleduje popis položky 3.}
 %\end{my_description}
 %
 %\subsubsection{Ďalšia podsekcia}
