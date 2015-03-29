@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
+use app\components\SearchWidget;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -29,6 +30,9 @@ AppAsset::register($this);
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+
+            echo SearchWidget::widget();
+
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
