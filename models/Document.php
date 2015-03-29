@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use \yii\helpers\Url;
+use \yii\helpers\BaseArrayHelper;
 
 /**
  * This is the model class for table "documents".
@@ -70,18 +71,57 @@ class Document extends \yii\db\ActiveRecord
         return $this->hasOne(Type::className(), ['id' => 'type_id']);
     }
 
+    private static function searchQuery($limit, $where) {
+        return self::find()
+            ->joinWith(['type', 'interpret'])
+            ->where($where)
+            ->limit($limit)
+            ->all();
+    }
+
     public static function search($query)
     {
         $result = [];
-        $documents = self::find()
-            ->joinWith(['type', 'interpret'])
-            ->where(['or', 
+        $documents = [];
+        $documents = self::searchQuery(
+            50, ['and', 
                 ['like', 'types.name', $query],
                 ['like', 'interprets.name', $query],
                 ['like', 'documents.name', $query],
-            ])
-            ->limit(50)
-            ->all();
+            ]);
+
+        Yii::info('And search: '.count($documents));
+
+        if(count($documents) < 50) {
+            $documents += self::searchQuery( 50 - count($documents),
+                ['or',
+                    ['and',
+                        ['like', 'types.name', $query],
+                        ['like', 'interprets.name', $query],
+                    ],
+                    ['and',
+                        ['like', 'interprets.name', $query],
+                        ['like', 'documents.name', $query],
+                    ],
+                    ['and', 
+                        ['like', 'types.name', $query],
+                        ['like', 'documents.name', $query],
+                    ]
+                ]
+            );
+        }
+
+        if(count($documents) < 50) {
+            $documents += self::searchQuery( 50 - count($documents),
+                ['or',
+                    ['like', 'types.name', $query],
+                    ['like', 'interprets.name', $query],
+                    ['like', 'documents.name', $query],
+                ]
+            );
+        }
+
+        Yii::info("Search results: ".count($documents));
 
         foreach($documents as $doc) {
             $result[] = [

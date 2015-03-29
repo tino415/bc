@@ -53,7 +53,12 @@ class SiteController extends Controller
     {
         $this->layout = 'fluid';
         $model = new SearchForm();
-        return $this->render('index', ['model' => $model]);
+        return $this->render('index', 
+            [
+                'model' => $model,
+                'results' => Document::search('Test'),
+            ]
+        );
     }
 
     public function actionSong($id)
