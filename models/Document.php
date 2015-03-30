@@ -137,8 +137,12 @@ class Document extends \yii\db\ActiveRecord
                 'name'      => $doc->name,
                 'link'      => Url::toRoute(['site/song', 'id' => $doc->id]),
                 'interpret' => $doc->interpret->name,
-                'type'      => $doc->type->name,
+                'tags'      => [],
             ];
+
+            foreach($doc->tags as $tag) {
+                $result['tags'][] = $tag->name;
+            }
         }
 
         return $result;
