@@ -12,11 +12,11 @@ use \yii\helpers\BaseArrayHelper;
  * @property integer $id
  * @property string $name
  * @property string $link
- * @property integer $type_id
  * @property integer $interpret_id
  *
  * @property Interpret $interpret
- * @property Type $type
+ * @property MapDocumentsTags[] $mapDocumentsTags
+ * @property Tag[] $tags
  */
 class Document extends \yii\db\ActiveRecord
 {
@@ -34,8 +34,8 @@ class Document extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'link', 'type_id', 'interpret_id'], 'required'],
-            [['type_id', 'interpret_id'], 'integer'],
+            [['name', 'link', 'interpret_id'], 'required'],
+            [['interpret_id'], 'integer'],
             [['name', 'link'], 'string', 'max' => 255],
             [['link'], 'unique']
         ];
@@ -55,6 +55,14 @@ class Document extends \yii\db\ActiveRecord
         ];
     }
 
+    public function exists() {
+        if(self::find(['name' => $this->id])->exists()) {
+            $this->id = $this->getPrimaryKey();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -66,14 +74,15 @@ class Document extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
-    {
-        return $this->hasOne(Type::className(), ['id' => 'type_id']);
+    public function getTags() {
+        return $this->hasMany(Tag::className(), 
+            ['id' => 'tag_id'])->viaTable('map_documents_tags', ['document_id' => 'id']
+        );
     }
 
     private static function searchQuery($limit, $where) {
         return self::find()
-            ->joinWith(['type', 'interpret'])
+            ->joinWith(['tags', 'interpret'])
             ->where($where)
             ->limit($limit)
             ->all();
@@ -85,7 +94,7 @@ class Document extends \yii\db\ActiveRecord
         $documents = [];
         $documents = self::searchQuery(
             50, ['and', 
-                ['like', 'types.name', $query],
+                ['like', 'tags.name', $query],
                 ['like', 'interprets.name', $query],
                 ['like', 'documents.name', $query],
             ]);
@@ -96,7 +105,7 @@ class Document extends \yii\db\ActiveRecord
             $documents += self::searchQuery( 50 - count($documents),
                 ['or',
                     ['and',
-                        ['like', 'types.name', $query],
+                        ['like', 'tags.name', $query],
                         ['like', 'interprets.name', $query],
                     ],
                     ['and',
@@ -104,7 +113,7 @@ class Document extends \yii\db\ActiveRecord
                         ['like', 'documents.name', $query],
                     ],
                     ['and', 
-                        ['like', 'types.name', $query],
+                        ['like', 'tags.name', $query],
                         ['like', 'documents.name', $query],
                     ]
                 ]
@@ -114,7 +123,7 @@ class Document extends \yii\db\ActiveRecord
         if(count($documents) < 50) {
             $documents += self::searchQuery( 50 - count($documents),
                 ['or',
-                    ['like', 'types.name', $query],
+                    ['like', 'tags.name', $query],
                     ['like', 'interprets.name', $query],
                     ['like', 'documents.name', $query],
                 ]

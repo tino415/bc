@@ -30,7 +30,8 @@ class Interpret extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique']
+            [['name'], 'unique'],
+            [['id'], 'safe']
         ];
     }
 
@@ -51,5 +52,13 @@ class Interpret extends \yii\db\ActiveRecord
     public function getDocuments()
     {
         return $this->hasMany(Documents::className(), ['interpret_id' => 'id']);
+    }
+
+    public function exists() {
+        if(self::find(['name' => $this->id])->exists()) {
+            $this->id = $this->getPrimaryKey();
+            return true;
+        }
+        return false;
     }
 }
