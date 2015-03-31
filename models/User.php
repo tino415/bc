@@ -14,6 +14,11 @@ use Yii;
  * @property string $access_token
  * @property string $auth_key
  * @property string $username
+ *
+ * @property MapUserTags[] $mapUserTags
+ * @property Action[] $actions
+ * @property Tag[] $tags
+ * @property Query[] $queries
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -105,6 +110,31 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         Yii::info("Validation pass ".$password);
         return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags() {
+        return $this->hasMany(Tag::className(), 
+            ['id' => 'tag_id'])->viaTable('map_user_tags', ['user_id' => 'id']
+        );
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActions()
+    {
+        return $this->hashMany(Action::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getQueries()
+    {
+        return $this->hashMany(Query::className(), ['user_id' => 'id']);
     }
 
     /**

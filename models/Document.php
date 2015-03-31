@@ -16,6 +16,7 @@ use \yii\helpers\BaseArrayHelper;
  *
  * @property Interpret $interpret
  * @property MapDocumentsTags[] $mapDocumentsTags
+ * @property Action[] $actions
  * @property Tag[] $tags
  */
 class Document extends \yii\db\ActiveRecord
@@ -55,12 +56,12 @@ class Document extends \yii\db\ActiveRecord
         ];
     }
 
-    public function exists() {
-        if(self::find(['name' => $this->id])->exists()) {
-            $this->id = $this->getPrimaryKey();
-            return true;
-        }
-        return false;
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActions()
+    {
+        return $this->hashMany(Action::className(), ['document_id' => 'id']);
     }
 
     /**
@@ -133,16 +134,16 @@ class Document extends \yii\db\ActiveRecord
         Yii::info("Search results: ".count($documents));
 
         foreach($documents as $doc) {
+            $tags = [];
+
+            foreach($doc->tags as $tag) $tags[] = $tag->name;
             $result[] = [
                 'name'      => $doc->name,
                 'link'      => Url::toRoute(['site/song', 'id' => $doc->id]),
                 'interpret' => $doc->interpret->name,
-                'tags'      => [],
+                'tags'      => $tags,
             ];
 
-            foreach($doc->tags as $tag) {
-                $result['tags'][] = $tag->name;
-            }
         }
 
         return $result;

@@ -68,6 +68,10 @@ function send() {
         $('#phrase').html(phrase);
     
         $.each(results, function(index, value) {
+            tags = '';
+            $.each(value.tags, function(index, value) {
+                tags += '<span class="label label-info">' +value+'</span> '
+            });
             $('#results').append($('\
                 <div class="col-sm-6 col-md-4 col-lg-3">\
                     <div class="panel panel-default">\
@@ -78,7 +82,7 @@ function send() {
                         </div>\
                         <div class="modal-body">\
                             <div>Interpret: <span>'+value.interpret+'</span></div>\
-                            <span class="label label-info">' +value.type+'</span>\
+                            '+tags+'\
                         </div>\
                     </div>\
                 </div>'

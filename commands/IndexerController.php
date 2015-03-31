@@ -39,18 +39,19 @@ class IndexerController extends Controller
     private function parseDocument($array) {
         extract($array);
 
-
         echo "Parsing document $name : $link\n";
+        print_r($array);
 
         if(!Document::find()->where(['link' => $link])->exists()) {
             $document = new Document;
             $document->link = $link;
             $document->name = $name;
-            $document->interpret_id = $this->parseInterpret($interpret);
+            if($interpret) $document->interpret_id = $this->parseInterpret($interpret);
+            else echo "Empty interpret\n";
             $document->save();
-            foreach($this->parseTag($type) as $tag) {
-                $document->link('tags', $tag);
-            }
+            if($type) foreach($this->parseTag($type) as $tag)
+                if($tag) $document->link('tags', $tag);
+            else echo "No tags\n";
         }
     }
 
@@ -71,7 +72,7 @@ class IndexerController extends Controller
     }
 
     private function parseTag($name) {
-        if(!array_key_exists($name, $this->tags)) {
+        if($name && !array_key_exists($name, $this->tags)) {
             echo "New tag $name\n";
             if(array_key_exists($name, $this->TAG_MAPPING)) {
                 $this->tags[$name] = [];
@@ -97,13 +98,14 @@ class IndexerController extends Controller
                 $tag = Tag::find()->where(['name' => $name])->one();
                 $this->tags[$name] = [$tag];
             }
+        } elseif(!$name) {
+            return false;
         }
 
         return $this->tags[$name];
     }
 
-    private function parse($url)
-    {
+    private function parsePage($url) {
         $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
         echo "[$time ]Parsing $url\n";
         $nodes = $this->escapeNodes(file_get_contents($url));
@@ -118,42 +120,66 @@ class IndexerController extends Controller
         }
     }
 
-    public function actionIndex($start = 'A', $end = 'Č')
-    {
-        $this->document = new \DOMDocument;
-        $base_link = 'http://www.supermusic.sk/piesne.php?od=';
-        $capitals = [
+    private function parseSM(
+        array $capitals = [
             'A', 'B', 'C', 'D', 'E', 'F', 'G',
             'H', 'I', 'J', 'K', 'L', 'M', 'N',
             'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', '*', 'Ž',
             'Ť', 'Č'
-        ];
-
-        $low_caps = [
+        ],
+        array $lowcaps = [
             'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n',
             'o', 'p', 'r', 's', 't', 'u', 'v',
             'w', 'x', 'y', 'z'
-        ];
-
-        $capital_start = array_search($start, $capitals);
-        $capital_end = array_search($end, $capitals);
-
-        for($i=$capital_start; $i <= $capital_end;$i++){
-            $capital = $capitals[$i];
-            foreach($low_caps as $low) {
-                $url = "$base_link$capital$low";
+        ],
+        $base_link = 'http://www.supermusic.sk/piesne.php?od='
+    )
+    {
+        $this->document = new \DOMDocument;
+        foreach($capitals as $capital) {
+            foreach($lowcaps as $lowcap) {
+                $url = "$base_link$capital$lowcap";
                 try {
-                    if("$capital$low" == 'Id') {
-                        $this->testBi = true;
-                    }
-                    $this->parse($url);
+                    $this->parsePage($url);
                 } catch(Exception $e) {
                     $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
                     echo "[$time] Error catched: ".$e->getMessage()."\n";
                 }
             }
+        }
+    }
+
+    public function actionIndex(
+        $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
+    )
+    {
+
+        $this->parseSM(explode(',', $capitals));
+        return 0;
+    }
+
+    public function actionMultip(
+        $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
+    )
+    {
+        $capitals = explode(',', $capitals);
+        
+        $pids = [];
+        foreach($capitals as $capital) {
+            $pid = pcntl_fork();
+            if($pid) {
+                echo "Starting ".end($pids)." with capital $capital\n";
+                $pids[] = $pid;
+            } else {
+                $this->parseSM([$capital]);
+                return 0;
+            }
+        }
+
+        foreach($pids as $pid) {
+            pcntl_waitpid($pid, $status);
         }
 
         return 0;
