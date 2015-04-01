@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "query".
@@ -16,12 +17,24 @@ use Yii;
  */
 class Query extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'query';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviours() {
+        return [
+            'class' => TimestampBehavior::className(),
+            'createdAtAttribute' => 'timestamp',
+            'value' => new Expression('NOW()'),
+        ];
     }
 
     /**

@@ -68,6 +68,7 @@ class m150331_073031_user_log extends Migration
         );
 
         $this->insert('users', [
+            'id' => 0,
             'email' => 'guest@anonimous.sk',
             'password' => 'none',
             'role_id' => 0,
@@ -87,6 +88,7 @@ class m150331_073031_user_log extends Migration
 
         $this->dropForeignKey('fk_query_user', 'query');
         $this->dropTable('query');
+        $this->delete('users', ['id' => 0]);
     }
     
     /*

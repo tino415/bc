@@ -17,10 +17,6 @@ class m150303_005909_users extends Migration
 
     public function down()
     {
-        echo "m150303_005909_users cannot be reverted.\n";
-
         $this->dropTable('users');
-
-        return false;
     }
 }

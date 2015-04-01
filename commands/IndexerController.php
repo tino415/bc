@@ -111,7 +111,7 @@ class IndexerController extends Controller
         $nodes = $this->escapeNodes(file_get_contents($url));
         for($i=0; $i<$nodes->length; $i += 4) {
             $this->parseDocument([
-                'link' => $nodes->item($i+1)->getAttribute('href'),
+                'link' => 'http://www.supermusic.sk/'.$nodes->item($i+1)->getAttribute('href'),
                 'name' => $nodes->item($i+1)->textContent,
                 'type' => substr($nodes->item($i)->getAttribute('src'),7,-4),
                 'interpret' => substr($nodes->item($i+2)->textContent,3),

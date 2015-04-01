@@ -10,9 +10,12 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SearchForm;
 use app\models\Document;
+use app\models\Action;
+use app\models\ActionType;
 
 class SiteController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -51,47 +54,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $this->layout = 'fluid';
-        $model = new SearchForm();
-        return $this->render('index', 
-            [
-                'model' => $model,
-                'results' => Document::search('Test'),
-            ]
-        );
-    }
-
-    public function actionSong($id)
-    {
-        $this->layout = 'fluid';
-        $model = Document::find($id)->one();
-        return $this->render('song', [
-            'model' => $model
-        ]);
-    }
-
-
-    public function actionLogin()
-    {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->render('index');
     }
 
     public function actionContact()

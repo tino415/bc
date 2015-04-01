@@ -22,6 +22,9 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+
+    public $password = false;
+
     /**
      * @inheritdoc
      */
@@ -36,9 +39,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
-            [['access_level', 'role_id'], 'integer'],
-            [['email', 'password'], 'string', 'max' => 255],
+            [['email'], 'required'],
+            [['role_id'], 'integer'],
+            [['email', 'password_hash'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['access_token', 'auth_key', 'username'], 'safe'],
         ];
@@ -52,7 +55,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             'id' => 'ID',
             'email' => 'Email',
-            'password' => 'Password',
             'role_id' => 'Role ID',
             'access_token' => 'Access token',
             'auth_key' => 'Authentisation key',
@@ -71,7 +73,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return static::findOne($id);
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -95,6 +97,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->auth_key;
     }
+
     
     /**
      * @inheritdoc
@@ -106,10 +109,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     // End interface
 
+    public function getRole() 
+    {
+        return $this->role_id;
+    }
+
     public function validatePassword($password)
     {
         Yii::info("Validation pass ".$password);
-        return Yii::$app->security->validatePassword($password, $this->password);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -135,6 +143,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getQueries()
     {
         return $this->hashMany(Query::className(), ['user_id' => 'id']);
+    }
+
+    public function beforeSave($insert) {
+        Yii::info("Before");
+        if($this->password)
+            Yii::info("New password");
+            $this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+        return parent::beforeSave($insert);
     }
 
     /**

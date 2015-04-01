@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "action".
@@ -11,7 +12,7 @@ use Yii;
  * @property integer $type_id
  * @property integer $user_id
  * @property integer $document_id
- * @property string $datetime
+ * @property string $timestamp
  *
  * @property ActionType $type
  * @property Documents $document
@@ -30,12 +31,24 @@ class Action extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviours() {
+        return [
+            'class' => TimestampBehavior::className(),
+            'createdAtAttribute' => 'timestamp',
+            'value' => new Expression('NOW()'),
+        ];
+    }
+
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
             [['type_id', 'user_id', 'document_id'], 'required'],
             [['type_id', 'user_id', 'document_id'], 'integer'],
-            [['datetime'], 'safe']
+            [['timestamp'], 'safe']
         ];
     }
 
@@ -49,7 +62,7 @@ class Action extends \yii\db\ActiveRecord
             'type_id' => 'Type ID',
             'user_id' => 'User ID',
             'document_id' => 'Document ID',
-            'datetime' => 'Datetime',
+            'timestamp' => 'Timestamp',
         ];
     }
 

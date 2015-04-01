@@ -51,7 +51,6 @@ class Document extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'link' => 'Link',
-            'type_id' => 'Type ID',
             'interpret_id' => 'Interpret ID',
         ];
     }
@@ -139,7 +138,7 @@ class Document extends \yii\db\ActiveRecord
             foreach($doc->tags as $tag) $tags[] = $tag->name;
             $result[] = [
                 'name'      => $doc->name,
-                'link'      => Url::toRoute(['site/song', 'id' => $doc->id]),
+                'link'      => Url::toRoute(['document/view', 'id' => $doc->id]),
                 'interpret' => $doc->interpret->name,
                 'tags'      => $tags,
             ];

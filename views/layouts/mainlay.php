@@ -3,7 +3,8 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
-use app\components\SearchWidget;
+use app\widgets\SearchWidget;
+use app\widgets\LoginWidget;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -33,19 +34,24 @@ AppAsset::register($this);
 
             echo SearchWidget::widget();
 
+            $items = [
+                ['label' => 'Home', 'url' => ['/site/index']],
+                //['label' => 'About', 'url' => ['/site/about']],
+                //['label' => 'Contact', 'url' => ['/site/contact']],
+            ];
+
+            if(!Yii::$app->user->isGuest)
+                $items[] = ['label' => 'Profile', 'url' => ['/user/actual']];
+
+            if(Yii::$app->user->id == 1)
+                $items[] = ['label' => 'Users', 'url' => ['/user/index']];
+
+            echo LoginWidget::widget();
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/site/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                ],
+                'items' => $items,
             ]);
+
             NavBar::end();
         ?>
 

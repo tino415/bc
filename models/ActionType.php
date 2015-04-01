@@ -14,6 +14,13 @@ use Yii;
  */
 class ActionType extends \yii\db\ActiveRecord
 {
+    
+    const DISPLAY_ID = 1;
+    const STAY_ID = 2;
+    const FOCUS_ID = 3;
+    const BLUR_ID = 4;
+    const LEAVE_ID = 5;
+
     /**
      * @inheritdoc
      */
@@ -52,4 +59,5 @@ class ActionType extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Action::className(), ['type_id' => 'id']);
     }
+
 }
