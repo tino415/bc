@@ -27,7 +27,47 @@ $this->title = Yii::t('app', 'song');
     <div class="col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h5><?= $document->name ?></h5>
+                <h4><?= $document->name ?></h4>
+                <div class="row">
+                    <div class="col-md-4">
+                            Transposition:
+                            <span id="transposition" class="label label-default">0</span>
+                        </span>
+                        <a  class="btn btn-default"
+                            href="javascript:transposition(2)">
+                            +2
+                        </a>
+                        <a  class="btn btn-default"
+                            href="javascript:transposition(1)">
+                            +1
+                        </a>
+                        <a  class="btn btn-default"
+                            href="javascript:transposition(-1)">
+                            -1
+                        </a>
+                        <a  class="btn btn-default"
+                            href="javascript:transposition(-2)">
+                            -3
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <a  class="btn btn-default"
+                            href="javascript:pprint(<?= $document_sm_id ?>)">
+                            <span class="glyphicon glyphicon-print"></span>
+                            Print
+                        </a>
+                        <a  class="btn btn-default"
+                            href="javascript:pexport(<?= $document_sm_id ?>,'TXT')">
+                            <span class="glyphicon glyphicon-export"></span>
+                            Text
+                        </a>
+                        <a  class="btn btn-default"
+                            href="javascript:pexport(<?= $document_sm_id ?>, 'AGAMA')">
+                            <span class="glyphicon glyphicon-export"></span>
+                            Agama
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="panel-body">
                 <?= $content ?>
@@ -46,3 +86,5 @@ $this->title = Yii::t('app', 'song');
         </div>
     </div>
 </div>
+
+<?php $this->registerJsFile(Yii::$app->request->baseUrl.'/js/moduluj.js'); ?>

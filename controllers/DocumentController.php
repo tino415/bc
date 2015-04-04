@@ -72,16 +72,18 @@ class DocumentController extends Controller {
                     "http://www.supermusic.sk/akord.php?akord=$chordLink->textContent"
                 );
                 $chordLink->setAttribute('target', '_blank');
+                $chordLink->setAttribute('class', 'chord');
             }
         }
 
         $content = $DOM->saveHTML($xpath->query('//td[@class="piesen"]')->item(0));
 
-
+        preg_match('/[0-9]+$/', $document->link, $matches);
         return $this->render('rview', [
             'document' => $document,
             'content' => $content,
             'schemas' => $schemas,
+            'document_sm_id' => $matches[0],
         ]);
 
     }
