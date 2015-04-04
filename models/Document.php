@@ -75,9 +75,25 @@ class Document extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getTags() {
-        return $this->hasMany(Tag::className(), 
-            ['id' => 'tag_id'])->viaTable('map_documents_tags', ['document_id' => 'id']
-        );
+        return $this->hasMany(
+            Tag::className(), 
+            ['id' => 'tag_id']
+        )->viaTable('map_documents_tags', ['document_id' => 'id']);
+    }
+
+    public function getType() {
+        $tags = $this->hasMany(
+            Tag::className(), 
+            ['id' => 'tag_id']
+        )->viaTable('map_documents_tags', ['document_id' => 'id'])
+        ->where(['tags.type_id' => 1])->all();
+        $res = [];
+
+        foreach($tags as $tag) {
+            $res[] = $tag->name;
+        }
+
+        return $res;
     }
 
     private static function searchQuery($limit, $where) {
@@ -138,7 +154,7 @@ class Document extends \yii\db\ActiveRecord
             foreach($doc->tags as $tag) $tags[] = $tag->name;
             $result[] = [
                 'name'      => $doc->name,
-                'link'      => Url::toRoute(['document/view', 'id' => $doc->id]),
+                'link'      => Url::toRoute(['document/rview', 'id' => $doc->id]),
                 'interpret' => $doc->interpret->name,
                 'tags'      => $tags,
             ];
@@ -146,5 +162,28 @@ class Document extends \yii\db\ActiveRecord
         }
 
         return $result;
+    }
+
+    public static function tagSearch($query)
+    {
+        $documents = self::find()
+            ->joinWith('tags')
+            ->where(['like', 'tags.name', $query])
+            ->orderBy('tags.type_id')
+            ->limit(50)
+            ->All();
+
+        $results = [];
+        foreach($documents as $doc) {
+            $tags = [];
+            foreach($doc->tags as $tag) $tags[] = $tag->name;
+            $results[] = [
+                'name'      => $doc->name,
+                'link'      => Url::toRoute(['document/rview', 'id' => $doc->id]),
+                'interpret' => $doc->interpret->name,
+                'tags'      => $tags,
+            ];
+        }
+        return $results;
     }
 }

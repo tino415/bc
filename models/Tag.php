@@ -9,11 +9,13 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property integer $type_id
  *
  * @property MapDocumentsTags[] $mapDocumentsTags
  * @property Documents[] $documents
  * @property MapUsersTags[] $mapUsersTags
  * @property Users[] $users
+ * @property TagType[] $type
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -32,8 +34,10 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['type_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['name'], 'unique']
+            [['name', 'type_id'], 'unique', 'targetAttribute' => ['name', 'type_id'],
+            'message' => 'The combination of Name and Type ID has already been taken.'],
         ];
     }
 
@@ -80,6 +84,14 @@ class Tag extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Users::className(),
             ['id' => 'user_id'])->viaTable('map_users_tags', ['tag_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType() 
+    {
+        return $this->hasOne(TagType::className(), ['id' => 'type_id']);
     }
 
     public function exists() {

@@ -11,6 +11,13 @@ use app\models\ActionType;
 class DocumentController extends Controller {
 
     public function actionIndex() {
+        Yii::info("Start cycling documents");
+        $docs = Document::find()->all();
+        foreach($docs as $doc) {
+            2 + 3;
+        }
+        Yii::info("end cycling documents");
+
         $doc = new Document;
         $doc->load([
             'id' => '666',
@@ -30,7 +37,20 @@ class DocumentController extends Controller {
     }
 
     public function actionView($id) {
-        $document = Document::find($id)->one();
+        $document = Document::findOne($id);
+
+
+        return $this->render('view', [
+            'model' => $document
+        ]);
+    }
+
+    public function actionRview($id) {
+        $document = Document::findOne($id);
+        $DOM = new \DOMDocument;
+        $content = file_get_contents($document->link);
+        @$DOM->loadHTML($content);
+        $xpath = new \DOMXPath($DOM);
 
         $action = new Action;
         $action->type_id = ActionType::DISPLAY_ID;
@@ -40,8 +60,29 @@ class DocumentController extends Controller {
         else $action->user_id = Yii::$app->user->id;
         $action->save();
 
-        return $this->render('view', [
-            'model' => $document
+        $schemas = [];
+        if(in_array('akordy', $document->type)) {
+            $chordLinks = $xpath->query('//a[@class="sup"]');
+            foreach($chordLinks as $chordLink) {
+                if(!array_key_exists($chordLink->textContent, $schemas)) 
+                    $schemas[$chordLink->textContent] = $chordLink->textContent;
+
+                $chordLink->setAttribute(
+                    'href',
+                    "http://www.supermusic.sk/akord.php?akord=$chordLink->textContent"
+                );
+                $chordLink->setAttribute('target', '_blank');
+            }
+        }
+
+        $content = $DOM->saveHTML($xpath->query('//td[@class="piesen"]')->item(0));
+
+
+        return $this->render('rview', [
+            'document' => $document,
+            'content' => $content,
+            'schemas' => $schemas,
         ]);
+
     }
 }

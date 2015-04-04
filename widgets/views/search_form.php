@@ -62,12 +62,14 @@ function send() {
 
 <?php if($is_search_page): ?>
     function display_results(phrase, results) {
+        console.log(results);
         $('#results').empty();
     
         window.location.hash = encodeURI(phrase);
         $('#phrase').html(phrase);
     
         $.each(results, function(index, value) {
+            console.log(value);
             tags = '';
             $.each(value.tags, function(index, value) {
                 tags += '<span class="label label-info">' +value+'</span> '
