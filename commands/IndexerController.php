@@ -7,6 +7,8 @@ use yii\console\Controller;
 use app\models\Document;
 use app\models\DocumentType;
 use app\models\Interpret;
+use app\models\Tag;
+use app\models\TagType;
 
 define(
     'SONG_XPATH',
@@ -271,5 +273,57 @@ class IndexerController extends Controller
         }
 
         return 0;
+    }
+
+    private function createTags($document_id, $tags, $type) {
+        foreach($tags as $tag_name => $tag_count) {
+            if(!Tag::find()->where([
+                'document_id' => $document_id,
+                'name' => $tag_name,
+                'type_id' => $type
+            ])->exists()) 
+            {
+                echo "Adding tag $tag_name, $tag_count\n";
+                $tag = new Tag;
+                $tag->name = $tag_name;
+                $tag->document_id = $document_id;
+                $tag->count = $tag_count;
+                $tag->type_id = $type;
+                $tag->save();
+            } else echo "Tag $tag_name exists for $document_id and $type\n";
+        }
+    }
+
+    public function actionIndex() {
+        define('PATTERN', '/[ ,]+/');
+        $documents = Document::find()->all();
+        $count = count($documents);
+
+        foreach($documents as $document) {
+            echo "Indexing rest:$count $document->id : $document->name \n";
+            $count--;
+            $tags = [];
+            foreach(preg_split(PATTERN, $document->name) as $tag) {
+                echo "Original tag $tag\n";
+                $tag = mb_strtolower($tag, 'UTF-8');
+                echo "To lower tag $tag\n";
+                if(!array_key_exists($tag, $tags)) $tags[$tag] = 0;
+                $tags[$tag]++;
+            }
+            $this->createTags($document->id, $tags, TagType::NAME);
+
+
+            $tags = [];
+            foreach(preg_split(PATTERN, $document->interpret->name) as $tag) {
+                $tag = mb_strtolower($tag, 'UTF-8');
+                if(!array_key_exists($tag, $tags)) $tags[$tag] = 0;
+                $tags[$tag]++;
+            }
+            $this->createTags($document->id, $tags, TagType::INTERPRET);
+
+            if($document->type->name == 'akordy') $tags = ['akordy' => 1, 'text' => 1];
+            else $tags = [$document->type->name => 1];
+            $this->createTags($document->id, $tags, TagType::OTHER);
+        }
     }
 }

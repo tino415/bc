@@ -16,7 +16,7 @@ class TagType extends \yii\db\ActiveRecord
 {
 
     const TYPE = 1;
-    const AUTHOR = 2;
+    const INTERPRET = 2;
     const NAME = 3;
     const GENRE = 4;
     const OTHER = 5;

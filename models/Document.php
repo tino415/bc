@@ -36,7 +36,7 @@ class Document extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'interpret_id', 'type_id'], 'required'],
-            [['interpret_id'], 'integer'],
+            [['interpret_id', 'type_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -79,8 +79,11 @@ class Document extends \yii\db\ActiveRecord
         )->viaTable('map_document_tag', ['document_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getType() {
-        return $this->hasOne( DocumentType::className(), ['id', 'type_id']);
+        return $this->hasOne( DocumentType::className(), ['id' => 'type_id']);
     }
 
     private static function searchQuery($limit, $where) {
