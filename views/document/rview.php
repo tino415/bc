@@ -12,6 +12,7 @@ $this->title = Yii::t('app', 'song');
 ?>
 <div class="row">
     <div class="col-md-2">
+        <?php if(count($schemas) > 0): ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5>Chords</h5>
@@ -22,6 +23,7 @@ $this->title = Yii::t('app', 'song');
                 <?php endforeach; ?>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 
     <div class="col-md-7">
@@ -52,17 +54,17 @@ $this->title = Yii::t('app', 'song');
                     </div>
                     <div class="col-md-8">
                         <a  class="btn btn-default"
-                            href="javascript:pprint(<?= $document_sm_id ?>)">
+                            href="javascript:pprint(<?= $document->id ?>)">
                             <span class="glyphicon glyphicon-print"></span>
                             Print
                         </a>
                         <a  class="btn btn-default"
-                            href="javascript:pexport(<?= $document_sm_id ?>,'TXT')">
+                            href="javascript:pexport(<?= $document->id ?>,'TXT')">
                             <span class="glyphicon glyphicon-export"></span>
                             Text
                         </a>
                         <a  class="btn btn-default"
-                            href="javascript:pexport(<?= $document_sm_id ?>, 'AGAMA')">
+                            href="javascript:pexport(<?= $document->id ?>, 'AGAMA')">
                             <span class="glyphicon glyphicon-export"></span>
                             Agama
                         </a>

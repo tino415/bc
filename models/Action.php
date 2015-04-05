@@ -79,7 +79,7 @@ class Action extends \yii\db\ActiveRecord
      */
     public function getDocument()
     {
-        return $this->hasOne(Documents::className(), ['id' => 'document_id']);
+        return $this->hasOne(Document::className(), ['id' => 'document_id']);
     }
 
     /**
@@ -87,6 +87,6 @@ class Action extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

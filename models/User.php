@@ -15,7 +15,7 @@ use Yii;
  * @property string $auth_key
  * @property string $username
  *
- * @property MapUserTags[] $mapUserTags
+ * @property MapUserTag[] $mapUserTags
  * @property Action[] $actions
  * @property Tag[] $tags
  * @property Query[] $queries
@@ -30,7 +30,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function tableName()
     {
-        return 'users';
+        return 'user';
     }
 
     /**
@@ -125,7 +125,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getTags() {
         return $this->hasMany(Tag::className(), 
-            ['id' => 'tag_id'])->viaTable('map_user_tags', ['user_id' => 'id']
+            ['id' => 'tag_id'])->viaTable('map_user_tag', ['user_id' => 'id']
         );
     }
 

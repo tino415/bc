@@ -24,7 +24,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'tags';
+        return 'tag';
     }
 
     /**
@@ -65,8 +65,8 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getDocuments()
     {
-        return $this->hasMany(Documents::className(), [
-            'id' => 'document_id'])->viaTable('map_documents_tags', ['tag_id' => 'id']);
+        return $this->hasMany(Document::className(), [
+            'id' => 'document_id'])->viaTable('map_document_tag', ['tag_id' => 'id']);
     }
 
     /**
@@ -83,7 +83,7 @@ class Tag extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(Users::className(),
-            ['id' => 'user_id'])->viaTable('map_users_tags', ['tag_id' => 'id']);
+            ['id' => 'user_id'])->viaTable('map_user_tag', ['tag_id' => 'id']);
     }
 
     /**

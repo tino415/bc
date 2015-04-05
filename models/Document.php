@@ -26,7 +26,7 @@ class Document extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'documents';
+        return 'document';
     }
 
     /**
@@ -35,10 +35,9 @@ class Document extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'link', 'interpret_id'], 'required'],
+            [['name', 'interpret_id', 'type_id'], 'required'],
             [['interpret_id'], 'integer'],
-            [['name', 'link'], 'string', 'max' => 255],
-            [['link'], 'unique']
+            [['name'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,7 +49,6 @@ class Document extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'link' => 'Link',
             'interpret_id' => 'Interpret ID',
         ];
     }
@@ -78,22 +76,11 @@ class Document extends \yii\db\ActiveRecord
         return $this->hasMany(
             Tag::className(), 
             ['id' => 'tag_id']
-        )->viaTable('map_documents_tags', ['document_id' => 'id']);
+        )->viaTable('map_document_tag', ['document_id' => 'id']);
     }
 
     public function getType() {
-        $tags = $this->hasMany(
-            Tag::className(), 
-            ['id' => 'tag_id']
-        )->viaTable('map_documents_tags', ['document_id' => 'id'])
-        ->where(['tags.type_id' => 1])->all();
-        $res = [];
-
-        foreach($tags as $tag) {
-            $res[] = $tag->name;
-        }
-
-        return $res;
+        return $this->hasOne( DocumentType::className(), ['id', 'type_id']);
     }
 
     private static function searchQuery($limit, $where) {
@@ -110,9 +97,9 @@ class Document extends \yii\db\ActiveRecord
         $documents = [];
         $documents = self::searchQuery(
             50, ['and', 
-                ['like', 'tags.name', $query],
-                ['like', 'interprets.name', $query],
-                ['like', 'documents.name', $query],
+                ['like', 'tag.name', $query],
+                ['like', 'interpret.name', $query],
+                ['like', 'document.name', $query],
             ]);
 
         Yii::info('And search: '.count($documents));
@@ -121,16 +108,16 @@ class Document extends \yii\db\ActiveRecord
             $documents += self::searchQuery( 50 - count($documents),
                 ['or',
                     ['and',
-                        ['like', 'tags.name', $query],
-                        ['like', 'interprets.name', $query],
+                        ['like', 'tag.name', $query],
+                        ['like', 'interpret.name', $query],
                     ],
                     ['and',
-                        ['like', 'interprets.name', $query],
-                        ['like', 'documents.name', $query],
+                        ['like', 'interpret.name', $query],
+                        ['like', 'document.name', $query],
                     ],
                     ['and', 
-                        ['like', 'tags.name', $query],
-                        ['like', 'documents.name', $query],
+                        ['like', 'tag.name', $query],
+                        ['like', 'document.name', $query],
                     ]
                 ]
             );
@@ -139,9 +126,9 @@ class Document extends \yii\db\ActiveRecord
         if(count($documents) < 50) {
             $documents += self::searchQuery( 50 - count($documents),
                 ['or',
-                    ['like', 'tags.name', $query],
-                    ['like', 'interprets.name', $query],
-                    ['like', 'documents.name', $query],
+                    ['like', 'tag.name', $query],
+                    ['like', 'interpret.name', $query],
+                    ['like', 'document.name', $query],
                 ]
             );
         }
@@ -168,8 +155,8 @@ class Document extends \yii\db\ActiveRecord
     {
         $documents = self::find()
             ->joinWith('tags')
-            ->where(['like', 'tags.name', $query])
-            ->orderBy('tags.type_id')
+            ->where(['like', 'tag.name', $query])
+            ->orderBy('tag.type_id')
             ->limit(50)
             ->All();
 

@@ -19,7 +19,7 @@ class Interpret extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'interprets';
+        return 'interpret';
     }
 
     /**
@@ -51,7 +51,7 @@ class Interpret extends \yii\db\ActiveRecord
      */
     public function getDocuments()
     {
-        return $this->hasMany(Documents::className(), ['interpret_id' => 'id']);
+        return $this->hasMany(Document::className(), ['interpret_id' => 'id']);
     }
 
     public function exists() {

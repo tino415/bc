@@ -83,7 +83,6 @@ class DocumentController extends Controller {
             'document' => $document,
             'content' => $content,
             'schemas' => $schemas,
-            'document_sm_id' => $matches[0],
         ]);
 
     }

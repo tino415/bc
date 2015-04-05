@@ -5,13 +5,17 @@ namespace app\commands;
 use Yii;
 use yii\console\Controller;
 use app\models\Document;
+use app\models\DocumentType;
 use app\models\Interpret;
-use app\models\Tag;
 
-//TODO Same ids as supermusic
 define(
     'SONG_XPATH',
     '//table[@width=740]//td/node()[not(self::text()[not(normalize-space())])]'
+);
+
+define(
+    'INTERPRET_XPATH',
+    '//td[a/@class="interpretzoznam"]/a'
 );
 
 class IndexerController extends Controller
@@ -19,22 +23,19 @@ class IndexerController extends Controller
     
     private $document = null;
 
-    private $tags = [];
-
-    private $interprets = [];
+    private $documentTypes = [];
 
     private $TAG_MAPPING = [
-        'texty' => ['text'],
-        'melodie' => ['melodia'],
-        'preklady' => ['preklad'],
-        'akordy' => ['akordy', 'text'],
+        'texty' => 'text',
+        'melodie' => 'melodia',
+        'preklady' => 'preklad',
     ];
 
-    private function escapeNodes($content) {
+    private function escapeNodes($content, $x_path) {
         $content = str_replace("<3", "&lt;3", $content);
         @$this->document->loadHTML($content);
         $xpath = new \DOMXPath($this->document);
-        return $xpath->query(SONG_XPATH);
+        return $xpath->query($x_path);
     }
 
     private function parseDocument($array) {
@@ -43,76 +44,57 @@ class IndexerController extends Controller
         echo "Parsing document $name : $link\n";
         print_r($array);
 
-        if(!Document::find()->where(['link' => $link])->exists()) {
+        if(!Document::find()->where(['id' => $id])->exists()) {
             $document = new Document;
-            $document->link = $link;
+            $document->id = $id;
             $document->name = $name;
-            if($interpret) $document->interpret_id = $this->parseInterpret($interpret);
+            if($interpret) $document->interpret_id = Interpret::find()
+                ->where(['name' => $interpret])
+                ->one()->id;
             else echo "Empty interpret\n";
-            $document->save();
-            if($type) foreach($this->parseTag($type) as $tag)
-                if($tag) $document->link('tags', $tag);
+            try {
+                $document->save();
+            } catch(Exception $e) {
+                $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+                echo "[$time] Insert error: ".$e->getMessage()."\n";
+            }
+            if($type) $document->type_id = $this->getDocumentType($type);
             else echo "No tags\n";
         }
     }
 
-    private function parseInterpret($name) {
-        if(!array_key_exists($name, $this->interprets)) {
-            echo "New interpret $name\n";
-            if(Interpret::find()->where(['name' => $name])->exists())
-                $interpret = Interpret::find(['name' => $name])->one();
-            else {
-                $interpret = new Interpret;
-                $interpret->name = $name;
-                $interpret->save();
-            }
-            $this->interprets[$name] = $interpret->getPrimaryKey();
-        }
-
-        return $this->interprets[$name];
-    }
-
-    private function parseTag($name) {
-        if($name && !array_key_exists($name, $this->tags)) {
+    private function getDocumentType($name) {
+        if($name && !array_key_exists($name, $this->documentTypes)) {
             echo "New tag $name\n";
-            if(array_key_exists($name, $this->TAG_MAPPING)) {
-                $this->tags[$name] = [];
-                foreach($this->TAG_MAPPING[$name] as $tag_name) {
 
-                    echo Tag::find()->where(['name' => $tag_name])->exists()."\n";
-                    if(!Tag::find()->where(['name' => $tag_name])->exists()) {
-                        $tag = new Tag;
-                        $tag->name = $tag_name;
-                        $tag->save();
-                    }
+            if(array_key_exists($name, $this->TAG_MAPPING)) $name = $this->TAG_MAPPING[$name];
 
-                    $tag = Tag::find()->where(['name' => $tag_name])->one();
-
-                    $this->tags[$name][] = $tag;
-                }
-            } else {
-                if(!Tag::find()->where(['name' => $name])->exists()) {
-                    $tag = new Tag;
-                    $tag->name = $name;
-                    $tag->save();
-                }
-                $tag = Tag::find()->where(['name' => $name])->one();
-                $this->tags[$name] = [$tag];
+            if(!DocumentType::find()->where(['name' => $name])->exists()) {
+                $tag = new DocumentType;
+                $tag->name = $name;
+                $tag->save();
             }
+
+            $tag = DocumentType::find()->where(['name' => $name])->one();
+
+            $this->documentTypes[$name] = $tag->id;
         } elseif(!$name) {
             return false;
         }
 
-        return $this->tags[$name];
+        return $this->documentTypes[$name];
     }
 
     private function parsePage($url) {
         $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
         echo "[$time ]Parsing $url\n";
-        $nodes = $this->escapeNodes(file_get_contents($url));
+        $nodes = $this->escapeNodes(file_get_contents($url), SONG_XPATH);
+
+
         for($i=0; $i<$nodes->length; $i += 4) {
+            preg_match('/[0-9]+$/', $nodes->item($i+1)->getAttribute('href'), $matches);
             $this->parseDocument([
-                'link' => 'http://www.supermusic.sk/'.$nodes->item($i+1)->getAttribute('href'),
+                'id' => $matches[0],
                 'name' => $nodes->item($i+1)->textContent,
                 'type' => substr($nodes->item($i)->getAttribute('src'),7,-4),
                 'interpret' => substr($nodes->item($i+2)->textContent,3),
@@ -152,16 +134,8 @@ class IndexerController extends Controller
         }
     }
 
-    public function actionIndex(
-        $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
-    )
-    {
 
-        $this->parseSM(explode(',', $capitals));
-        return 0;
-    }
-
-    public function actionMultip(
+    public function actionDocuments(
         $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
     )
     {
@@ -175,6 +149,94 @@ class IndexerController extends Controller
                 $pids[] = $pid;
             } else {
                 $this->parseSM([$capital]);
+                return 0;
+            }
+        }
+
+        foreach($pids as $pid) {
+            pcntl_waitpid($pid, $status);
+        }
+
+        return 0;
+    }
+
+    private function parsePageI($url) {
+        $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+        echo "[$time ] SMI Parsing $url\n";
+        $nodes = $this->escapeNodes(file_get_contents($url), INTERPRET_XPATH);
+
+        foreach($nodes as $node) {
+            $parts = parse_url($node->getAttribute('href'));
+            preg_match('/&name=.*$/', $parts['query'], $name);
+            $name = substr($name[0], 6);
+            preg_match('/idskupiny=[0-9]+&/', $parts['query'], $id);
+            $id = substr($id[0], 10, -1);
+
+            if(!Interpret::find()->where(['id' => $id])->exists()) {
+                echo "Adding interpret $id : $name\n";
+                $interpret = new Interpret;
+                $interpret->id = $id;
+                $interpret->name = $name;
+                try {
+                    $interpret->save();
+                } catch (Exception $e) {
+                    $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+                    echo "[$time] Inserting Error: ".$e->getMessage()."\n";
+                }
+            } else {
+                echo "Already in database $id : $name\n";
+            }
+        }
+    }
+
+    private function parseSMI(
+        $main = false,
+        $base_link = 'http://www.supermusic.sk/skupiny.php?od='
+    )
+    {
+        $chars = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G',
+            'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z',
+        ];
+
+        $main = ($main) ? $main : $chars;
+
+        $this->document = new \DOMDocument;
+
+        // foreach created one interator, when iterate throught 
+        // same set with multiple foreach, all will have same interator
+        // aka. foreach($chars) {foreach($chars){}} -> AA, BB, CC, DD...
+
+        foreach($main as $mchar) {
+            for($x = 0; $x < count($chars); $x += 3) {
+                for($y = 0; $y < count($chars); $y += 4) {
+                    $url = $base_link.$mchar.$chars[$x].$chars[$y];
+                    try {
+                        $this->parsePageI($url);
+                    } catch(Exception $e) {
+                        $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+                        echo "[$time] Error catched: ".$e->getMessage()."\n";
+                    }
+                }
+            }
+        }
+    }
+
+    public function actionInterprets(
+        $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
+    )
+    {
+        $capitals = explode(',', $capitals);
+        $pids = [];
+        foreach($capitals as $capital) {
+            $pid = pcntl_fork();
+            if($pid) {
+                echo "Starting ".end($pids)." with capital $capital\n";
+                $pids[] = $pid;
+            } else {
+                $this->parseSMI([$capital]);
                 return 0;
             }
         }
