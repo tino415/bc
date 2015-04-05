@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property string $alias
  *
  * @property Documents[] $documents
  */
@@ -29,7 +30,7 @@ class Interpret extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'alias'], 'string', 'max' => 255],
             [['name'], 'unique'],
             [['id'], 'safe']
         ];

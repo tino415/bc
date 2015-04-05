@@ -24,6 +24,8 @@ class m150405_104118_document_update extends Migration
         $this->dropColumn('document', 'link');
         $this->addColumn('document', 'type_id', Schema::TYPE_INTEGER);
 
+        $this->addColumn('interpret', 'alias', Schema::TYPE_STRING);
+
         $this->createTable('document_type', [
             'id' => 'pk',
             'name' => Schema::TYPE_STRING. ' NOT NULL UNIQUE',
@@ -34,13 +36,17 @@ class m150405_104118_document_update extends Migration
             'document_type', 'id',
             'CASCADE'
         );
+        $this->insert('interpret', ['name' => '???']);
     }
     
     public function safeDown()
     {
+        $this->delete('interpret', ['name' => '???']);
         $this->addColumn('document', 'link', Schema::TYPE_STRING . ' NOT NULL UNIQUE');
         $this->dropForeignKey('fk_document_type', 'document');
+
         $this->dropColumn('document', 'type_id');
+        $this->dropColumn('interpret', 'alias');
 
         $this->dropTable('document_type');
 
@@ -50,5 +56,6 @@ class m150405_104118_document_update extends Migration
         $this->renameTable('tag' , 'tags');
         $this->renameTable('map_document_tag', 'map_documents_tags');
         $this->renameTable('map_user_tag', 'map_users_tags');
+
     }
 }

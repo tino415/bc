@@ -41,25 +41,24 @@ class IndexerController extends Controller
     private function parseDocument($array) {
         extract($array);
 
-        echo "Parsing document $name : $link\n";
-        print_r($array);
+        echo "Parsing document $name : $id\n";
 
         if(!Document::find()->where(['id' => $id])->exists()) {
             $document = new Document;
             $document->id = $id;
             $document->name = $name;
             if($interpret) $document->interpret_id = Interpret::find()
-                ->where(['name' => $interpret])
+                ->where(['or', ['name' => $interpret], ['alias' => $interpret]])
                 ->one()->id;
             else echo "Empty interpret\n";
+            if($type) $document->type_id = $this->getDocumentType($type);
+            else echo "No tags\n";
             try {
                 $document->save();
             } catch(Exception $e) {
                 $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
                 echo "[$time] Insert error: ".$e->getMessage()."\n";
             }
-            if($type) $document->type_id = $this->getDocumentType($type);
-            else echo "No tags\n";
         }
     }
 
@@ -112,7 +111,7 @@ class IndexerController extends Controller
             'Ť', 'Č'
         ],
         array $lowcaps = [
-            'a', 'b', 'c', 'd', 'e', 'f', 'g',
+            false, 'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n',
             'o', 'p', 'r', 's', 't', 'u', 'v',
             'w', 'x', 'y', 'z'
@@ -122,13 +121,18 @@ class IndexerController extends Controller
     {
         $this->document = new \DOMDocument;
         foreach($capitals as $capital) {
-            foreach($lowcaps as $lowcap) {
-                $url = "$base_link$capital$lowcap";
-                try {
-                    $this->parsePage($url);
-                } catch(Exception $e) {
-                    $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
-                    echo "[$time] Error catched: ".$e->getMessage()."\n";
+            for($x = 0; $x < count($lowcaps); $x++) {
+                for($y = 0; $y < count($lowcaps); $y += 6) {
+                    $url = $base_link.$capital;
+                    $url .= ($lowcaps[$x]) ? $lowcaps[$x] : '';
+                    $url .= ($lowcaps[$y]) ? $lowcaps[$y] : '';
+
+                    try {
+                        $this->parsePage($url);
+                    } catch(Exception $e) {
+                        $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+                        echo "[$time] Error catched: ".$e->getMessage()."\n";
+                    }
                 }
             }
         }
@@ -171,12 +175,15 @@ class IndexerController extends Controller
             $name = substr($name[0], 6);
             preg_match('/idskupiny=[0-9]+&/', $parts['query'], $id);
             $id = substr($id[0], 10, -1);
+            $alias = preg_replace('/ \([0-9]+\)$/','', $node->textContent);
+            $alias = str_replace(',', '', $alias);
 
             if(!Interpret::find()->where(['id' => $id])->exists()) {
-                echo "Adding interpret $id : $name\n";
+                echo "Adding interpret $id : $name : $alias\n";
                 $interpret = new Interpret;
                 $interpret->id = $id;
                 $interpret->name = $name;
+                $interpret->alias = $alias;
                 try {
                     $interpret->save();
                 } catch (Exception $e) {
@@ -195,10 +202,10 @@ class IndexerController extends Controller
     )
     {
         $chars = [
-            'A', 'B', 'C', 'D', 'E', 'F', 'G',
-            'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-            'V', 'W', 'X', 'Y', 'Z',
+            false, 'A', 'B', 'C', 'D', 'E', 'F',
+            'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+            'U', 'V', 'W', 'X', 'Y', 'Z',
         ];
 
         $main = ($main) ? $main : $chars;
@@ -210,9 +217,14 @@ class IndexerController extends Controller
         // aka. foreach($chars) {foreach($chars){}} -> AA, BB, CC, DD...
 
         foreach($main as $mchar) {
-            for($x = 0; $x < count($chars); $x += 3) {
-                for($y = 0; $y < count($chars); $y += 4) {
-                    $url = $base_link.$mchar.$chars[$x].$chars[$y];
+            for($x = 0; $x < count($chars); $x++) {
+                for($y = 0; $y < count($chars); $y += 5) {
+                    
+                    $url = $base_link.$mchar;
+                    $url .= ($chars[$x]) ? $chars[$x] : '';
+                    $url .= ($chars[$y]) ? $chars[$y] : '';
+                    echo "$url\nENRL\n";
+
                     try {
                         $this->parsePageI($url);
                     } catch(Exception $e) {
@@ -224,6 +236,19 @@ class IndexerController extends Controller
         }
     }
 
+    public function actionOneint($char1, $char2, $char3) {
+        $base_link = 'http://www.supermusic.sk/skupiny.php?od=';
+        $this->document = new \DOMDocument;
+        $url = $base_link.$char1.$char2.$char3;
+        try {
+            $this->parsePageI($url);
+        } catch(Exception $e) {
+            $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
+            echo "[$time] Error catched: ".$e->getMessage()."\n";
+        }
+
+    }
+
     public function actionInterprets(
         $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
     )
@@ -233,7 +258,7 @@ class IndexerController extends Controller
         foreach($capitals as $capital) {
             $pid = pcntl_fork();
             if($pid) {
-                echo "Starting ".end($pids)." with capital $capital\n";
+                echo "Starting ".$pid." with capital $capital\n";
                 $pids[] = $pid;
             } else {
                 $this->parseSMI([$capital]);
