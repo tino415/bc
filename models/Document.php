@@ -21,6 +21,27 @@ use \yii\helpers\BaseArrayHelper;
  */
 class Document extends \yii\db\ActiveRecord
 {
+    private $SPECIAL_TAGS = [
+        '$' => ' $ ',
+        '-' => ' - ',
+        '+' => ' + ',
+        '/' => ' / ',
+        '\\' => ' \\ ',
+        '%' => ' % ',
+        '*' => ' * ',
+        '&' => ' & ',
+        '^' => ' ^ ',
+        '#' => ' # ',
+        '@' => ' @ ',
+        '!' => ' ! ',
+        '?' => ' ? ',
+        '.' => ' . ',
+        '_' => ' _ ',
+        '"' => ' " ',
+        "'" => " ' ",
+        "=" => " = ",
+    ];
+
     /**
      * @inheritdoc
      */
@@ -73,10 +94,7 @@ class Document extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getTags() {
-        return $this->hasMany(
-            Tag::className(), 
-            ['id' => 'tag_id']
-        )->viaTable('map_document_tag', ['document_id' => 'id']);
+        return $this->hasMany( Tag::className(), ['document_id' => 'id']);
     }
 
     /**
@@ -154,26 +172,29 @@ class Document extends \yii\db\ActiveRecord
         return $result;
     }
 
-    public static function tagSearch($query)
-    {
-        $documents = self::find()
-            ->joinWith('tags')
-            ->where(['like', 'tag.name', $query])
-            ->orderBy('tag.type_id')
-            ->limit(50)
-            ->All();
+    public static function indexString($string) {
+        $string = mb_strtolower($string, 'UTF-8');
+        $string = strtr($string, $this->SPECIAL_TAGS);
+        return preg_split('/[ ,\n\t`\[\]\(\)\{\}:]+/', $string);
+    }
 
-        $results = [];
-        foreach($documents as $doc) {
-            $tags = [];
-            foreach($doc->tags as $tag) $tags[] = $tag->name;
-            $results[] = [
-                'name'      => $doc->name,
-                'link'      => Url::toRoute(['document/rview', 'id' => $doc->id]),
-                'interpret' => $doc->interpret->name,
-                'tags'      => $tags,
-            ];
-        }
-        return $results;
+    public function getIndex() {
+        return array_merge(
+            static::indexString($this->name),
+            static::indexString($this->interpret->name),
+            ($this->type->name == 'akordy') ? 
+                ['akordy', 'text'] :
+                [$this->type->name]
+        );
+    }
+
+    public static function indexedSearch($query)
+    {
+        return self::findBySql('
+            SELECT document.*, s.search_string FROM document
+            INNER JOIN document_search_string AS s ON document.id = s.document_id
+            WHERE MATCH(s.search_string) AGAINST(:query)
+            LIMIT 50
+        ', [':query' => $query])->all();
     }
 }

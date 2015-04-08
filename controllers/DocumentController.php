@@ -10,26 +10,11 @@ use app\models\ActionType;
 
 class DocumentController extends Controller {
 
-    public function actionIndex() {
-        Yii::info("Start cycling documents");
-        $docs = Document::find()->all();
-        foreach($docs as $doc) {
-            2 + 3;
-        }
-        Yii::info("end cycling documents");
-
-        $doc = new Document;
-        $doc->load([
-            'id' => '666',
-            'name' => 'Satan song',
-            'link' => 'www.google.sk',
-            'interpret_id' => '666',
+    public function actionIndex($query = '') {
+        return $this->render('results',[
+            'phrase' => $query,
+            'results' => Document::indexedSearch($query),
         ]);
-
-        return $this->render('view', [
-            'model' => $doc,
-        ]);
-
     }
 
     public function actionSearch() {
@@ -48,7 +33,9 @@ class DocumentController extends Controller {
     public function actionRview($id) {
         $document = Document::findOne($id);
         $DOM = new \DOMDocument;
-        $content = file_get_contents($document->link);
+        $content = file_get_contents(
+            "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id"
+        );
         @$DOM->loadHTML($content);
         $xpath = new \DOMXPath($DOM);
 
@@ -61,7 +48,7 @@ class DocumentController extends Controller {
         $action->save();
 
         $schemas = [];
-        if(in_array('akordy', $document->type)) {
+        if($document->type == 'akordy') {
             $chordLinks = $xpath->query('//a[@class="sup"]');
             foreach($chordLinks as $chordLink) {
                 if(!array_key_exists($chordLink->textContent, $schemas)) 
@@ -78,7 +65,6 @@ class DocumentController extends Controller {
 
         $content = $DOM->saveHTML($xpath->query('//td[@class="piesen"]')->item(0));
 
-        preg_match('/[0-9]+$/', $document->link, $matches);
         return $this->render('rview', [
             'document' => $document,
             'content' => $content,

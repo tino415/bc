@@ -14,7 +14,7 @@ class SearchWidget extends Widget {
         $model->load(Yii::$app->request->post());
         return $this->render('search_form', [
             'model' => $model,
-            'search_route' => $this->search_route,
+            //'search_route' => $this->search_route,
         ]);
     }
 }

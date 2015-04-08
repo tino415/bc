@@ -11,10 +11,6 @@ use app\models\Query;
 
 class ApiController extends Controller
 {
-    public function getSong($id)
-    {
-        
-    }
     public function actionSearch()
     {
         Yii::$app->response->format = 'json';

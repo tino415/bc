@@ -7,8 +7,10 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\ContactForm */
 
-$search_url = Url::toRoute($search_route);
-$is_search_page = (Url::current() == $search_url);
+//$search_url = Url::toRoute($search_route);
+//$is_search_page = (Url::current() == $search_url);
+$search_url = '';
+$is_search_page = '';
 
 ?>
 
@@ -39,7 +41,12 @@ $is_search_page = (Url::current() == $search_url);
 <script>
 function send() {
 
-    <?php if($is_search_page): ?>
+    window.location = '<?= Url::toRoute(['/document']) ?>' +
+        '?query=' + encodeURI($('#searchform-phrase').val());
+
+}
+/*
+    <?php //if($is_search_page): ?>
         var phrase = $('#searchform-phrase').serialize();
         $('#load-prog').css('display', 'block');
         $.ajax({
@@ -55,9 +62,9 @@ function send() {
                 $('#load-prog').css('display', 'none');
             },
         })
-    <?php else: ?>
+    <?php //else: ?>
         window.location = "<?= $search_url ?>#" + encodeURI($('#searchform-phrase').val());
-    <?php endif; ?>
+    <?php //endif; ?>
 }
 
 <?php if($is_search_page): ?>
@@ -92,14 +99,14 @@ function send() {
         });
     }
 <?php endif; ?>
-    </script>
+*/
+</script>
     
 <?php if($is_search_page): ?>
-    <?php $this->registerJS("
+    <?php /*$this->registerJS("
         if(window.location.hash) {
             $('#searchform-phrase').val(window.location.hash.substring(1));
             send();
         }
-    "); ?>
+    "); */?>
 <?php endif; ?>
-    </script>
