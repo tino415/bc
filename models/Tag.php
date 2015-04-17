@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tags".
+ * This is the model class for table "tag".
  *
  * @property integer $id
  * @property string $name
  *
- * @property Documents[] $documents
+ * @property View[] $views
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -29,7 +29,7 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255]
         ];
     }
 
@@ -47,9 +47,8 @@ class Tag extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDocuments()
+    public function getViews()
     {
-        return $this->hasMany(Document::className(), [
-            'id' => 'document_id'])->viaTable('map_document_tag', ['tag_id' => 'id']);
+        return $this->hasMany(View::className(), ['tag_id' => 'id']);
     }
 }
