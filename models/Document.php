@@ -21,27 +21,6 @@ use \yii\helpers\BaseArrayHelper;
  */
 class Document extends \yii\db\ActiveRecord
 {
-    private $SPECIAL_TAGS = [
-        '$' => ' $ ',
-        '-' => ' - ',
-        '+' => ' + ',
-        '/' => ' / ',
-        '\\' => ' \\ ',
-        '%' => ' % ',
-        '*' => ' * ',
-        '&' => ' & ',
-        '^' => ' ^ ',
-        '#' => ' # ',
-        '@' => ' @ ',
-        '!' => ' ! ',
-        '?' => ' ? ',
-        '.' => ' . ',
-        '_' => ' _ ',
-        '"' => ' " ',
-        "'" => " ' ",
-        "=" => " = ",
-    ];
-
     /**
      * @inheritdoc
      */
@@ -112,97 +91,48 @@ class Document extends \yii\db\ActiveRecord
         return $this->hasOne( DocumentType::className(), ['id' => 'type_id']);
     }
 
-    private static function searchQuery($limit, $where) {
-        return self::find()
-            ->joinWith(['tags', 'interpret'])
-            ->where($where)
-            ->limit($limit)
-            ->all();
-    }
+    public static function escapeTags($string, $stop_words = true) {
+        $string = preg_replace(
+            '/[!?#*<>\[\]\(\)@$%^&{}\'"\`\/\\-\\\\ \t\n\.;:,_=]+/',
+            ' ',
+            $string
+        );
+        $string = trim(mb_strtolower($string, 'UTF-8'));
 
-    public static function search($query)
-    {
+        $pieces = preg_split('/[ \(\(]/', $string);
         $result = [];
-        $documents = [];
-        $documents = self::searchQuery(
-            50, ['and', 
-                ['like', 'tag.name', $query],
-                ['like', 'interpret.name', $query],
-                ['like', 'document.name', $query],
-            ]);
-
-        Yii::info('And search: '.count($documents));
-
-        if(count($documents) < 50) {
-            $documents += self::searchQuery( 50 - count($documents),
-                ['or',
-                    ['and',
-                        ['like', 'tag.name', $query],
-                        ['like', 'interpret.name', $query],
-                    ],
-                    ['and',
-                        ['like', 'interpret.name', $query],
-                        ['like', 'document.name', $query],
-                    ],
-                    ['and', 
-                        ['like', 'tag.name', $query],
-                        ['like', 'document.name', $query],
-                    ]
-                ]
-            );
-        }
-
-        if(count($documents) < 50) {
-            $documents += self::searchQuery( 50 - count($documents),
-                ['or',
-                    ['like', 'tag.name', $query],
-                    ['like', 'interpret.name', $query],
-                    ['like', 'document.name', $query],
-                ]
-            );
-        }
-
-        Yii::info("Search results: ".count($documents));
-
-        foreach($documents as $doc) {
-            $tags = [];
-
-            foreach($doc->tags as $tag) $tags[] = $tag->name;
-            $result[] = [
-                'name'      => $doc->name,
-                'link'      => Url::toRoute(['document/rview', 'id' => $doc->id]),
-                'interpret' => $doc->interpret->name,
-                'tags'      => $tags,
-            ];
-
-        }
-
+        foreach($pieces as $piece) 
+            if( !$stop_words || (
+                !array_key_exists($piece, Yii::$app->params['stopwords']) &&
+                strlen($piece) > Yii::$app->params['min_tag_length']
+                )
+            )
+                $result[] = $piece;
+        unset($pieces);
         return $result;
     }
 
-    public static function indexString($string) {
-        $string = mb_strtolower($string, 'UTF-8');
-        $string = strtr($string, $this->SPECIAL_TAGS);
-        return preg_split('/[ ,\n\t`\[\]\(\)\{\}:]+/', $string);
-    }
-
-    public function getIndex() {
-        return array_merge(
-            static::indexString($this->name),
-            static::indexString($this->interpret->name),
-            ($this->type->name == 'akordy') ? 
-                ['akordy', 'text'] :
-                [$this->type->name]
-        );
-    }
-
-    public static function indexedSearch($query)
+    public static function search($query, $limit = 50)
     {
-        return self::findBySql('
-            SELECT document.*, s.search_string FROM document
-            INNER JOIN document_search_string AS s ON document.id = s.document_id
-            WHERE MATCH(s.search_string) AGAINST(:query)
+        $query_tags = array_count_values(self::escapeTags($query));
+        $tag_match = 'name LIKE(\''.
+            implode(
+                "%') OR name LIKE('", 
+                array_keys($query_tags)
+            ).
+            '%\')';
+        
+        $document_ids = Yii::$app->db->createCommand("
+            SELECT document_id FROM map_document_tag
+            WHERE tag_id IN (SELECT id FROM tag WHERE $tag_match)
+            GROUP BY document_id
+            ORDER BY SUM(weight) DESC
             LIMIT 50
-        ', [':query' => $query])->all();
+        ")->queryAll();
+        $ids = [];
+        foreach($document_ids as $did) $ids[] = $did['document_id'];
+        unset($document_ids);
+
+        return Document::find()->where(['id' => $ids])->all();
     }
 }

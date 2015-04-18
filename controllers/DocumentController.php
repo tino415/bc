@@ -7,13 +7,14 @@ use yii\web\Controller;
 use app\models\Document;
 use app\models\Action;
 use app\models\ActionType;
+use app\models\View;
 
 class DocumentController extends Controller {
 
     public function actionIndex($query = '') {
         return $this->render('results',[
             'phrase' => $query,
-            'results' => Document::indexedSearch($query),
+            'results' => Document::search($query),
         ]);
     }
 
@@ -39,13 +40,14 @@ class DocumentController extends Controller {
         @$DOM->loadHTML($content);
         $xpath = new \DOMXPath($DOM);
 
-        $action = new Action;
-        $action->type_id = ActionType::DISPLAY_ID;
-        $action->document_id = $document->id;
-        if(Yii::$app->user->isGuest)
-            $action->user_id = Yii::$app->params['anonymousUserId'];
-        else $action->user_id = Yii::$app->user->id;
-        $action->save();
+        foreach($document->tags as $tag) {
+            $view = new View;
+            $view->document_id = $document->id;
+            $view->user_id = (Yii::$app->user->isGuest) ? 
+                Yii::$app->params('anonymousUserId') : Yii::$app->user->id;
+            $view->tag_id = $tag->id;
+            $view->save();
+        };
 
         $schemas = [];
         if($document->type == 'akordy') {

@@ -123,15 +123,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTags() {
-        return $this->hasMany(Tag::className(), 
-            ['id' => 'tag_id'])->viaTable('map_user_tag', ['user_id' => 'id']
-        );
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getActions()
     {
         return $this->hashMany(Action::className(), ['user_id' => 'id']);

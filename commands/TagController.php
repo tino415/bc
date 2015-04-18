@@ -13,16 +13,6 @@ class TagController extends Controller {
 
     private $tags = [];
 
-    private function escapeTags($string) {
-        $pieces = preg_split('[ \(]', $string);
-        $result;
-        foreach($pieces as $piece) 
-            if(!array_key_exists($piece, Yii::$app->params['stopwords']))
-                $result[] = $piece;
-        unset($pieces);
-        return $result;
-    }
-
     private function createTags($tags) {
         foreach($tags as $tag_name) {
             if(!array_key_exists($tag_name, $this->tags)) {
@@ -46,9 +36,8 @@ class TagController extends Controller {
     }
 
     private function escapeDocumentTags($document) {
-        return $this->escapeTags(
-            mb_strtolower($document->name, 'UTF-8').' '.
-            mb_strtolower($document->interpret->name, 'UTF-8').' '
+        return Document::escapeTags(
+            $document->name.' '.$document->interpret->name
         ) + [
             $document->type->name,
             mb_strtolower($document->name, 'UTF-8'),
@@ -125,7 +114,9 @@ class TagController extends Controller {
     }
 
     public function actionGenerate() {
+        echo "Selecting tags";
         $this->tags = Tag::find()->indexBy('name')->all();
+        echo "................done\n";
         $this->generate();
         return 0;
     }
@@ -172,6 +163,19 @@ class TagController extends Controller {
         }
         $transaction->commit();
         echo "................done\n";
+        return 0;
+    }
+
+    public function actionAll() {
+        $this->actionRegenerate();
+        $this->actionWeight();
+        return 0;
+    }
+
+    public function actionTest() {
+        $document_ids = Document::searchTwo("What the hell");
+        $documents = Document::find()->where(['id' => $document_ids])->all();
+        
         return 0;
     }
 }
