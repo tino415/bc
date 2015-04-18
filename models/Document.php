@@ -7,7 +7,7 @@ use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
 
 /**
- * This is the model class for table "documents".
+ * This is the model class for table "document".
  *
  * @property integer $id
  * @property string $name
@@ -15,7 +15,7 @@ use \yii\helpers\BaseArrayHelper;
  * @property integer $interpret_id
  *
  * @property Interpret $interpret
- * @property MapDocumentsTags[] $mapDocumentsTags
+ * @property MapDocumentTag[] $mapDocumentTag
  * @property Action[] $actions
  * @property Tag[] $tags
  */
@@ -94,7 +94,8 @@ class Document extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getTags() {
-        return $this->hasMany( Tag::className(), ['document_id' => 'id']);
+        return $this->hasMany( Tag::className(), ['id' => 'tag_id'])
+            ->viaTable( MapDocumentTag::tableName(), ['document_id' => 'id']);
     }
 
     /**
