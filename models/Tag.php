@@ -11,6 +11,7 @@ use Yii;
  * @property string $name
  *
  * @property View[] $views
+ * @property Document[] $documents
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -50,5 +51,14 @@ class Tag extends \yii\db\ActiveRecord
     public function getViews()
     {
         return $this->hasMany(View::className(), ['tag_id' => 'id']);
+    }
+
+    public function getDocuments() {
+        return $this->hasMany(Document::className(), ['id' => 'document_id'])
+            ->viaTable( MapDocumentTag::tableName(), ['tag_id' => 'id']);
+    }
+
+    public function getDistinctDocuments() {
+        return $this->getDocuments()->distinct(true);
     }
 }

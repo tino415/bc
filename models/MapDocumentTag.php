@@ -10,12 +10,16 @@ use Yii;
  * @property integer $id
  * @property integer $document_id
  * @property integer $tag_id
+ * @property integer $count
  *
  * @property Tag $tag
  * @property Document $document
  */
 class MapDocumentTag extends \yii\db\ActiveRecord
 {
+
+    private $_logDocumentTermFrequency = null;
+
     /**
      * @inheritdoc
      */
@@ -31,7 +35,8 @@ class MapDocumentTag extends \yii\db\ActiveRecord
     {
         return [
             [['document_id', 'tag_id'], 'required'],
-            [['document_id', 'tag_id'], 'integer']
+            [['document_id', 'tag_id'], 'integer'],
+            [['count', 'weight'], 'safe'],
         ];
     }
 
@@ -61,5 +66,11 @@ class MapDocumentTag extends \yii\db\ActiveRecord
     public function getDocument()
     {
         return $this->hasOne(Document::className(), ['id' => 'document_id']);
+    }
+
+    public function getLogDocumentTermFrequency() {
+        if(!$this->$_logDocumentTermFrequency)
+            $this->$_logDocumentTermFrequency = log10($this->count) + 1;
+        return $this->$_logDocumentTermFrequency;
     }
 }

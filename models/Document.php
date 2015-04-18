@@ -101,6 +101,13 @@ class Document extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getMapDocumentTags() {
+        return $this->hasMany( MapDocumentTag::className(), ['document_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getType() {
         return $this->hasOne( DocumentType::className(), ['id' => 'type_id']);
     }

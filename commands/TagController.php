@@ -14,7 +14,13 @@ class TagController extends Controller {
     private $tags = [];
 
     private function escapeTags($string) {
-        return preg_split('[ \(]', $string);
+        $pieces = preg_split('[ \(]', $string);
+        $result;
+        foreach($pieces as $piece) 
+            if(!array_key_exists($piece, Yii::$app->params['stopwords']))
+                $result[] = $piece;
+        unset($pieces);
+        return $result;
     }
 
     private function createTags($tags) {
@@ -30,17 +36,24 @@ class TagController extends Controller {
     }
 
     private function bindTagsToDocument($document, $tag_names) {
-        foreach($tag_names as $tag_name) {
-            $document->link('tags', $this->tags[$tag_name]);
+        foreach(array_count_values($tag_names) as $tag => $count) {
+            $map = new MapDocumentTag;
+            $map->document_id = $document->id;
+            $map->tag_id = $this->tags[$tag]->id;
+            $map->count = $count;
+            $map->save();
         }
     }
 
     private function escapeDocumentTags($document) {
         return $this->escapeTags(
-            $document->name.' '.
-            $document->interpret->name.' '.
-            $document->type->name
-        );
+            mb_strtolower($document->name, 'UTF-8').' '.
+            mb_strtolower($document->interpret->name, 'UTF-8').' '
+        ) + [
+            $document->type->name,
+            mb_strtolower($document->name, 'UTF-8'),
+            mb_strtolower($document->interpret->name, 'UTF-8'),
+        ];
 
     }
 
@@ -114,6 +127,51 @@ class TagController extends Controller {
     public function actionGenerate() {
         $this->tags = Tag::find()->indexBy('name')->all();
         $this->generate();
+        return 0;
+    }
+
+    public function actionWeight() {
+        $transaction = Yii::$app->db->beginTransaction();
+        echo "Calculating weights";
+        try {
+            Yii::$app->db->createCommand("
+                UPDATE map_document_tag d
+                INNER JOIN (
+                    SELECT a.id, (
+                        ((LOG(count) + 1)/ dtf1) * 
+                        (b.uniq / (1 + 0.115*b.uniq)) * 
+                        log(
+                            (
+                                (   
+                                    SELECT COUNT(*) 
+                                    FROM document
+                                ) - 
+                                (
+                                    SELECT COUNT(*) 
+                                    FROM map_document_tag 
+                                    WHERE tag_id = a.tag_id
+                                )
+                            ) / (
+                                SELECT COUNT(*) 
+                                FROM map_document_tag 
+                                WHERE tag_id = a.tag_id
+                            )
+                        )
+                    ) AS weight
+                    FROM map_document_tag AS a
+                    INNER JOIN (
+                        SELECT document_id, SUM(LOG(count) + 1) as dtf1, COUNT(*) AS uniq 
+                        FROM map_document_tag
+                        GROUP BY document_id
+                    ) AS b ON b.document_id = a.document_id
+                ) AS e ON e.id = d.id
+                SET d.weight = e.weight
+            ")->execute();
+        } catch (Exception $e) {
+            $transaction->rollBack();
+        }
+        $transaction->commit();
+        echo "................done\n";
         return 0;
     }
 }
