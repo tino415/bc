@@ -17,6 +17,7 @@ use \yii\helpers\BaseArrayHelper;
  * @property Interpret $interpret
  * @property MapDocumentTag[] $mapDocumentTag
  * @property Action[] $actions
+ * @property Schema[] $scehmas
  * @property Tag[] $tags
  */
 class Document extends \yii\db\ActiveRecord
@@ -89,6 +90,14 @@ class Document extends \yii\db\ActiveRecord
      */
     public function getType() {
         return $this->hasOne( DocumentType::className(), ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchemas() {
+        Yii::info('Schemas');
+        return $this->hasMany( Schema::className(), ['document_id' => 'id']);
     }
 
     public static function escapeTags($string, $stop_words = true) {

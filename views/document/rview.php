@@ -12,14 +12,15 @@ $this->title = Yii::t('app', 'song');
 ?>
 <div class="row">
     <div class="col-md-2">
-        <?php if(count($schemas) > 0): ?>
+        <?php if(count($document->schemas) > 0): ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5>Chords</h5>
             </div>
             <div class="panel-body">
-                <?php foreach($schemas as $schema): ?>
-                <img src="http://www.supermusic.sk/akord2.php?akord=<?=$schema?>"/>
+                <?php foreach($document->schemas as $schema): ?>
+                <img
+                    src="http://www.supermusic.sk/akord2.php?akord=<?=$schema->content?>"/>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -72,7 +73,7 @@ $this->title = Yii::t('app', 'song');
                 </div>
             </div>
             <div class="panel-body">
-                <?= $content ?>
+                <?= $document->content ?>
             </div>
         </div>
     </div>
