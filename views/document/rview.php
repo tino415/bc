@@ -80,11 +80,17 @@ $this->title = Yii::t('app', 'song');
 
     <div class="col-md-2">
         <div class="panel panel-default">
-            <div class="panel-heading">Song name 1</div>
-            <div class="modal-body">
-                <div>Interpret</div>
-                <div>tags</div>
+            <?php foreach($recommendations as $document) : ?>
+            <div class="panel-heading">
+                <a href="<?= Url::toRoute(['document/rview', 'id' => $document->id]); ?>">
+                    <?= $document->name ?>
+                </a>
             </div>
+            <div class="modal-body">
+                <div><?= $document->interpret->name ?></div>
+                <div><?= $document->type->name ?></div>
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

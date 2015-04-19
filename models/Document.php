@@ -112,16 +112,14 @@ class Document extends \yii\db\ActiveRecord
         return $result;
     }
 
-    public static function search($query, $limit = 50)
-    {
-        $query_tags = array_count_values(self::escapeTags($query));
+    public static function match($tags) {
         $tag_match = 'name LIKE(\''.
             implode(
                 "%') OR name LIKE('", 
-                array_keys($query_tags)
+                $tags
             ).
             '%\')';
-        
+
         $document_ids = Yii::$app->db->createCommand("
             SELECT document_id FROM map_document_tag
             WHERE tag_id IN (SELECT id FROM tag WHERE $tag_match)
@@ -134,5 +132,11 @@ class Document extends \yii\db\ActiveRecord
         unset($document_ids);
 
         return Document::find()->where(['id' => $ids])->all();
+    }
+
+    public static function search($query, $limit = 50)
+    {
+        $query_tags = array_count_values(self::escapeTags($query));
+        return self::match(array_keys($query_tags));
     }
 }

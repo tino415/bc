@@ -8,6 +8,7 @@ use app\models\Document;
 use app\models\Action;
 use app\models\ActionType;
 use app\models\View;
+use app\models\Tag;
 
 class DocumentController extends Controller {
 
@@ -44,7 +45,7 @@ class DocumentController extends Controller {
             $view = new View;
             $view->document_id = $document->id;
             $view->user_id = (Yii::$app->user->isGuest) ? 
-                Yii::$app->params('anonymousUserId') : Yii::$app->user->id;
+                Yii::$app->params['anonymousUserId'] : Yii::$app->user->id;
             $view->tag_id = $tag->id;
             $view->save();
         };
@@ -71,6 +72,10 @@ class DocumentController extends Controller {
             'document' => $document,
             'content' => $content,
             'schemas' => $schemas,
+            'recommendations' => Document::match(Tag::getProfileTags(
+                (Yii::$app->user->isGuest) ?
+                    false : Yii::$app->user->id
+            ))
         ]);
 
     }

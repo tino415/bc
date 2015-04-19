@@ -173,8 +173,8 @@ class TagController extends Controller {
     }
 
     public function actionTest() {
-        $document_ids = Document::searchTwo("What the hell");
-        $documents = Document::find()->where(['id' => $document_ids])->all();
+        $tags = Tag::getProfileTags(false);
+        print_r(Document::match($tags));
         
         return 0;
     }

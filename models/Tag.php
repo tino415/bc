@@ -58,7 +58,18 @@ class Tag extends \yii\db\ActiveRecord
             ->viaTable( MapDocumentTag::tableName(), ['tag_id' => 'id']);
     }
 
-    public function getDistinctDocuments() {
-        return $this->getDocuments()->distinct(true);
+    public static function getProfileTags($user_id = false) {
+        $query = View::find();
+        if($user_id) $query->where(['user_id' => $user_id]);
+        $query->groupBy('view.tag_id')->limit(50)->orderBy('id');
+
+        $ids = [];
+        foreach($query->all() as $view) $ids[] = $view->tag_id;
+
+        return Tag::find()->where(['id' => $ids])->all();
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }
