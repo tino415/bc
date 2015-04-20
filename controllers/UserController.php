@@ -5,6 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
+use app\models\UserMergeRecomendationForm;
+use app\models\Tag;
+use app\models\Document;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -173,5 +176,27 @@ class UserController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionMerge() {
+        $users = User::find()->all();
+
+        $model = new UserMergeRecomendationForm;
+        $documents = [];
+
+
+        if($model->load(Yii::$app->request->post())) {
+            $tags = [];
+            foreach($model->users as $user_id) {
+                $tags = $tags + Tag::getProfileTags($user_id);
+            }
+            $documents = Document::match($tags);
+        }
+
+        return $this->render('merge', [
+            'users' => $users,
+            'model' => $model,
+            'documents' => $documents,
+        ]);
     }
 }

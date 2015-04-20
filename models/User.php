@@ -47,6 +47,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    public function scenarios() {
+        return array_merge([
+            'select' => ['name'],
+        ]);
+    }
+
     /**
      * @inheritdoc
      */
@@ -155,5 +161,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return static::find()
             ->where(['OR', ['email' => $username], ['username' => $username]])
             ->one();
+    }
+
+    public static function recommendFor($where) {
+        $users = User::find()->where($where)->all();
+
+        $tags = [];
+
+        foreach($users as $user) {
+            $tags = $tags + Tag::getProfileTags($user->id);
+        }
+
+        return $tags;
     }
 }
