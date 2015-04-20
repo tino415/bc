@@ -30,7 +30,7 @@ $this->title = Yii::t('app', 'song');
     <div class="col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4><?= $document->name ?></h4>
+                <h4><strong><?= $document->interpret->name ?></strong> - <?= $document->name ?></h4>
                 <div class="row">
                     <div class="col-md-4">
                             Transposition:
@@ -79,9 +79,9 @@ $this->title = Yii::t('app', 'song');
     </div>
 
 
-    <div class="col-md-2">
+    <div class="col-md-3">
+        <?php foreach($recommendations as $document) : ?>
         <div class="panel panel-default">
-            <?php foreach($recommendations as $document) : ?>
             <div class="panel-heading">
                 <a href="<?= Url::toRoute(['document/rview', 'id' => $document->id]); ?>">
                     <?= $document->name ?>
@@ -91,8 +91,8 @@ $this->title = Yii::t('app', 'song');
                 <div><?= $document->interpret->name ?></div>
                 <div><?= $document->type->name ?></div>
             </div>
-            <?php endforeach; ?>
         </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
