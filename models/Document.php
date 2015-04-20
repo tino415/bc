@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
+use \yii\web\Session;
 
 /**
  * This is the model class for table "document".
@@ -119,6 +120,12 @@ class Document extends \yii\db\ActiveRecord
                 $result[] = $piece;
         unset($pieces);
         return $result;
+    }
+
+    public static function recommend() {
+        if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
+        else $tags = Tag::getProfileTags(Yii::$app->user->id);
+        return self::match($tags);
     }
 
     public static function match($tags) {

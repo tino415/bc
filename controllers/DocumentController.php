@@ -10,6 +10,7 @@ use app\models\ActionType;
 use app\models\View;
 use app\models\Tag;
 use app\models\Schema;
+use app\models\Session;
 
 class DocumentController extends Controller {
 
@@ -33,22 +34,18 @@ class DocumentController extends Controller {
         $document = Document::findOne($id);
         $DOM = new \DOMDocument;
 
+        $session = Session::getSession();
+        if($session) $session->renev();
+        else $session = Session::create();
+
+        Yii::info("We are at session $session->id\n");
+
         if(is_null($document->content)) {
-            Yii::info('Caching');
             $content = file_get_contents(
                 "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id"
             );
             @$DOM->loadHTML($content);
             $xpath = new \DOMXPath($DOM);
-
-            foreach($document->tags as $tag) {
-                $view = new View;
-                $view->document_id = $document->id;
-                $view->user_id = (Yii::$app->user->isGuest) ? 
-                    Yii::$app->params['anonymousUserId'] : Yii::$app->user->id;
-                $view->tag_id = $tag->id;
-                $view->save();
-            };
 
             $schemas = [];
             if($document->type->name == 'akordy') {
@@ -78,6 +75,17 @@ class DocumentController extends Controller {
             );
             $document->save();
         }
+
+        foreach($document->tags as $tag) {
+            $view = new View;
+            $view->document_id = $document->id;
+            $view->user_id = (Yii::$app->user->isGuest) ? 
+                Yii::$app->params['anonymousUserId'] : Yii::$app->user->id;
+            $view->tag_id = $tag->id;
+            $view->session_id = $session->id;
+            $view->save();
+        };
+
 
         return $this->render('view', [
             'document' => $document,
