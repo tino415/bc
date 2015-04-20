@@ -55,7 +55,7 @@ class DocumentController extends Controller {
             };
 
             $schemas = [];
-            if($document->type == 'akordy') {
+            if($document->type->name == 'akordy') {
                 $chordLinks = $xpath->query('//a[@class="sup"]');
                 foreach($chordLinks as $chordLink) {
                     Yii::info("Chord link");
