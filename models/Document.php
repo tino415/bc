@@ -128,17 +128,22 @@ class Document extends \yii\db\ActiveRecord
         return self::match($tags);
     }
 
-    public static function match($tags) {
+    public static function match($tags, $exclude = false) {
         $tag_match = 'name LIKE(\''.
             implode(
                 "') OR name LIKE('", 
                 $tags
             ).
             '\')';
+        if(!$exclude) $exclude = '';
+        elseif(is_numeric($exclude)) $exclude = " AND document_id <> $exclude ";
+        elseif(is_array($exclude))
+            $exclude = " AND document_id NOT IN (".implode(', ', $exclude).") ";
 
         $document_ids = Yii::$app->db->createCommand("
             SELECT document_id FROM map_document_tag
             WHERE tag_id IN (SELECT id FROM tag WHERE $tag_match)
+            $exclude
             GROUP BY document_id
             ORDER BY SUM(weight) DESC
             LIMIT 50

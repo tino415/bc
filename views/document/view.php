@@ -83,7 +83,7 @@ $this->title = Yii::t('app', 'song');
         <?php foreach($recommendations as $document) : ?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="<?= Url::toRoute(['document/rview', 'id' => $document->id]); ?>">
+                <a href="<?= Url::toRoute(['document/view', 'id' => $document->id]); ?>">
                     <?= $document->name ?>
                 </a>
             </div>

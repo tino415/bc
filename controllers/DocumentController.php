@@ -14,12 +14,12 @@ use app\models\Session;
 
 class DocumentController extends Controller {
 
-    private function getRecommendation() {
+    private function getRecommendation($exclude = false) {
         
         if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
         else $tags = Tag::getProfileTags(Yii::$app->user->id);
 
-        return Document::match($tags);
+        return Document::match($tags, $exclude);
     }
 
     public function actionIndex($query = null) {
@@ -89,7 +89,7 @@ class DocumentController extends Controller {
 
         return $this->render('view', [
             'document' => $document,
-            'recommendations' => $this->getRecommendation()
+            'recommendations' => $this->getRecommendation($document->id)
         ]);
 
     }
