@@ -13,30 +13,26 @@ use app\models\Schema;
 
 class DocumentController extends Controller {
 
-    public function actionIndex($query = '') {
-        return $this->render('results',[
-            'phrase' => $query,
-            'results' => Document::search($query),
-        ]);
+    private function getRecommendation() {
+        
+        if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
+        else $tags = Tag::getProfileTags(Yii::$app->user->id);
+
+        return Document::match($tags);
     }
 
-    public function actionSearch() {
-        return $this->render('search');
+    public function actionIndex($query = null) {
+        return $this->render('index',[
+            'phrase' => $query,
+            'results' => (is_null($query)) ?
+                $this->getRecommendation() : Document::search($query)
+        ]);
     }
 
     public function actionView($id) {
         $document = Document::findOne($id);
-
-
-        return $this->render('view', [
-            'model' => $document
-        ]);
-    }
-
-    public function actionRview($id) {
-        $document = Document::findOne($id);
         $DOM = new \DOMDocument;
-        Yii::info($document->content);
+
         if(is_null($document->content)) {
             Yii::info('Caching');
             $content = file_get_contents(
@@ -83,12 +79,9 @@ class DocumentController extends Controller {
             $document->save();
         }
 
-        return $this->render('rview', [
+        return $this->render('view', [
             'document' => $document,
-            'recommendations' => Document::match(Tag::getProfileTags(
-                (Yii::$app->user->isGuest) ?
-                    false : Yii::$app->user->id
-            ))
+            'recommendations' => $this->getRecommendation()
         ]);
 
     }

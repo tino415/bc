@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-sm-6 col-md-4 col-lg-3">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="<?= Url::toRoute(['document/rview','id' => $result->id])?>">
+            <a href="<?= Url::toRoute(['document/view','id' => $result->id])?>">
                 <h4><?= $result->name ?></h4>
             </a>
         </div>
