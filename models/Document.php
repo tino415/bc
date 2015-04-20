@@ -124,10 +124,10 @@ class Document extends \yii\db\ActiveRecord
     public static function match($tags) {
         $tag_match = 'name LIKE(\''.
             implode(
-                "%') OR name LIKE('", 
+                "') OR name LIKE('", 
                 $tags
             ).
-            '%\')';
+            '\')';
 
         $document_ids = Yii::$app->db->createCommand("
             SELECT document_id FROM map_document_tag

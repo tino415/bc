@@ -35,7 +35,7 @@ AppAsset::register($this);
             echo SearchWidget::widget();
 
             $items = [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => 'Home', 'url' => ['/document/index']],
                 //['label' => 'About', 'url' => ['/site/about']],
                 //['label' => 'Contact', 'url' => ['/site/contact']],
             ];
