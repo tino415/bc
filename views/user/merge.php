@@ -3,6 +3,7 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -15,11 +16,7 @@ $this->title = Yii::t('app', 'User Merging');
     
     <div class="col-md-12">
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'users')
-            ->checkBoxList(
-                ArrayHelper::map($users, 'id', 'username')
-            );
-        ?>
+        <?= $form->field($model, 'users') ?>
         <div class="form-group">
             <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
         </div>

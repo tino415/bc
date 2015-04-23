@@ -163,13 +163,58 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->one();
     }
 
+    public function getShortTermTags() {
+        $tags = Tag::find()
+            ->joinWith('views')
+            ->where(['view.user_id' => $this->id])
+            ->groupBy('view.tag_id')
+            ->limit(50)
+            ->orderBy('id')
+            ->all();
+        return $tags;
+    }
+
+    public function getLongTermTags() {
+        $view_count = View::find()->where(['user_id' => $this->id])->count();
+        $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
+        $cluster_size = floor(
+            $view_count / Yii::$app->params['long_term_groups']
+        );
+
+        $tags = [];
+        for($i=0; $i<$view_count; $i+=$cluster_size)
+            $tags = $tags + 
+                Tag::findBySql("
+                    SELECT * FROM tag WHERE id IN (
+                        SELECT tag_id FROM (
+                            SELECT * FROM view LIMIT $i, $cluster_size
+                        ) AS cluster
+                        GROUP BY tag_id
+                        ORDER BY COUNT(*)
+                    )
+                    LIMIT $per_cluster_top
+                ")->all();
+        return $tags;
+    }
+
+    public function getSessionTags() {
+        return Session::getSession()->tags;
+    }
+
+    public function getRecommendTags() {
+        return $this->shortTermTags;
+    }
+
+    /**
+     * Get tags for multiple users
+     */
     public static function recommendFor($where) {
         $users = User::find()->where($where)->all();
 
         $tags = [];
 
         foreach($users as $user) {
-            $tags = $tags + Tag::getProfileTags($user->id);
+            $tags = $tags + $user->recommendTags;
         }
 
         return $tags;

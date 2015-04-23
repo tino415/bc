@@ -49,6 +49,20 @@ class Session extends \yii\db\ActiveRecord
         return $this->hasMany(View::className(), ['session_id' => 'id']);
     }
 
+    public function getTags() {
+        $tags = Tag::findBySql("
+            SELECT * FROM tag
+            WHERE tag_id IN(
+                SELECT tag_id FROM view
+                WHERE session_id = :session_id
+                GROUP BY tag_id
+                ORDER BY COUNT(*)
+            );
+        ")
+        ->bindParam([':session_id' => $this->id])
+        ->queryAll();
+    }
+
     public function renev() {
         Yii::$app->session['search_session'] = "$this->id:".time();
     }
@@ -60,22 +74,23 @@ class Session extends \yii\db\ActiveRecord
         return $session;
     }
 
+    private static $_session = false;
+
     public static function getSession() {
         Yii::info("Session is ".Yii::$app->session['search_session']);
         if(
             !isset(Yii::$app->session['search_session']) ||
             !preg_match('/[0-9]+:[0-9]+/', Yii::$app->session['search_session'])
         ) return false;
-        else {
+        elseif(!self::$_session) {
             list($session_id, $session_time) = explode(
                 ':', Yii::$app->session['search_session']
             );
             $session_time += Yii::$app->params['search_session_timeout'];
             if($session_time > time()) {
-                $session = Session::findOne($session_id);
-                $session->id = $session_id;
-                return $session;
+                self::$_session = Session::findOne($session_id);
             } else return false;
-        }
+        } 
+        return self::$_session;
     }
 }

@@ -11,13 +11,15 @@ use app\models\View;
 use app\models\Tag;
 use app\models\Schema;
 use app\models\Session;
+use app\models\User;
 
 class DocumentController extends Controller {
 
     private function getRecommendation($exclude = false) {
         
-        if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
-        else $tags = Tag::getProfileTags(Yii::$app->user->id);
+        if(Yii::$app->user->isGuest)
+            $tags = User::findOne(Yii::$app->params['anonymousUserId'])->recommendTags;
+        else $tags = User::findOne(Yii::$app->user->id)->recommendTags;
 
         return Document::match($tags, $exclude);
     }
@@ -37,8 +39,6 @@ class DocumentController extends Controller {
         $session = Session::getSession();
         if($session) $session->renev();
         else $session = Session::create();
-
-        Yii::info("We are at session $session->id\n");
 
         if(is_null($document->content)) {
             $content = file_get_contents(

@@ -36,7 +36,7 @@ AppAsset::register($this);
 
             $items = [
                 ['label' => 'Home', 'url' => ['/document/index']],
-                //['label' => 'About', 'url' => ['/site/about']],
+                ['label' => 'Songbook', 'url' => ['/user/merge']],
                 //['label' => 'Contact', 'url' => ['/site/contact']],
             ];
 
