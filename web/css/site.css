@@ -93,3 +93,7 @@ a.desc:after {
 .navbar-form-custom {
     margin-top: 8px;
 }
+
+.user {
+    height: 20px;
+}

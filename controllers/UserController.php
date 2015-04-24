@@ -178,6 +178,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * There can by created songbook for multiple users
+     */
     public function actionMerge() {
         $users = User::find()->all();
 
@@ -198,5 +201,17 @@ class UserController extends Controller
             'model' => $model,
             'documents' => $documents,
         ]);
+    }
+
+    public function actionUsername($name) {
+        Yii::$app->response->format = 'json';
+        $users = User::find()
+            ->select('username')
+            ->where(['like', 'username', $name])
+            ->all();
+        $names = [];
+
+        foreach($users as $user) $names[] = $user->username;
+        return $names;
     }
 }
