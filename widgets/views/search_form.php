@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
+use yii\jui\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -29,6 +30,16 @@ $is_search_page = '';
     ]); ?>
     <div class="input-group">
         <?= $form->field($model, 'phrase'); ?>
+        <?= AutoComplete::widget([
+            'model' => $model,
+            'attribute' => 'phrase',
+            'options' => [
+                'style' => 'display:none;',
+            ],
+            'clientOptions' => [
+                'source' => ['jaromir', 'nohavica'],
+            ],
+        ]);?>
         <div class="input-group-btn">
         <?= Html::submitButton('<i class="glyphicon glyphicon-search"></i>', [
             'class' => 'btn btn-default btn-primary',
