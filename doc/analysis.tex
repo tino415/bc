@@ -84,11 +84,11 @@ Je viacero spôsobov ako uložiť profil používateľa, každý má svoje špec
 Profil kľúčových slov je matica o dimenziách používatelia x kľúčové slová. Na základe toho aké jednotlivé súradnice matice môžu dosahovať hodnoty 0 ak dané kľúčové slovo patrí do používateľovho profilu a 0 ak nie. Na obrázku 1. môžeme vidieť príklad v ktorom máme používateľa Používateľ 0 ktorý nemá žiadne kľúčové slová, následne Používateľa 1 ktorý používa kľúčové slová 1 a 2 a Používateľa 2 ktorý používa kľúčové slovo 1.
 
 \begin{figure}
-	\begin{center}
-		\includegraphics[scale=0.55]{keywordprfile}
-		\caption{Ukážka profilu kľúčových slov.}
-			\label{Profil klúčovích slov}
-	\end{center}
+    \begin{center}
+        \includegraphics[scale=0.55]{keywordprfile}
+        \caption{Ukážka profilu kľúčových slov.}
+            \label{Profil klúčovích slov}
+    \end{center}
 \end{figure}
 
 \paragraph{Profil sémantickej siete (angl. Semantic network profile)}
@@ -96,10 +96,10 @@ Profil kľúčových slov je matica o dimenziách používatelia x kľúčové s
 Tento tip profilu sa používa najmä v systémoch používajúcich rozširovanie používateľských vyhľadávacích reťazcov. Základom tohoto profilu je sémantická sieť ktorej príklad môžeme vidieť na obrázku 2.
 
 \begin{figure}
-	\begin{center}
-		\includegraphics[scale=0.55]{semanticnetwork}
-		\caption{Ukážka sémantickej siete}
-	\end{center}
+    \begin{center}
+        \includegraphics[scale=0.55]{semanticnetwork}
+        \caption{Ukážka sémantickej siete}
+    \end{center}
 \end{figure}
 
 Sémantická sieť je orientovaný graf v ktorom vrcholmi sú preferencie alebo vlastnosti dokumentov, zatiaľ čo hrany sú ich vzťahy. Vzťahy môžu byť niekoľkých typov:
@@ -148,6 +148,8 @@ Pri tomto spôsobe sa relevancia dokumentu \(d_i\) pre používateľa \(u_j\) bu
 
 \[cos \theta = \frac{d_j * q}{||d_j||*||q||}\]
 
+
+
 Pričom \(||d_j||\) a \(||q||\) sú normalizované vektory\cite{9}.
 
 
@@ -177,6 +179,52 @@ Pracuje z modelom ktorí vytvára hodnotenie a súčasne sa učí na existujúci
 
 Na obídenie nedostatkov algoritmov kolaboratívneho filtrovania, niektoré aplikácie kombinujú tieto dve metódy.
 
+\section{Váhovanie značiek}
+
+\subsection{Frequencia pojmov (angl. Term Frequency(TF))}
+
+Toto je jeden z najjednoduchších a najstarších prístupov k váhovaniu pojmov,
+pricníp spočíva v definovaní si vektora \(F = (t_1, t_2, t_i \cdots t_N\).
+Kde \(t_i\) je počet výskytov pojmu v danom parametre dokumentu (názov, žáner,
+interpret v našom prípade), ktorý následne vynásobíme váhovacím vektorom. \(\alpha\).
+
+\[F=[t_{názov},t_{žáner},t_{interpret}]\]
+
+\[W_{TF}(t_i) = F_{t_i}.\alpha \]
+
+TODO: Doplň
+
+\subsection{Frequencie pojmov, inverzna frequencia dokumentov (angl. Term Frequency, Inverse Document Frequency (TF*IDF))}
+
+Pri tomto prístupe zahrňujeme do váhovania aj to v akom počte dokumentov
+sa daný pojem nachádza, ak sa pojem vyskytuje príliš často, znížime jeho váhu.
+
+TODO: Namiesto x vektorový súčin
+\[w_{TF*IDF} = \frac{1}{\log{(DF_{t_i})}} x W_{TF}(t_i)\]
+
+\subsection{BM25 váhovanie}
+
+Tento model je jeden zo štatystických modelov. Tu uvedená verzia je 
+jeho modifikácia z TODO: long term zdroje:
+
+\[w_{BM25}(t_i) = \log{
+    \frac{(r_{t_i} + 0.5)(N - n_{t_i} + 0.5}
+        {(n_{t_i} + 0.5)(R - r_{t_i} + 0.5)}}\],
+    }
+
+kde \(N\) je počet všetkých dokumentov, \(n_{t_i}\) je počet
+dokumentov obsahujúcich pojem \(t_i\), R je počet dokumentov
+ktoré používateľ už navštívil a \(r_{t_i}\) je počet dokumentov ktoré
+už používateľ navštíciľ obsahujúcich pojem \(t_i\)
+
+\section{Určovanie adekvátnych dokumentov}
+
+\subsection{Párovanie na základe unikátnych pojmov}
+
+\subsection{Párovanie na základe váh}
+
+\subsection{Jazykový model(angl. Language Model)}
+
 \section{Logistická funkcia}
 
 Logisticka funkcia sa často používa ako pravdepodobnostná funkcia. Funkcia má nasledujúci tvar: 
@@ -191,103 +239,10 @@ Signusoida ma $a = 1$, $m = 0$, $n = 0$ a $\tau = 1$ čiže:
 Graf tejto funkcie má tvar písmena S
 
 
-%\subsection{Evolúcia používateľských profilov}
-%
-%Evolúcia používateľských profilov je modelovaná pomocou dynamických Bayesianskych sieti (angl. Bayesian networks). Tieto siete reprezentujú dočasné závislosti medzi interakciami v rôznych časoch, to znamená že ak máme sekvenciu používateľových interakcií modelovanú modelmi Bayesianskych sieti pre rôzne časove úseky \( \in [0..T-1], \text{ teda } I_0, I_1, I_2, \ldots I_{T-1} \), použili sme dočasne odkazy na prepojenie uzlov v Bayesianskej sieti cez rôzne časove úseky.
-%
-%Súčasť modelu sa skladá zo sekvencií náhodných premenných S, I a Du pre T po sebe idúcich časových úsekov \[t \in [0..T-1].\]. \ignore{FIXME čo znamená táto veta ?}S S, I a Du označujú poradie vyhľadávania v relácií, interakcie používateľa a zostávajúci čas v čase t. Každá interakcie používateľa zo systémom je modelovaná ako orientovaný acyklický graf zložený z dvoch množín, množina vrcholov V a množina hrán E. Každá hrana reprezentuje vzťah medzi dvoma vrcholmi.
-%
-%\paragraph{Popis pravdepodobnosti}
-%
-%V tejto sekcií popíšeme pravdepodobnosti ktoré sú súčasťou modelu.
-%
-%\paragraph{Vyhľadávacia relácia}
-%
-%Nech \(S = {1, \cdots m,\cdots, M}\) je množina M vyhľadávacích relácií, kde náhodná premenná \(S_t\) má hodnotu. Pravdepodobnosť relácie je definovaná pre každé \(m \in S\) pomocou
-%
-%\[P(S_t = m) = v_{t,m}q\]
-%
-%Kde \(v_{t,m}\) je pravdepodobnosť že relácia m je v čase t. Rozdelenie pravdepodobnosti \(v_t\) je vektorový súčet M elementov (M=počet relácií).
-%
-%\paragraph{Pravdepodobnosť počiatočnej interakcie}
-%
-%Uvažujeme N používateľových interakcií, kde náhodná premenná \(I_t\) berie hodnotu v \(I = {1, 2\cdots N}\).
-%Každá používateľova interakcie zo systémom v čase t, preskupí dotaz \(q_t\) a odvodený používateľov záujem zapísaný \(c_{k,t}\) a je reprezentovaný trojicou < Q, C, F > kde \(Q=q_t\) reprezentuje dotaz odoslaný počas interakcie. \(C=c_t\) reprezentuje používateľov profil definovaný jeho záujmom and F je funkcia relevancie ktorá určí relevanciu dokumentu \(d_j\) z prihliadnutím na používateľov záujem \(c_k\) a dotaz \(q\), popísaný ako:
-%
-%\[F(g,d_j,c_k)=P(d_j/q)\times P(c_k/q)\times P(q)\]
-%
-%Výsledná pravdepodobnosť pre každý dotaz \(q\) v inštancií každého dokumentu \(d_j\) a záujem \(c_k\) sú reprezentované v matici \(X_{n,m}\) o dimenziách (počet dokumentov x počet používateľových záujmov) 
-%
-%Avšak pravdepodobnosť počiatočnej používateľovej interakcie \(P(I_0=n)\) preskupujúca dotaz \(q_0\) odoslaný v čase \(t=0\) a používateľov záujem \(c_{k,0}\) odvodený v čase \(t=0\) podľa vyhľadávacej relácie je definovaný:
-%
-%\[P(I_0=n|S_0=m)=P(q_0, c_{k,0}|S_0=s)=A_{0,m,n}\]
-%
-%Kde \(A_{0,m,n}\) udáva pravdepodobnosť začatia používateľovej interakcie \((I_0=n)\) udávajúca počiatočnú reláciu \((S_0=m)\). Rozdelenie pravdepodobnosti \(A_0\) je matica M(počet relácií) riadkov a N(počet interakcií) stĺpce.
-%
-%\paragraph{Pravdepodobnosť počiatočného času pobytu}
-%
-%Pravdepodobnosť času pobytu rozloženie času stráveného v každej možnej (relácií, používateľovej interakcie) konfigurácií. Nech \(Du = {1\cdots d, \cdots , D}\) kde náhodná premenná \(Du_t\) nadobúda hodnotu, s \(D\) označujúcim maximálny počet časových jednotiek, ktoré môže akákoľvek konfigurácia relácie a interakcie trvať. Pre počiatočnú interakciu \(I_0=n\) a reláciu \(S_0 = m\), pravdepodobnosť počiatočného času pobytu je daná pomocou:
-%
-%\[P(Du_0=d|I_0=n, S_0=m)=L_{0,n,m,d}\]
-%
-%Kde \(L_{0,n,m,d}\) je pravdepodobnosť strávenia \(d\) časových jednotiek v počiatočnej interakcií a konfigurácií relácie. Toto je reprezentované ako matica NM(počet interakcií x počet relácií) riadky a D stĺpce (počet časových jednotiek).
-%
-%\subsection{TVUM}
-%
-%Mám \(n_{ik}\) reprezentujúce počet akcií opsujúcich zaujem k používateľa i. Používateľ buď zopakuje akciu z pravdepodobnosťou závislou na \(n_{ik}\) alebo začne pracovať z úplne novím záujmom \(\lambda\).
-%Nový záujem je rozhodnutý na základe globálnych frekvencií záujmov.
-%
-%Nech \(m_{k}\) reprezentuje frekvenciu z akou je záujem \(k\) populárny o používateľov.
-%
-%Delenie používateľovích do ``epoch''.
-%
-%Používateľové akcie v každej epoche sú modelované pomocov epoch-specific, fixný počet stĺpcov hierarchycký polia-urn model.
-%
-%Používam polia-urn model, čo je verzia the chinese restaurant process zo sady dirichlet processes
+\section{Starnutie záujmov profilu}
 
+\subsection{Krátkodobé záujmy}
 
-%\subsection{Poznámky}
+\subsection{Dlhodobé záujmy}
 
-%Jeden používateľ sa môže podobať druhému používateľovy z pred pár rokov.
-
-
-%\paragraph{Kontext}
-%
-%Používatelia môžu mať v rôznych kontextoch rôzne ciele, čo by sa malo dať zohladniť v rámci vyhľadávania. Problém je, ako zistiť v akom kontexte sa nachádzam.
-
-
-%\paragraph{Nadpis ešte nižšej hierarchie}\label{nadpis75}
-%orbi sagittis luctus \emph{risus}\footnote{\emph{slov.} smiech} molestie mattis. Cras turpis mauris, lacinia a eleifend in, semper a augue. Aenean ultrices rhoncus metus ut auctor. Pellentesque fermentum justo eget erat commodo vel mollis augue semper. Nunc tempor augue nulla, pellentesque posuere orci\footnote{viac v kap. \ref{podsekcia2}}.
-
-%Cum sociis natoque penatibus et magnis dis \emph{parturient montes}, nascetur ridiculus mus. Integer turpis lacus, convallis porta aliquam eu, luctus in orci. Duis tincidunt condimentum augue in laoreet. Vivamus tempus iaculis ligula, dictum dignissim nibh elementum at. Donec quis risus quis sem blandit auctor. Integer eu tellus nisi, et fringilla magna. Praesent vulputate placerat pretium. Etiam vitae ornare est.\\
-
-
-%\begin{lstlisting}[float=h,caption={Príklad listingu priamo v latex-u}, label={listing2},
-%	keywordstyle=\color{blue}\bfseries, ndkeywordstyle=\color{black}\bfseries, commentstyle=\color{red}\ttfamily,
-%	stringstyle=\color{green}\ttfamily, identifierstyle=\color{gray},backgroundcolor=\color{white},frame=single, frameround=ffff,captionpos=b,basicstyle=\scriptsize]
-%	Aenean consequat
-%	sapien a posuere
-%	tincidunt massa
-%	purus egestas nisl
-%	sed sollicitudin
-%	neque mi vel augue.
-%\end{lstlisting}
-%
-%\begin{my_description}
-%	\item {\textbf{položka 1} - Tuto nasleduje popis položky 1.}
-%	\item {\textbf{položka 2} - Tuto nasleduje popis položky 2.}
-%	\item {\textbf{položka 3} - Tuto nasleduje popis položky 3.}
-%\end{my_description}
-%
-%\subsubsection{Ďalšia podsekcia}
-%Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer turpis lacus, convallis porta aliquam eu, luctus in orci. Duis tincidunt condimentum augue in laoreet. Vivamus tempus iaculis ligula, dictum dignissim nibh elementum at. Donec quis risus quis sem blandit auctor. Integer eu tellus nisi, et fringilla magna. Praesent vulputate placerat pretium. Etiam vitae ornare est~\cite{2}.\\
-%
-%\begin{figure}[H]\begin{center}\includegraphics[scale=0.6]{figure1}
-%\caption{Popis obrázku.}\label{figure1}\end{center}\end{figure}
-
-%Pellentesque id sem sed nulla vehicula pellentesque. Vestibulum tincidunt faucibus tortor, et feugiat libero sagittis eget. Maecenas ultrices justo venenatis lectus malesuada gravida. Quisque commodo auctor sem, ut congue dolor ullamcorper sit amet. Sed eu dolor purus. Aliquam blandit, magna sed gravida ultrices, nibh mi porttitor erat, sed scelerisque enim magna nec risus. Mauris vestibulum arcu vel enim rhoncus eleifend. Sed nec interdum sapien. Pellentesque tincidunt condimentum consectetur. Maecenas posuere nunc in lacus consectetur sed posuere felis tristique. Vivamus diam lorem, commodo eget aliquet sed, volutpat sit amet nisi. Morbi posuere leo sit amet odio dignissim hendrerit. Praesent eget urna odio, non hendrerit neque. Suspendisse eget massa metus, in vestibulum est. Donec ac elit vitae ante auctor laoreet. Donec purus lorem, bibendum vel euismod ac, semper quis lacus~\cite{3}.
-
-%\begin{figure}[H]\begin{center}\includegraphics[scale=0.6]{figure2}
-%\caption{Popis obrázku; prevzaté z~\cite{3}.}\label{pic1}\end{center}
-%\end{figure}
-
+\subsection{Sezónne záujmy}
