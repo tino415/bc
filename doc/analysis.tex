@@ -1,6 +1,5 @@
 \newpage
 
-
 \section{Existujúce riešenia}
 
 Existuje veľké množstvo riešení problému s dynamickým odporúčaním. Všetky pracujú s nejakou množinou vlastností, tém alebo kľúčových slov, ku ktorým sa snažia vypočítať pravdepodobnosť, že práve daná téma, kľúčové slovo alebo vlastnosť je pre používateľa najzaujímavejšia a následne mu odporučiť vyhľadávané subjekty, z danou vlastnosťou.
@@ -184,31 +183,72 @@ Na obídenie nedostatkov algoritmov kolaboratívneho filtrovania, niektoré apli
 \subsection{Frequencia pojmov (angl. Term Frequency(TF))}
 
 Toto je jeden z najjednoduchších a najstarších prístupov k váhovaniu pojmov,
-pricníp spočíva v definovaní si vektora \(F = (t_1, t_2, t_i \cdots t_N\).
-Kde \(t_i\) je počet výskytov pojmu v danom parametre dokumentu (názov, žáner,
-interpret v našom prípade), ktorý následne vynásobíme váhovacím vektorom. \(\alpha\).
+pri tomto prístupe sa jednoducho počíta počet výskytov pojmu v dokumente.
+Existuje niekoľko druhov tohoto váhovania.
 
-\[F=[t_{názov},t_{žáner},t_{interpret}]\]
+\paragraph{Binárne váhovanie} znamená že nepočítam počet výskytov
+slova v texte ale beriem iba či sa v texte nachádza alebo nie, Teda:
 
-\[W_{TF}(t_i) = F_{t_i}.\alpha \]
+\[
+    w_{TF_BIN}(t_i) = 
+    \left\{
+        \begin{array}{11}
+            1   & \mbox{ak } t_i \in d_j \\
+            0   & \mbox{ak } t_i \notin d_j
+        \end{array}
+    \right.
+\]
 
-TODO: Doplň
+Kde \(d_j\) je dokument a \(t_i\) je slovo.
+
+\paragraph{Čistá frequencia} sa dá tiež použiť, v tomto prípade sa
+váha slova určuje podľa počtu jeho výskytov v texte. Teda:
+
+\[w_{TF_RAW}(t_i) = t_{i_{d_j}}\]
+
+Kde \(t_{i_{d_j}}\) je počet výskytov slova \(t_i\) v dokumente \(d_j\).
+
+\paragraph{Logaritmická váha} sa taktiež používa najmä kôly tomu, 
+že relevancia dokumentu nerastie proporcionalne z počtom výskytov slova
+v dokumente.
+
+\[
+    w_{TF_LOG}(t_i) = 
+    \left\{
+        \begin{array}{11}
+            1 + \log{10}t_{i_{d_j}} \mbox{ak } t_{i_{d_j}} > 0 \\
+            0 & \mbox{inak}
+        \end{array}
+    \right.
+\]
+
+Existuje ešte viac spôsobov ako sa dá vyhodnotiť frequencia pojmov, medzid ktoré patrí napríklad
+dvojita normalizácia 0.5 (angl. double normalization 0.5) alebo
+k-dvojita normalizácia (angl. double normalization K) \cite{vector_space_model}
 
 \subsection{Frequencie pojmov, inverzna frequencia dokumentov (angl. Term Frequency, Inverse Document Frequency (TF*IDF))}
 
 Pri tomto prístupe zahrňujeme do váhovania aj to v akom počte dokumentov
 sa daný pojem nachádza, ak sa pojem vyskytuje príliš často, znížime jeho váhu.
+Toto znižovanie je reprezentované inverznou frequenciou pojmu:
 
-TODO: Namiesto x vektorový súčin
-\[w_{TF*IDF} = \frac{1}{\log{(DF_{t_i})}} x W_{TF}(t_i)\]
+\[idf_i = log{10}\frac{N}{dt_i}\]
 
-\subsection{BM25 váhovanie}
+Kde \(dt_i\) je počet dokumentov v ktorý sa pojem \(t_i\) nacháza.
+
+Výsledna rovnica je potom:
+
+\[w_{TF*IDF} = w_{TF} * log{10}\frac{N}{dt_i}\]
+
+\cite{vector_space_model}
+
+\subsection{Presonalizované BM25 váhovanie}
 
 Tento model je jeden zo štatystických modelov. Tu uvedená verzia je 
-jeho modifikácia z TODO: long term zdroje:
+jeho modifikácia podľa \cite{modified_bm25}
 
 \[w_{BM25}(t_i) = \log{
-    \frac{(r_{t_i} + 0.5)(N - n_{t_i} + 0.5}
+    \frac{(r_{t_i} + 0.5)(N - n_{t_i} + 0.5)}
         {(n_{t_i} + 0.5)(R - r_{t_i} + 0.5)}}\],
     }
 
@@ -219,11 +259,16 @@ už používateľ navštíciľ obsahujúcich pojem \(t_i\)
 
 \section{Určovanie adekvátnych dokumentov}
 
-\subsection{Párovanie na základe unikátnych pojmov}
+\paragraph{Párovanie na základe unikátnych pojmov}
 
-\subsection{Párovanie na základe váh}
+\paragraph{Párovanie na základe váh}
 
-\subsection{Jazykový model(angl. Language Model)}
+spočíva v sčítaní váh slov ktoré sú vyhľadávané a zároveň sú 
+v dokumente:
+
+\[w_{d_i} = \sum\limits_{z=1}^{N_{d_t}} f_{t_z} * w(t_z)\]
+
+\paragraph{Jazykový model(angl. Language Model)}
 
 \section{Logistická funkcia}
 
@@ -245,4 +290,4 @@ Graf tejto funkcie má tvar písmena S
 
 \subsection{Dlhodobé záujmy}
 
-\subsection{Sezónne záujmy}
+\
