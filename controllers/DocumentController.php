@@ -42,9 +42,16 @@ class DocumentController extends Controller {
         else $session = Session::create();
 
         if(is_null($document->content)) {
-            $content = file_get_contents(
-                "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id"
-            );
+            $url = "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $content = curl_exec($ch);
+            curl_close($ch);
+
+            exit("$url [$content]");
+
             @$DOM->loadHTML($content);
             $xpath = new \DOMXPath($DOM);
 
