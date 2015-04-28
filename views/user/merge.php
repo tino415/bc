@@ -15,7 +15,7 @@ use app\models\User;
 $this->title = Yii::t('app', 'User Merging');
 
 $users = ArrayHelper::map(User::find()->all(), 'id', 'username');
-$user_names = array_column($users, 'username');
+$user_names = ArrayHelper::getColumn($users, 'username');
 ?>
 
 <div class="row">

@@ -47,12 +47,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
-    public function scenarios() {
-        return array_merge([
-            'select' => ['name'],
-        ]);
-    }
-
     /**
      * @inheritdoc
      */
