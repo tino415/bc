@@ -8,7 +8,6 @@ use app\models\UserSearch;
 use app\models\UserMergeRecomendationForm;
 use app\models\Tag;
 use app\models\Document;
-use app\models\UserRegisterForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

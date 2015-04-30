@@ -8,6 +8,7 @@ use app\models\Tag;
 use app\models\Document;
 use app\models\Interpret;
 use app\models\MapDocumentTag;
+use app\components\Globals;
 
 class TagController extends Controller {
 
@@ -136,7 +137,7 @@ class TagController extends Controller {
                                 (   
                                     SELECT COUNT(*) 
                                     FROM document
-                                )
+                            Tags updated)
                             ) / (
                                 SELECT COUNT(*) 
                                 FROM map_document_tag 
@@ -189,13 +190,11 @@ class TagController extends Controller {
                 "id=$document->id&".
                 "api=true";
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $data = curl_exec($ch);
-            curl_close($ch);
+            $data = Globals::download($url);
 
-            echo "$data\n";
+            $json = json_decode($data, true);
+
+            echo "Last.fm: ".$json['message']."\n";
 
             echo "Done\n";
         }

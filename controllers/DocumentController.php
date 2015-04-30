@@ -13,6 +13,7 @@ use app\models\Schema;
 use app\models\Session;
 use app\models\User;
 use app\models\MapDocumentTag;
+use app\components\Globals;
 
 class DocumentController extends Controller {
 
@@ -42,15 +43,14 @@ class DocumentController extends Controller {
         else $session = Session::create();
 
         if(is_null($document->content)) {
+            Yii::info("Downloading document");
             $url = "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id";
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $content = curl_exec($ch);
-            curl_close($ch);
+            $content = Globals::download($url);
 
-            exit("$url [$content]");
+            //if(empty($content)) throw yii\web\HttpException('500', 'Request returns empty content');
+            if(empty($content))
+                return $this->render('pointles', ['content' => $_SERVER['REMOTE_ADDR']]);
 
             @$DOM->loadHTML($content);
             $xpath = new \DOMXPath($DOM);
@@ -65,8 +65,7 @@ class DocumentController extends Controller {
                         $schema->content = $chordLink->textContent;
                         $schema->document_id = $document->id;
                         $schema->save();
-
-                        $schemas[$chordLink->textContent] = $chordLink->textContent;
+$schemas[$chordLink->textContent] = $chordLink->textContent;
                     }
 
                     $chordLink->setAttribute(
@@ -103,6 +102,8 @@ class DocumentController extends Controller {
     }
 
     public function actionLoadtags($id, $api = false) {
+        if($api) Yii::$app->response->format = 'json';
+
         $document = Document::findOne($id);
         $artist = urlencode($document->interpret->name);
         $track = urlencode($document->name);
@@ -117,75 +118,55 @@ class DocumentController extends Controller {
             "track=$track&".
             "format=json";
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($ch);
-        curl_close($ch);
-
-        $decoded = json_decode($data, true)['toptags'];
+        $data = Globals::download($url);
+        $json = json_decode($data, true);
         $tags = [];
+        $message = 'Tags updated';
 
-        if(array_key_exists('tag', $decoded)) {
-            $tags = $decoded['tag'];
-            foreach($tags as $tag) {
-                if(!array_key_exists($tag['name'], $exists_tags)) {
-                    $newtag = new Tag;
-                    $newtag->name = $tag['name'];
-                    $newtag->save();
-                    $newtag->id = $newtag->getPrimaryKey();
-                    $tags[$tag['name']] = $newtag;
-                }
+        if(array_key_exists('toptags', $json)) {
 
-                if(!View::find()->where([
-                    'document_id' => $document->id,
-                    'tag_id' => $tags[$tag['name']]->id,
-                ])->exists())
-                {
-                    $map = new MapDocumentTag;
-                    $map->document_id = $document->id;
-                    $map->tag_id = $tags[$tag['name']]->id;
-                    $map->count = ($tag['count'] > 50) ? 2 : 1;
-                    $map->save();
+            if(array_key_exists('tag', $json['toptags'])) {
+
+                $tags = $json['toptags']['tag'];
+
+                foreach($tags as $tag) {
+                    if(!array_key_exists($tag['name'], $exists_tags)) {
+                        $newtag = new Tag;
+                        $newtag->name = $tag['name'];
+                        $newtag->save();
+                        $newtag->id = $newtag->getPrimaryKey();
+                        $tags[$tag['name']] = $newtag;
+                    }
+
+                    if(!View::find()->where([
+                        'document_id' => $document->id,
+                        'tag_id' => $tags[$tag['name']]->id,
+                    ])->exists())
+                    {
+                        $map = new MapDocumentTag;
+                        $map->document_id = $document->id;
+                        $map->tag_id = $tags[$tag['name']]->id;
+                        $map->count = ($tag['count'] > 50) ? 2 : 1;
+                        $map->save();
+                    }
                 }
             }
         }
 
+        if(array_key_exists('error', $json))
+            $message = $json['message'];
+
         $params = [
             'url' => $url,
             'document' => $document,
+            'message' => $message,
             'tags' => $tags,
         ];
 
         if(!$api) {
             return $this->render('tagfound', $params);
         } else {
-            Yii::$app->response->format = 'json';
             return $params;
         }
-    }
-
-    public function actionLfm($artist, $track) {
-        $apy_key = Yii::$app->params['last_fm_api_key'];
-        $amp = '&';
-        $track = urlencode($track);
-        $artist = urlencode($artist);
-        $url2 = 
-            "http://ws.audioscrobbler.com/2.0/".
-            "?method=track.getTopTags".
-            "&api_key=$apy_key&".
-            "artist=$artist&".
-            "track=$track&".
-            "format=json";
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url2);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        echo "$url2";
-
-        echo "JOUIJOJ";
-        print_r($data);
     }
 }

@@ -60,8 +60,8 @@ Následne sa vracajú dokumenty ktoré majú najpodobnejší smer vektora k pož
 V MySQL je tento prístup implementovaný pomocov nasledujúcej rovnice \cite{14}:
 
 \[
-    w_d = \frac{\log(dtf_d) + 1}{\sum_{i=1}^{t} \log (dtf_i) + 1} *
-        \frac{U}{1+0.0115 * U} *
+    w_d = \frac{\log(dtf_d) + 1}{\sum_{i=1}^{t} \log (dtf_i) + 1} .
+        \frac{U}{1+0.0115 * U} .
         \log \frac {N}{nf}
 \]
 
@@ -94,6 +94,16 @@ sa dá použiť tf*idf ktorý redukuje váhu slov na základe ich
 unikátnosti, ale tieto slová aj tak musí systém spracovať, ja som 
 sa rozhodol použiť kombináciu českých, anglických a slovenských slóv z
 projektu TODO: Ako ? google code stop-words
+
+\subsection{Váhovanie Dokumentu}
+
+\[w(d_j) = \sum_{i=1}^{N} w(t_i) \]
+
+\begin{itemize}
+\item{\(N\)} Počet značiek v dokumente,
+\item{\(t_i\)} I-ty pojem v dokumente,
+\item{\(d_j\)} J-ty dokument.
+\end{itemize}
 
 %\section{Návrh, špecifikácia požiadaviek a pod.}
 %Aenean consequat, sapien a posuere tincidunt, massa purus egestas nisl, sed sollicitudin neque mi vel augue. Sed condimentum nibh ut metus condimentum ornare. Maecenas ultrices tempor condimentum. Etiam nec lorem leo, id consequat tellus. Etiam id mattis massa. Phasellus commodo, lacus in viverra lacinia, quam leo ultricies tellus, condimentum vehicula dui nisl a magna. In mi felis, malesuada eget tincidunt eget, rutrum ac lacus. In a nisl tellus. Mauris hendrerit egestas odio ac consequat. Curabitur aliquam convallis nibh sed blandit. Ut et viverra felis. Sed varius quam non mauris facilisis tincidunt. Quisque et libero eros, sed hendrerit sapien. Aliquam nec faucibus neque. Integer dictum arcu sed risus scelerisque fermentum. Pellentesque vitae ipsum lorem, sed lacinia ligula~\cite{4}.
