@@ -46,7 +46,10 @@ class DocumentController extends Controller {
             Yii::info("Downloading document");
             $url = "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id";
 
-            $content = Globals::download($url);
+            //$content = Globals::download($url);
+            $content = file_get_contents('http://www.supermusic.sk/'); 
+            Yii::info($content);
+            $content = '';
 
             //if(empty($content)) throw yii\web\HttpException('500', 'Request returns empty content');
             if(empty($content))

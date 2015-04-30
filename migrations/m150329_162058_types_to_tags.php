@@ -23,9 +23,10 @@ class m150329_162058_types_to_tags extends Migration
         ], $tableOptions);
 
         $this->createTable('map_users_tags', [
+            'id' => 'pk',
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'tag_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'PRIMARY KEY(`user_id`, `tag_id`)',
+            'UNIQUE(user_id, tag_id)',
         ], $tableOptions);
 
         $this->addForeignKey( 'fk_document_has_interpret',
@@ -47,9 +48,10 @@ class m150329_162058_types_to_tags extends Migration
         );
 
         $this->createTable('map_documents_tags', [
+            'id' => 'pk',
             'document_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'tag_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'PRIMARY KEY(`document_id`, `tag_id`)',
+            'UNIQUE(document_id, tag_id)',
         ], $tableOptions);
 
         $this->addForeignKey('fk_map_document_tag',

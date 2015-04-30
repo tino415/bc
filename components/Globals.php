@@ -14,12 +14,13 @@ class Globals {
      * @return string
      */
     public static function download($path) {
-        $path = "http://www.google.sk";
+        $path = "http://www.supermusic.sk";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $path);
         Yii::info(curl_getinfo($curl, CURLINFO_HTTP_CODE));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        Yii::info(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+        Yii::info(curl_getinfo($curl, CURLINFO_HTTP_CODE)."curl err: ".curl_errno($curl));
+        Yii::info(print_r(curl_getinfo($curl)));
         $return = curl_exec($curl);
 
         Yii::info(curl_getinfo($curl, CURLINFO_HTTP_CODE));

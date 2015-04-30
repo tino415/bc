@@ -2,8 +2,14 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=bcmusic_main',
-    'username' => 'bcmusic',
-    'password' => '?zsgd#1',
+    'dsn' => 'pgsql:host=localhost;port=5432;dbname=bc',
+    'username' => 'bc',
+    'password' => 'bc',
     'charset' => 'utf8',
+    'schemaMap' => [
+        'pgsql' => [
+            'class' => 'yii\db\pgsql\Schema',
+            'defaultSchema' => 'pubic',
+        ]
+    ]
 ];
