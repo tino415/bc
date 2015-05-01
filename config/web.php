@@ -8,9 +8,6 @@ $config = [
     'bootstrap' => ['log'],
     'defaultRoute' => 'document/index',
     'components' => [
-        'superMusic' => [
-            'class' => 'app\components\SuperMusic',
-        ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'showScriptName' => false,
@@ -43,6 +40,10 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\SyslogTarget',
+                    'levels' => ['error', 'warning'],
+                ]
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
