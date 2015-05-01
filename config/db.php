@@ -5,11 +5,11 @@ $dbopts = parse_url(getenv('DATABASE_URL'));
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'pgsql:'.
-            'host='.$dbopts['host'].';'.
-            'port='.$dbopts['port'].';'.
-            'dbname='.ltrim($dbopts['path'], '/'),
-    'username' => $dbopts['user'],
-    'password' => $dbopts['pass'],
+            'host=localhost;'.
+            'port=5432;'.
+            'dbname=bc',
+    'username' => 'bc',
+    'password' => 'bc',
     'charset' => 'utf8',
     'schemaMap' => [
         'pgsql' => [

@@ -195,7 +195,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public function getSessionTags() {
-        return Session::getSession()->tags;
+        return (Session::getSession()) ? Session::getSession()->tags : [];
     }
 
     public function getRecommendTags() {

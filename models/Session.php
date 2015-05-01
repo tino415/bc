@@ -83,6 +83,7 @@ class Session extends \yii\db\ActiveRecord
             !isset(Yii::$app->session['search_session']) ||
             !preg_match('/[0-9]+:[0-9]+/', Yii::$app->session['search_session'])
         ) return false;
+            
         elseif(!self::$_session) {
             list($session_id, $session_time) = explode(
                 ':', Yii::$app->session['search_session']
