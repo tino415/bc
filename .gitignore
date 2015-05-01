@@ -2,4 +2,4 @@ lfm.log
 .idea
 .phpcomplete_extended
 /vendor/
->>>>>>> da184d4 (added gitignore)
+vendor/
