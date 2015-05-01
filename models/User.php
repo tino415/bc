@@ -158,14 +158,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public function getShortTermTags() {
-        $tags = Tag::find()
+        return Tag::find()
             ->distinct(true)
             ->joinWith('views')
             ->where(['view.user_id' => $this->id])
             ->limit(50)
             ->orderBy('id')
             ->all();
-        return $tags;
     }
 
     public function getLongTermTags() {
@@ -181,13 +180,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 Tag::findBySql("
                     SELECT * FROM tag WHERE id IN (
                         SELECT tag_id FROM (
-                            SELECT * FROM view LIMIT $i, $cluster_size
+                            SELECT * FROM view LIMIT :limit OFFSET :offset 
                         ) AS cluster
                         GROUP BY tag_id
                         ORDER BY COUNT(*)
                     )
-                    LIMIT $per_cluster_top
-                ")->all();
+                    LIMIT :limit_per
+                ", [
+                    ':limit' => $cluster_size,
+                    ':offset' => $i,
+                    ':limit_per' => $per_cluster_top,
+                ])->all();
         return $tags;
     }
 
@@ -196,7 +199,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public function getRecommendTags() {
-        return $this->shortTermTags;
+        return array_merge(
+            $this->shortTermTags,
+            $this->sessionTags,
+            $this->longTermTags
+        );
     }
 
     /**

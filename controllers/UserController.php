@@ -190,9 +190,7 @@ class UserController extends Controller
 
         if($model->load(Yii::$app->request->post())) {
             $tags = [];
-            foreach($model->users as $user_id) {
-                $tags = $tags + Tag::getProfileTags($user_id);
-            }
+            $tags = User::recommendFor(['id' => $model->users]);
             $documents = Document::match($tags);
         }
 

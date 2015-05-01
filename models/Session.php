@@ -51,17 +51,16 @@ class Session extends \yii\db\ActiveRecord
     }
 
     public function getTags() {
-        $tags = Tag::findBySql("
+        return Tag::findBySql("
             SELECT * FROM tag
-            WHERE tag_id IN(
+            WHERE id IN(
                 SELECT tag_id FROM view
                 WHERE session_id = :session_id
                 GROUP BY tag_id
                 ORDER BY COUNT(*)
             );
-        ")
-        ->bindParam([':session_id' => $this->id])
-        ->queryAll();
+        ", [':session_id' => $this->id])
+        ->all();
     }
 
     public function renev() {
