@@ -32,7 +32,7 @@ class Query extends \yii\db\ActiveRecord
     public function behaviours() {
         return [
             'class' => TimestampBehavior::className(),
-            'createdAtAttribute' => 'timestamp',
+            'createdAtAttribute' => 'created',
             'value' => new Expression('NOW()'),
         ];
     }

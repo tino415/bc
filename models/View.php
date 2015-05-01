@@ -30,6 +30,17 @@ class View extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviours() {
+        return [
+            'class' => TimestampBehavior::className(),
+            'createdAtAttribute' => 'created',
+            'value' => new Expression('NOW()'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -49,7 +60,7 @@ class View extends \yii\db\ActiveRecord
             'document_id' => 'Document ID',
             'user_id' => 'User ID',
             'tag_id' => 'Tag ID',
-            'view_timestamp' => 'View Timestamp',
+            'created' => 'Created',
         ];
     }
 

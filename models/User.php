@@ -159,9 +159,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getShortTermTags() {
         $tags = Tag::find()
+            ->distinct(true)
             ->joinWith('views')
             ->where(['view.user_id' => $this->id])
-            ->groupBy('view.tag_id')
             ->limit(50)
             ->orderBy('id')
             ->all();

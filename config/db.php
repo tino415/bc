@@ -9,7 +9,7 @@ return [
     'schemaMap' => [
         'pgsql' => [
             'class' => 'yii\db\pgsql\Schema',
-            'defaultSchema' => 'pubic',
+            'defaultSchema' => 'public',
         ]
     ]
 ];

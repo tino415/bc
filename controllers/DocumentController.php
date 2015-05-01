@@ -68,7 +68,7 @@ class DocumentController extends Controller {
                         $schema->content = $chordLink->textContent;
                         $schema->document_id = $document->id;
                         $schema->save();
-$schemas[$chordLink->textContent] = $chordLink->textContent;
+                        $schemas[$chordLink->textContent] = $chordLink->textContent;
                     }
 
                     $chordLink->setAttribute(
