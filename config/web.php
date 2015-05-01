@@ -34,7 +34,7 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
-            'traceLevel' => 3,
+            //'traceLevel' => (YII_ENV_DEF) ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -43,7 +43,14 @@ $config = [
                 [
                     'class' => 'yii\log\SyslogTarget',
                     'levels' => ['error', 'warning'],
-                ]
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['error', 'warning', 'info'],
+                    'logFile' => '@app/runtime/all.log',
+                    'maxFileSize' => 1024 * 2,
+                    'maxLogFiles' => 20,
+                ],
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
