@@ -29,17 +29,6 @@ class Query extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function behaviours() {
-        return [
-            'class' => TimestampBehavior::className(),
-            'createdAtAttribute' => 'created',
-            'value' => new Expression('NOW()'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -69,5 +58,11 @@ class Query extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function beforeSave($insert) {
+        if($this->isNewRecord && !$this->created) {
+            $this->created = time();
+        }
     }
 }

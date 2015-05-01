@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "session".
  *
  * @property integer $id
+ * @property integer $psql_check
  *
  * @property View[] $views
  */
@@ -27,7 +28,7 @@ class Session extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            
+            ['psql_check', 'safe'],
         ];
     }
 
@@ -69,6 +70,7 @@ class Session extends \yii\db\ActiveRecord
 
     public static function create() {
         $session = new Session;
+        $session->psql_check = 1;
         $session->save();
         Yii::$app->session['search_session'] = "$session->primaryKey:".time();
         return $session;

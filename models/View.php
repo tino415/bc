@@ -11,7 +11,7 @@ use Yii;
  * @property integer $document_id
  * @property integer $user_id
  * @property integer $tag_id
- * @property string $view_timestamp
+ * @property string $created
  *
  * @property Tag $tag
  * @property Document $document
@@ -30,23 +30,12 @@ class View extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function behaviours() {
-        return [
-            'class' => TimestampBehavior::className(),
-            'createdAtAttribute' => 'created',
-            'value' => new Expression('NOW()'),
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['document_id', 'user_id', 'tag_id'], 'required'],
             [['document_id', 'user_id', 'tag_id'], 'integer'],
-            [['view_timestamp'], 'safe']
+            [['created'], 'safe']
         ];
     }
 
@@ -86,5 +75,11 @@ class View extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function beforeSave($insert) {
+        if($this->isNewRecord && !$this->created) {
+            $this->created = time();
+        }
     }
 }
