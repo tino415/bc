@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
-use \yii\web\Session;
 
 /**
  * This is the model class for table "document".
@@ -99,6 +98,38 @@ class Document extends \yii\db\ActiveRecord
     public function getSchemas() {
         Yii::info('Schemas');
         return $this->hasMany( Schema::className(), ['document_id' => 'id']);
+    }
+
+    public function getTagsFromAtts() {
+        return array_count_values(
+            self::escapeTags(
+                $this->name.' '.$this->interpret->name
+            ) + [
+                $this->type->name,
+                mb_strtolower($this->name, 'UTF-8'),
+                mb_strtolower($this->interpret->name, 'UTF-8'),
+            ]
+        );
+    }
+
+    public function saveTags($tags) {
+        foreach($tags as $tag_name => $count) {
+            $tag = new Tag;
+            $tag->name = $tag_name;
+            if($tag->validate()) {
+                $tag->save();
+                $map = new MapDocumentTag;
+                $map->document_id = $this->id;
+                $map->tag_id = $tag->getPrimaryKey();
+                $map->count = $count;
+                if($map->validate()) $map->save();
+            }
+        }
+    }
+
+    public function createTagsFromAtts() {
+        $tags = $this->getTagsFromAtts();
+        $this->saveTags($tags);
     }
 
     public static function escapeTags($string, $stop_words = true) {

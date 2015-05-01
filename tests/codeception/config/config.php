@@ -13,10 +13,19 @@ return [
     ],
     'components' => [
         'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=bc-tests',
-            'username' => 'bc',
-            'password' => 'bc',
+            'dsn' => 'pgsql:'.
+                'host=localhost;'.
+                'port=5432;'.
+                'dbname=bc-tests',
+            'username' => 'bcuser',
+            'password' => 'bc-user',
             'charset' => 'utf8',
+            'schemaMap' => [
+                'pgsql' => [
+                    'class' => 'yii\db\pgsql\Schema',
+                    'defaultSchema' => 'public',
+                ]
+            ]
         ],
         'mailer' => [
             'useFileTransport' => true,

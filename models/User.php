@@ -180,7 +180,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 Tag::findBySql("
                     SELECT * FROM tag WHERE id IN (
                         SELECT tag_id FROM (
-                            SELECT * FROM view LIMIT :limit OFFSET :offset 
+                            SELECT * FROM view LIMIT :limit OFFSET :offset
                         ) AS cluster
                         GROUP BY tag_id
                         ORDER BY COUNT(*)
