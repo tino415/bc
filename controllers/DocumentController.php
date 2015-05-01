@@ -27,6 +27,7 @@ class DocumentController extends Controller {
     }
 
     public function actionIndex($query = null) {
+        exit("WHT");
         return $this->render('index',[
             'phrase' => $query,
             'results' => (is_null($query)) ?
