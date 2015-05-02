@@ -102,6 +102,27 @@ class Tag extends \yii\db\ActiveRecord
         $transaction->commit();
     }
 
+    public static function escape($string, $stop_words = true) {
+        $string = preg_replace(
+            '/[!?#*<>\[\]\(\)@$%^&{}\'"\`\/\\-\\\\ \t\n\.;:,_=]+/',
+            ' ',
+            $string
+        );
+        $string = trim(mb_strtolower($string, 'UTF-8'));
+
+        $pieces = preg_split('/[ \(\(]/', $string);
+        $result = [];
+        foreach($pieces as $piece) 
+            if( !$stop_words || (
+                !array_key_exists($piece, Yii::$app->params['stopwords']) &&
+                strlen($piece) > Yii::$app->params['min_tag_length']
+                )
+            )
+                $result[] = $piece;
+        unset($pieces);
+        return $result;
+    }
+
     public function __toString() {
         return $this->name;
     }

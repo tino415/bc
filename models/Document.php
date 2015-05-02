@@ -135,27 +135,6 @@ class Document extends ActiveRecord
         $this->saveTags($tags);
     }
 
-    public static function escapeTags($string, $stop_words = true) {
-        $string = preg_replace(
-            '/[!?#*<>\[\]\(\)@$%^&{}\'"\`\/\\-\\\\ \t\n\.;:,_=]+/',
-            ' ',
-            $string
-        );
-        $string = trim(mb_strtolower($string, 'UTF-8'));
-
-        $pieces = preg_split('/[ \(\(]/', $string);
-        $result = [];
-        foreach($pieces as $piece) 
-            if( !$stop_words || (
-                !array_key_exists($piece, Yii::$app->params['stopwords']) &&
-                strlen($piece) > Yii::$app->params['min_tag_length']
-                )
-            )
-                $result[] = $piece;
-        unset($pieces);
-        return $result;
-    }
-
     public static function recommend() {
         if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
         else $tags = Tag::getProfileTags(Yii::$app->user->id);
@@ -191,7 +170,7 @@ class Document extends ActiveRecord
 
     public static function search($query, $limit = 50)
     {
-        $query_tags = array_count_values(self::escapeTags($query));
+        $query_tags = array_count_values(Tag::escape($query));
         return self::match(array_keys($query_tags));
     }
 }
