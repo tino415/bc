@@ -3,5 +3,3 @@ lfm.log
 .phpcomplete_extended
 /vendor/
 vendor/
-config/db.php
-web/index.php
