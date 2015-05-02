@@ -301,10 +301,9 @@ class DocumentController extends SMParserController {
     }
 
     public function actionParallelunloaded($processes = 4) {
-        echo "Retrieving documents without content\n";
-        $documents = Document::find()->where(['content' => null])->all();
-
-        $batch_size = floor(count($documents) / $processes);
+        echo "Counting params";
+        $count = Document::find()->where(['content' => null])->count();
+        $batch_size = floor($count / $processes);
 
         echo "Retrieving tags\n";
         $this->_tag_cache = Tag::find()->indexBy('name')->all();
@@ -324,14 +323,20 @@ class DocumentController extends SMParserController {
                 $pids[] = $pid;
             } else {
 
-                for($d=$i*$batch_size; $d<($i+1)*$batch_size; $d++) {
-                    
-                    echo 'Working on '.$documents[$d]->id.', '.$documents[$d]->name."\n";
+                $offset = $i*$batch_size;
+                $limit = $i*$batch_size + $batch_size;
+
+                $documents = Document::find()->where(['content' => null])
+                    ->limit($limit)
+                    ->offset($offset);
+
+                foreach($documents->each() as $document) {
+                    echo "Working on $document->id, $document->name\n";
                     echo "Loading tags\n";
-                    $this->loadTags($documents[$d]);
+                    $this->loadTags($document);
                     echo "Loading content\n";
-                    $this->loadContent($documents[$d]);
-                    echo 'Done '.$documents[$d]->id.', '.$documents[$d]->name."\n";
+                    $this->loadContent($document);
+                    echo "Done $document->id, $document->name\n";
                 }
 
             }
@@ -394,7 +399,7 @@ class DocumentController extends SMParserController {
                 $limit = $i*$batch_size + $batch_size;
                 $documents = Document::find()->limit($limit)->offset($offset);
                 foreach($documents->each() as $document) {
-                    echo 'Working on '.$document->id.', '.$document->name."\n";
+                    echo "Working on $document->id, $document->name\n";
                     echo "Loading tags\n";
                     $this->loadTags($document);
                     $count++;
