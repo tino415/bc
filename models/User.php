@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "users".
