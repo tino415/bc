@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
+use \app\components\ActiveRecord;
 
 /**
  * This is the model class for table "document".
@@ -20,7 +21,7 @@ use \yii\helpers\BaseArrayHelper;
  * @property Schema[] $scehmas
  * @property Tag[] $tags
  */
-class Document extends \yii\db\ActiveRecord
+class Document extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -100,26 +101,18 @@ class Document extends \yii\db\ActiveRecord
         return $this->hasMany( Schema::className(), ['document_id' => 'id']);
     }
 
-    private $_nameTags = false;
-
-    public function getNameTags() {
-        if(!$this->_nameTags)
-            $this->_nameTags = array_count_values(
-                self::escapeTags($this->name)
-            );
-        return $this->_nameTags;
-    }
-
     public function getTagsFromAtts() {
-        return array_count_values(
-            self::escapeTags(
-                $this->name.' '.$this->interpret->name
-            ) + [
-                $this->type->name,
-                mb_strtolower($this->name, 'UTF-8'),
-                mb_strtolower($this->interpret->name, 'UTF-8'),
-            ]
-        );
+        $doc = $this->nameTags;
+        $inter = $this->interpret->nameTags;
+        $res = [];
+
+        foreach(array_keys($doc) + array_keys($inter) as $name)
+            if(array_key_exists($name, $doc) && array_key_exists($inter)) 
+                $res[$name] = $doc[$name] + $inter[$name];
+            elseif(array_key_exists($name, $doc))
+                $res[$name] = $doc[$name];
+            elseif(array_key_exists($name, $inter))
+                $res[$name] = $inter[$name];
     }
 
     public function saveTags($tags) {

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use \app\components\ActiveRecord;
 
 /**
  * This is the model class for table "interprets".
@@ -13,7 +14,7 @@ use Yii;
  *
  * @property Documents[] $documents
  */
-class Interpret extends \yii\db\ActiveRecord
+class Interpret extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -55,15 +56,6 @@ class Interpret extends \yii\db\ActiveRecord
         return $this->hasMany(Document::className(), ['interpret_id' => 'id']);
     }
 
-    private $_nameTags = false;
-
-    public function getNameTags() {
-        if(!$this->_nameTags)
-            $this->_nameTags = array_count_values(
-                Document::escapeTags($this->name)
-            );
-        return $this->_nameTags;
-    }
 
     public function exists() {
         if(self::find(['name' => $this->id])->exists()) {

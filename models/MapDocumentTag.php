@@ -36,10 +36,9 @@ class MapDocumentTag extends \yii\db\ActiveRecord
         return [
             [['document_id', 'tag_id'], 'required'],
             [['document_id', 'tag_id'], 'integer'],
-            [['document_id', 'tag_id', 'type_id'], 'unique', 'targetAttribute' => [
+            [['document_id', 'tag_id'], 'unique', 'targetAttribute' => [
                 'document_id', 
                 'tag_id',
-                'type_id',
             ]],
             [['count', 'weight'], 'safe'],
         ];

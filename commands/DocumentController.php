@@ -220,6 +220,41 @@ class DocumentController extends SMParserController {
         }
     }
 
+    private function parallelDocuments($processes, $function, $where = '1=1') {
+        $document_count = Document::find()->where($where)->count();
+        $batch_size = floor($document_count / $processes);
+
+        Yii::$app->db->close();
+
+        $pids = [];
+
+        for($i=0; $i<$processes; $i++) {
+            $pid = pcntl_fork();
+
+            $offset = $i*$batch_size;
+            $limit = $i*$batch_size + $batch_size;
+
+            if($pid) {
+                echo "Starting $pid with slice [$offset, $limit]\n";
+                $pids[] = $pid;
+            } else {
+
+                $documents = Document::find()->limit($limit)->offset($offset);
+                foreach($documents->each() as $document) {
+                    echo "Working with $document->id\n";
+                    $function($document);
+                    echo "Document $document->id done\n";
+                }
+
+            }
+
+        }
+
+        foreach($pids as $pid) pcntl_waitpid($pid, $status);
+
+        return 0;
+    }
+
     private function parseSM(
         array $capitals = [
             'A', 'B', 'C', 'D', 'E', 'F', 'G',
@@ -365,51 +400,38 @@ class DocumentController extends SMParserController {
         return 0;
     }
 
-    public function typeTags($tag, $document) {
-        if($tag == $document->name) {
-            echo "Adding $tag as full name tag\n";
-            $map = new MapDocumentTag;
-            $map->document_id = $document->id;
-            $map->tag_id = $tag->id;
-            $map->type_id = self::TAG_TYPE_FULL_NAME;
-            $map->count =  1;
-            if($map->validate()) $map->save();
-            else $this->printErrors($map);
+    //TODO rebuild
+    public function typeMap($map) {
+        echo "$map->tag, ".$map->document->name.', '.$map->document->interpret->name."\n";
 
-        }
+        $IN = ($map->tag == mb_strtolower(($map->document->interpret->name), 'UTF-8'));
+        $DN = ($map->tag == mb_strtolower(($map->document->name), 'UTF-8'));
+        $IT = (array_key_exists("$map->tag", $map->document->interpret->nameTags));
+        $DT = (array_key_exists("$map->tag", $map->document->nameTags));
+        echo "$IN $DN $IT $DT\n";
 
-        if($tag == $document->interpret->name) {
-            echo "Adding $tag as full interpret name tag\n";
-            $map = new MapDocumentTag;
-            $map->document_id = $document->id;
-            $map->tag_id = $tag->id;
-            $map->type_id = self::TAG_TYPE_FULL_INTERPRET_NAME;
-            $map->count =  1;
-            if($map->validate()) $map->save();
-            else $this->printErrors($map);
-        }
+        if($DN && $IN) $map->type_id = 8;
+        elseif($DN && $IT && !$IN) $map->type_id = 7;
+        elseif($IN && $DT) $map->type_id = 6;
+        elseif($DN) $map->type_id = 5;
+        elseif($IN) $map->type_id = 4;
+        elseif($DT && $IT) $map->type_id = 3;
+        elseif($DT) $map->type_id = 2;
+        elseif($IT) $map->type_id = 1;
 
-        if(array_key_exists("$tag", $document->nameTags)) {
-            echo "Adding $tag as name tag\n";
-            $map = new MapDocumentTag;
-            $map->document_id = $document->id;
-            $map->tag_id = $tag->id;
-            $map->type_id = self::TAG_TYPE_NAME;
-            $map->count =  $document->nameTags["$tag"];
-            if($map->validate()) $map->save();
-            else $this->printErrors($map);
-        }
+        echo "$map->type_id \n";
+        return;
 
-        if(array_key_exists("$tag", $document->interpret->nameTags)) {
-            echo "Adding $tag as interpret name tag\n";
-            $map = new MapDocumentTag;
-            $map->document_id = $document->id;
-            $map->tag_id = $tag->id;
-            $map->type_id = self::TAG_TYPE_INTERPRET_NAME;
-            $map->count =  $document->interpret->nameTags["$tag"];
-            if($map->validate()) $map->save();
-            else $this->printErrors($map);
+        $map->save();
+    }
+
+    public function actionTagtype($id) {
+        $document = Document::findOne($id);
+        if(!$document) exit("Unknown document $id\n");
+        foreach($document->getMapDocumentTags()->each() as $map) {
+            $this->typeMap($map, $document);
         }
+        return 0;
     }
 
     public function actionTagtypes() {
@@ -424,41 +446,28 @@ class DocumentController extends SMParserController {
         return 0;
     }
 
-    private function parallelDocuments($processes, $function, $where = '1=1') {
-        $document_count = Document::find()->where($where)->count();
-        $batch_size = floor($document_count / $processes);
-
-        Yii::$app->db->close();
-
-        $pids = [];
-
-        for($i=0; $i<$processes; $i++) {
-            $pid = pcntl_fork();
-
-            $offset = $i*$batch_size;
-            $limit = $i*$batch_size + $batch_size;
-
-            if($pid) {
-                echo "Starting $pid with slice [$offset, $limit]\n";
-                $pids[] = $pid;
-            } else {
-
-                $documents = Document::find()->limit($limit)->offset($offset);
-                foreach($documents->each() as $document) {
-                    echo "Working with $document->id\n";
-                    $function($document);
-                    echo "Document $document->id done\n";
-                }
-
-            }
-
-        }
-    }
 
     public function actionParalleltagtypes($processes = 4) {
         $this->parallelDocuments($processes, function($document) {
             foreach($document->getTags()->each() as $tag) {
                 $this->typeTags($tag, $document);
+            }
+        });
+        return 0;
+    }
+
+    public function actionParallelnametags($processes = 4) {
+        $this->parallelDocuments($processes, function($document) {
+            foreach([$document->name, $document->interpret->name] as $name) {
+                $tag = new Tag;
+                $tag->name = mb_strtolower($name, 'UTF-8');
+                if($tag->validate()) $tag->save();
+                else $tag = Tag::find()->where(['name' => $tag->name])->one();
+
+                $map = new MapDocumentTag;
+                $map->document_id = $document->id;
+                $map->tag_id = $tag->id;
+                if($map->validate()) $map->save();
             }
         });
         return 0;

@@ -18,18 +18,21 @@ class m150502_132445_tag_types extends Migration
         ], $tableOptions);
 
         $this->batchInsert('map_document_tag_type', ['id', 'name'], [
-            ['1', 'Unknown'],
-            ['2', 'Document name'],
-            ['3', 'Interpret name'],
-            ['4', 'Document full name'],
-            ['5', 'Interpret full name'],
-            ['6', 'Labels'],
+            ['0', 'Tag'],
+            ['1', 'Interpret Tag'],
+            ['2', 'Document Tag'],
+            ['3', 'Document&Interpret Tag'],
+            ['4', 'Interpret name'],
+            ['5', 'Document name'],
+            ['6', 'Interpret name & Document Tag'],
+            ['7', 'Document name & Interpret Tag'],
+            ['8', 'Document&Interpret name'],
         ]);
 
         $this->addColumn(
             'map_document_tag',
             'type_id',
-            Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1'
+            Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0'
         );
 
         // Updates also made in main
@@ -43,6 +46,8 @@ class m150502_132445_tag_types extends Migration
     public function down()
     {
         $this->dropForeignKey('fk_map_document_tag_type', 'map_document_tag');
+
+        $this->dropColumn('map_document_tag', 'type_id');
 
         $this->dropTable('map_document_tag_type');
     }
