@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use \yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "tag".
@@ -123,6 +125,29 @@ class Tag extends \yii\db\ActiveRecord
                 $result[] = $piece;
         unset($pieces);
         return $result;
+    }
+
+    private $_viewCount = false;
+
+    public function getViewCount() {
+        if(!$this->_viewCount)
+            $this->_viewCount = View::find()->where(['tag_id' => $this->id])->count();
+        return $this->_viewCount;
+    }
+
+    public static function getTop($count, $user_id = false) {
+        $query = (new Query)->select(['tag_id', new Expression('COUNT(*) AS count')])
+            ->from('view')
+            ->indexBy('tag_id');
+        if($user_id) $query->where(['user_id' => $user_id]);
+        $viewed = $query->groupBy('tag_id')
+            ->orderBy(new Expression('COUNT(*) DESC'))
+            ->limit($count)->all();
+
+
+        $tags = static::find()->where(['id' => array_column($viewed, 'tag_id')])->all();
+        foreach($tags as $tag) $tag->_viewCount = $viewed[$tag->id]['count'];
+        return $tags;
     }
 
     public function __toString() {
