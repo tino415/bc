@@ -34,57 +34,13 @@ class DocumentController extends Controller {
         ]);
     }
 
-    public function actionView($id) {
+    public function actionView($id, $possition = null) {
         $document = Document::findOne($id);
         $DOM = new \DOMDocument;
 
         $session = Session::getSession();
         if($session) $session->renev();
         else $session = Session::create();
-
-        if(is_null($document->content)) {
-            Yii::info("Downloading document");
-            $url = "http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=$document->id";
-
-            //$content = Globals::download($url);
-            $content = file_get_contents('http://www.supermusic.sk/'); 
-            Yii::info($content);
-            $content = '';
-
-            //if(empty($content)) throw yii\web\HttpException('500', 'Request returns empty content');
-            if(empty($content))
-                return $this->render('pointles', ['content' => $_SERVER['REMOTE_ADDR']]);
-
-            @$DOM->loadHTML($content);
-            $xpath = new \DOMXPath($DOM);
-
-            $schemas = [];
-            if($document->type->name == 'akordy') {
-                $chordLinks = $xpath->query('//a[@class="sup"]');
-                foreach($chordLinks as $chordLink) {
-                    Yii::info("Chord link");
-                    if(!array_key_exists($chordLink->textContent, $schemas)) {
-                        $schema = new Schema;
-                        $schema->content = $chordLink->textContent;
-                        $schema->document_id = $document->id;
-                        $schema->save();
-                        $schemas[$chordLink->textContent] = $chordLink->textContent;
-                    }
-
-                    $chordLink->setAttribute(
-                        'href',
-                        "http://www.supermusic.sk/akord.php?akord=$chordLink->textContent"
-                    );
-                    $chordLink->setAttribute('target', '_blank');
-                    $chordLink->setAttribute('class', 'chord');
-                }
-            }
-
-            $document->content = $DOM->saveHTML(
-                $xpath->query('//td[@class="piesen"]')->item(0)
-            );
-            $document->save();
-        }
 
         foreach($document->tags as $tag) {
             $view = new View;
@@ -93,6 +49,7 @@ class DocumentController extends Controller {
                 Yii::$app->params['anonymousUserId'] : Yii::$app->user->id;
             $view->tag_id = $tag->id;
             $view->session_id = $session->id;
+            $view->possition = $possition;
             $view->save();
         };
 

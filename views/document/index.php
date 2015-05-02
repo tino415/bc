@@ -10,10 +10,15 @@ use yii\captcha\Captcha;
 
 $this->title = Yii::t('app', 'Search');
 $this->params['breadcrumbs'][] = $this->title;
+$possition = 1;
 ?>
 <div class="row">
     <div class="col-md-4 col-md-offset-1">
-    <h3>Hľadaná fráza: <span id="phrase" class="label label-default"><?= $phrase ?></span></h3>
+    <?php if($phrase) : ?>
+    <h3>Searched phrase: <span id="phrase" class="label label-default"><?= $phrase ?></span></h3>
+    <?php else: ?>
+    <h3>Recommendet</h3>
+    <?php endif; ?>
     </div>
 </div>
 
@@ -22,7 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="col-sm-6 col-md-4 col-lg-3">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <a href="<?= Url::toRoute(['document/view','id' => $result->id])?>">
+            <a href="<?= Url::toRoute([
+                'document/view',
+                'id' => $result->id,
+                'possition' => $possition++,
+            ])?>">
                 <h4><?= $result->name ?></h4>
             </a>
         </div>

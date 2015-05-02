@@ -78,12 +78,16 @@ $this->title = Yii::t('app', 'song');
         </div>
     </div>
 
-
     <div class="col-md-3">
+        <?php $possition = 1; ?>
         <?php foreach($recommendations as $document) : ?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="<?= Url::toRoute(['document/view', 'id' => $document->id]); ?>">
+                <a href="<?= Url::toRoute([
+                    'document/view', 
+                    'id' => $document->id,
+                    'possition' => $possition++,
+                ]); ?>">
                     <?= $document->name ?>
                 </a>
             </div>
