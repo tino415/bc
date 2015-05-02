@@ -49,9 +49,9 @@ class Document extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'interpret_id' => 'Interpret ID',
+            'id'           => Yii::t('app', 'ID'),
+            'name'         => Yii::t('app', 'Name'),
+            'interpret_id' => Yii::t('app', 'Interpret ID'),
         ];
     }
 

@@ -29,7 +29,7 @@ $user_names = ArrayHelper::getColumn($users, 'username');
         ); ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Create', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-primary']) ?>
         </div>
 
         <?php $form->end(); ?>

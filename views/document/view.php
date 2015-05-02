@@ -33,7 +33,7 @@ $this->title = Yii::t('app', 'song');
                 <h4><strong><?= $document->interpret->name ?></strong> - <?= $document->name ?></h4>
                 <div class="row">
                     <div class="col-md-4">
-                            Transposition:
+                            <?= Yii::t('app', 'Transposition') ?>:
                             <span id="transposition" class="label label-default">0</span>
                         </span>
                         <a  class="btn btn-default"
@@ -57,12 +57,12 @@ $this->title = Yii::t('app', 'song');
                         <a  class="btn btn-default"
                             href="javascript:pprint(<?= $document->id ?>)">
                             <span class="glyphicon glyphicon-print"></span>
-                            Print
+                            <?= Yii::t('app', 'Print') ?>
                         </a>
                         <a  class="btn btn-default"
                             href="javascript:pexport(<?= $document->id ?>,'TXT')">
                             <span class="glyphicon glyphicon-export"></span>
-                            Text
+                            <?= Yii::t('app', 'Text') ?>
                         </a>
                         <a  class="btn btn-default"
                             href="javascript:pexport(<?= $document->id ?>, 'AGAMA')">

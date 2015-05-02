@@ -39,6 +39,15 @@ class UserRegisterForm extends Model {
         ];
     }
 
+    public function attributeLabels() {
+        return [
+            'username'        => Yii::t('app', 'User Name'),
+            'password'        => Yii::t('app', 'Password'),
+            'email'           => Yii::t('app', 'Email'),
+            'password_repeat' => Yii::t('app', 'Password Again'),
+        ];
+    }
+
     /**
      * Register user from model
      */

@@ -19,7 +19,8 @@ class LoginWidget extends Widget {
                 'model' => $model,
                 'register' => $register,
             ]);
-        } else return Html::a('Logout ('.Yii::$app->user->identity->username.')',
+        } else return Html::a(
+            Yii::t('app', 'Logout').' ('.Yii::$app->user->identity->username.')',
             ['/user/logout'],
             [
                 'class' => 'btn btn-danger navbar-right',

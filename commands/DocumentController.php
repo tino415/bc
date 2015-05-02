@@ -472,4 +472,13 @@ class DocumentController extends SMParserController {
         });
         return 0;
     }
+
+    public function actionList() {
+        foreach(get_class_methods(self::className()) as $method) {
+            $action = substr($method, 0, 6);
+            if($action == 'action') {
+                echo substr($method, 6)."\n";
+            }
+        }
+    }
 }

@@ -35,16 +35,16 @@ AppAsset::register($this);
             echo SearchWidget::widget();
 
             $items = [
-                ['label' => 'Home', 'url' => ['/document/index']],
-                ['label' => 'Songbook', 'url' => ['/user/merge']],
+                ['label' => Yii::t('app', 'Home'), 'url' => ['/document/index']],
+                ['label' => Yii::t('app', 'Songbook'), 'url' => ['/user/merge']],
                 //['label' => 'Contact', 'url' => ['/site/contact']],
             ];
 
             if(!Yii::$app->user->isGuest)
-                $items[] = ['label' => 'Profile', 'url' => ['/user/actual']];
+                $items[] = ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/actual']];
 
             if(Yii::$app->user->id == 1)
-                $items[] = ['label' => 'Users', 'url' => ['/user/index']];
+                $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
 
             echo LoginWidget::widget();
             echo Nav::widget([
@@ -60,7 +60,7 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-            <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+            <p class="pull-left">&copy; FIIT Martin Černák <?= date('Y') ?></p>
             <p class="pull-right"><?= Yii::powered() ?></p>
         </div>
     </footer>

@@ -15,9 +15,10 @@ $possition = 1;
 <div class="row">
     <div class="col-md-4 col-md-offset-1">
     <?php if($phrase) : ?>
-    <h3>Searched phrase: <span id="phrase" class="label label-default"><?= $phrase ?></span></h3>
+    <h3><?= Yii::t('app', 'Searched phrase') ?>: 
+        <span id="phrase" class="label label-default"><?= $phrase ?></span></h3>
     <?php else: ?>
-    <h3>Recommendet</h3>
+    <h3><?= Yii::t('app', 'Recommended') ?></h3>
     <?php endif; ?>
     </div>
 </div>

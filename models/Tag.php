@@ -61,6 +61,8 @@ class Tag extends \yii\db\ActiveRecord
 
     public static function getProfileTags($user_id = false) {
         $query = View::find();
+        if($user_id && !Tag::find()->where(['user_id' => $user_id])->limit(1)->count())
+            $user_id = false;
         if($user_id) $query->where(['user_id' => $user_id]);
         $query->groupBy('view.tag_id')->limit(50)->orderBy('id');
 

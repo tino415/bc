@@ -10,14 +10,14 @@ use yii\bootstrap\ActiveForm;
     class="btn btn-success navbar-nav navbar-right"
     data-toggle="modal"
     style="margin-top: 8px">
-    Sign in
+    <?= Yii::t('app', 'Sign in') ?>
 </a>
 
 <a  href="#register-form"
     class="btn btn-default navbar-nav navbar-right"
     data-toggle="modal"
     style="margin-top: 8px;margin-right:5px">
-    Register
+    <?= Yii::t('app', 'Register') ?>
 </a>
 
 <!-- Modal HTML -->

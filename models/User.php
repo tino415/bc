@@ -55,12 +55,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'email' => 'Email',
-            'role_id' => 'Role ID',
-            'access_token' => 'Access token',
-            'auth_key' => 'Authentisation key',
-            'username' => 'User name',
+            'id'           => Yii::t('app', 'ID'),
+            'email'        => Yii::t('app', 'Email'),
+            'role_id'      => Yii::t('app', 'Role ID'),
+            'access_token' => Yii::t('app', 'Access token'),
+            'auth_key'     => Yii::t('app', 'Authentisation key'),
+            'username'     => Yii::t('app', 'User name'),
         ];
     }
 
