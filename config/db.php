@@ -1,6 +1,5 @@
 <?php
 
-// Heroku
 //return [
 //  'class' => 'yii\db\Connection',
 //  'dsn' => 'pgsql:'.
@@ -18,6 +17,7 @@
 //  ]
 //];
 
+// Heroku
 $dbopts = parse_url(getenv('DATABASE_URL'));
 extract($dbopts);
 $dbname = ltrim($path,'/');
