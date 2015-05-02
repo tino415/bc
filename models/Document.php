@@ -100,6 +100,16 @@ class Document extends \yii\db\ActiveRecord
         return $this->hasMany( Schema::className(), ['document_id' => 'id']);
     }
 
+    private $_nameTags = false;
+
+    public function getNameTags() {
+        if(!$this->_nameTags)
+            $this->_nameTags = array_count_values(
+                self::escapeTags($this->name)
+            );
+        return $this->_nameTags;
+    }
+
     public function getTagsFromAtts() {
         return array_count_values(
             self::escapeTags(

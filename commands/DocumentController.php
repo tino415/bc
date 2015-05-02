@@ -21,6 +21,13 @@ class DocumentController extends SMParserController {
     
     private $_tag_cache = false;
 
+    const TAG_TYPE_UNKNOWN = 1;
+    const TAG_TYPE_NAME = 2;
+    const TAG_TYPE_INTERPRET_NAME = 3;
+    const TAG_TYPE_FULL_NAME = 4;
+    const TAG_TYPE_FULL_INTERPRET_NAME = 5;
+    const TAG_TYPE_LABEL = 6;
+
     private $TAG_MAPPING = [
         'texty' => 'text',
         'melodie' => 'melodia',
@@ -91,6 +98,13 @@ class DocumentController extends SMParserController {
         }
     }
 
+    private function printErrors($model) {
+        foreach($model->errors as $attribute => $att_error) {
+            foreach($att_error as $err_message)
+                echo "[$attribute] $err_message\n";
+        }
+    }
+
     private function loadTags($document) {
 
         if(!$this->_tag_cache) {
@@ -148,10 +162,7 @@ class DocumentController extends SMParserController {
                     if($map->validate()) $map->save();
 
                     if(count($map->errors) > 0) {
-                        foreach($map->errors as $attribute => $att_error) {
-                            foreach($att_error as $err_message)
-                                echo "[$attribute] $err_message\n";
-                        }
+                        $this->printErrors($map);
                     } elseif($map->getPrimaryKey()) $count++;
                     else throw ErrorException("Tag: No error catched but not saved\n");
                 }
@@ -301,50 +312,15 @@ class DocumentController extends SMParserController {
     }
 
     public function actionParallelunloaded($processes = 4) {
-        echo "Counting params";
-        $count = Document::find()->where(['content' => null])->count();
-        $batch_size = floor($count / $processes);
-
         echo "Retrieving tags\n";
         $this->_tag_cache = Tag::find()->indexBy('name')->all();
 
-        // Need to create new connection for every thread,
-        // yii does this automaticali if no connection is created
-        // wheen first query is submited after close
-        Yii::$app->db->close();
-
-        $pids = [];
-
-        for($i=0; $i<$processes; $i++) {
-            $pid = pcntl_fork();
-
-            if($pid) {
-                echo "Starting $pid with slice [".$i*$batch_size.', '.($i+1)*$batch_size."]\n";
-                $pids[] = $pid;
-            } else {
-
-                $offset = $i*$batch_size;
-                $limit = $i*$batch_size + $batch_size;
-
-                $documents = Document::find()->where(['content' => null])
-                    ->limit($limit)
-                    ->offset($offset);
-
-                foreach($documents->each() as $document) {
-                    echo "Working on $document->id, $document->name\n";
-                    echo "Loading tags\n";
-                    $this->loadTags($document);
-                    echo "Loading content\n";
-                    $this->loadContent($document);
-                    echo "Done $document->id, $document->name\n";
-                }
-
-            }
-
-        }
-
-        foreach($pids as $pid) pcntl_waitpid($pid, $status);
-
+        $this->parallelDocuments($processes, function($document) {
+            echo "Loading tags\n";
+            $this->loadTags($document);
+            echo "Loading content\n";
+            $this->loadContent($document);
+        }, ['content' => null]);
         echo "Done";
         return 0;
     }
@@ -378,9 +354,78 @@ class DocumentController extends SMParserController {
         echo "Retrieving tags\n";
         $this->_tag_cache = Tag::find()->indexBy('name')->all();
 
-        $count = 0;
-        $document_count = Document::find()->count();
+        $this->parallelDocuments($processes, function($document) {
+            echo "Loading tags\n";
+            $this->loadTags($document);
+        });
 
+        foreach($pids as $pid) pcntl_waitpid($pid, $status);
+
+        echo "Done";
+        return 0;
+    }
+
+    public function typeTags($tag, $document) {
+        if($tag == $document->name) {
+            echo "Adding $tag as full name tag\n";
+            $map = new MapDocumentTag;
+            $map->document_id = $document->id;
+            $map->tag_id = $tag->id;
+            $map->type_id = self::TAG_TYPE_FULL_NAME;
+            $map->count =  1;
+            if($map->validate()) $map->save();
+            else $this->printErrors($map);
+
+        }
+
+        if($tag == $document->interpret->name) {
+            echo "Adding $tag as full interpret name tag\n";
+            $map = new MapDocumentTag;
+            $map->document_id = $document->id;
+            $map->tag_id = $tag->id;
+            $map->type_id = self::TAG_TYPE_FULL_INTERPRET_NAME;
+            $map->count =  1;
+            if($map->validate()) $map->save();
+            else $this->printErrors($map);
+        }
+
+        if(array_key_exists("$tag", $document->nameTags)) {
+            echo "Adding $tag as name tag\n";
+            $map = new MapDocumentTag;
+            $map->document_id = $document->id;
+            $map->tag_id = $tag->id;
+            $map->type_id = self::TAG_TYPE_NAME;
+            $map->count =  $document->nameTags["$tag"];
+            if($map->validate()) $map->save();
+            else $this->printErrors($map);
+        }
+
+        if(array_key_exists("$tag", $document->interpret->nameTags)) {
+            echo "Adding $tag as interpret name tag\n";
+            $map = new MapDocumentTag;
+            $map->document_id = $document->id;
+            $map->tag_id = $tag->id;
+            $map->type_id = self::TAG_TYPE_INTERPRET_NAME;
+            $map->count =  $document->interpret->nameTags["$tag"];
+            if($map->validate()) $map->save();
+            else $this->printErrors($map);
+        }
+    }
+
+    public function actionTagtypes() {
+        foreach(Document::find()->each() as $document) {
+            echo "Working with $document->id\n";
+            foreach($document->getTags()->each() as $tag) {
+                $this->typeTags($tag, $document);
+            }
+            echo "Document $document->id done\n";
+        }
+        echo "Done\n";
+        return 0;
+    }
+
+    private function parallelDocuments($processes, $function, $where = '1=1') {
+        $document_count = Document::find()->where($where)->count();
         $batch_size = floor($document_count / $processes);
 
         Yii::$app->db->close();
@@ -390,30 +435,32 @@ class DocumentController extends SMParserController {
         for($i=0; $i<$processes; $i++) {
             $pid = pcntl_fork();
 
+            $offset = $i*$batch_size;
+            $limit = $i*$batch_size + $batch_size;
+
             if($pid) {
-                echo "Starting $pid with slice [".$i*$batch_size.', '.($i+1)*$batch_size."]\n";
+                echo "Starting $pid with slice [$offset, $limit]\n";
                 $pids[] = $pid;
             } else {
 
-                $offset = $i*$batch_size;
-                $limit = $i*$batch_size + $batch_size;
                 $documents = Document::find()->limit($limit)->offset($offset);
                 foreach($documents->each() as $document) {
-                    echo "Working on $document->id, $document->name\n";
-                    echo "Loading tags\n";
-                    $this->loadTags($document);
-                    $count++;
-                    echo "Status $count / $document_count\n";
+                    echo "Working with $document->id\n";
+                    $function($document);
+                    echo "Document $document->id done\n";
                 }
 
             }
 
         }
+    }
 
-        foreach($pids as $pid) pcntl_waitpid($pid, $status);
-
-        echo "Done";
+    public function actionParalleltagtypes($processes = 4) {
+        $this->parallelDocuments($processes, function($document) {
+            foreach($document->getTags()->each() as $tag) {
+                $this->typeTags($tag, $document);
+            }
+        });
         return 0;
-        
     }
 }

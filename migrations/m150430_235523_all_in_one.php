@@ -109,9 +109,10 @@ class m150430_235523_all_in_one extends Migration
             'id' => 'pk',
             'document_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'tag_id' => Schema::TYPE_INTEGER . ' NOT NULL', 
+            'type_id' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
             'weight' => Schema::TYPE_FLOAT . ' NOT NULL DEFAULT 0',
             'count' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 1',
-            'UNIQUE(document_id, tag_id)',
+            'UNIQUE(document_id, tag_id, type_id)',
         ], $tableOptions);
 
         $this->addForeignKey( 'fk_map_document_tag_document',

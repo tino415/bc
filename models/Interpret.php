@@ -55,6 +55,16 @@ class Interpret extends \yii\db\ActiveRecord
         return $this->hasMany(Document::className(), ['interpret_id' => 'id']);
     }
 
+    private $_nameTags = false;
+
+    public function getNameTags() {
+        if(!$this->_nameTags)
+            $this->_nameTags = array_count_values(
+                Document::escapeTags($this->name)
+            );
+        return $this->_nameTags;
+    }
+
     public function exists() {
         if(self::find(['name' => $this->id])->exists()) {
             $this->id = $this->getPrimaryKey();
