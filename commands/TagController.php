@@ -91,13 +91,6 @@ class TagController extends Controller {
         return 0;
     }
 
-    public function actionUnbind() {
-        echo "Removing all links between documents and tags";
-        MapDocumentTag::deleteAll('1=1');
-        echo "................done\n";
-        return 0;
-    }
-
     public function actionRegenerate() {
         $this->actionClear();
         $this->generate();

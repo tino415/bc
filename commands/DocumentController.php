@@ -404,20 +404,12 @@ class DocumentController extends SMParserController {
     public function typeMap($map) {
         echo "$map->tag, ".$map->document->name.', '.$map->document->interpret->name."\n";
 
-        $IN = ($map->tag == mb_strtolower(($map->document->interpret->name), 'UTF-8'));
-        $DN = ($map->tag == mb_strtolower(($map->document->name), 'UTF-8'));
-        $IT = (array_key_exists("$map->tag", $map->document->interpret->nameTags));
-        $DT = (array_key_exists("$map->tag", $map->document->nameTags));
-        echo "$IN $DN $IT $DT\n";
-
-        if($DN && $IN) $map->type_id = 8;
-        elseif($DN && $IT && !$IN) $map->type_id = 7;
-        elseif($IN && $DT) $map->type_id = 6;
-        elseif($DN) $map->type_id = 5;
-        elseif($IN) $map->type_id = 4;
-        elseif($DT && $IT) $map->type_id = 3;
-        elseif($DT) $map->type_id = 2;
-        elseif($IT) $map->type_id = 1;
+        $map->type_id = Document::getTagType(
+            ($map->tag == mb_strtolower(($map->document->interpret->name), 'UTF-8')),
+            ($map->tag == mb_strtolower(($map->document->name), 'UTF-8')),
+            (array_key_exists("$map->tag", $map->document->interpret->nameTags)),
+            (array_key_exists("$map->tag", $map->document->nameTags))
+        );
 
         echo "$map->type_id \n";
         return;

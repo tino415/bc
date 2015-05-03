@@ -14,9 +14,8 @@ abstract class ActiveRecord extends \yii\db\ActiveRecord {
                 Tag::escape($this->name)
             );
             $name = mb_strtolower($this->name, 'UTF-8');
-            if(array_key_exists($name, $this->_nameTags))
-                $this->_nameTags[$name]++;
-            else $this->_nameTags[$name] = 1;
+            if(!array_key_exists($name, $this->_nameTags))
+                $this->_nameTags[$name] = 1;
         }
         return $this->_nameTags;
     }

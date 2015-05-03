@@ -23,10 +23,6 @@ class TaggingTest extends TestCase {
             expect('Once interprets', $tags['interprets'])->equals(1);
             expect('Once interpret', $tags['interpret'])->equals(1);
         });
-
-        $this->specify('Try to save tags into database', function() use ($tags, $model) {
-            $model->saveTags($tags);
-        });
     }
 
     public function testTagging() {

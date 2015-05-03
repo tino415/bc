@@ -104,29 +104,54 @@ class Document extends ActiveRecord
     public function getTagsFromAtts() {
         $doc = $this->nameTags;
         $inter = $this->interpret->nameTags;
+        $dname = mb_strtolower($this->name, 'UTF-8');
+        $iname = mb_strtolower($this->interpret->name, 'UTF-8');
         $res = [];
 
-        foreach(array_keys($doc) + array_keys($inter) as $name)
-            if(array_key_exists($name, $doc) && array_key_exists($inter)) 
-                $res[$name] = $doc[$name] + $inter[$name];
-            elseif(array_key_exists($name, $doc))
-                $res[$name] = $doc[$name];
-            elseif(array_key_exists($name, $inter))
-                $res[$name] = $inter[$name];
+        $vals = $doc + $inter + 
+            [$dname => ''] + 
+            [$iname => ''] + 
+            [$this->type->name => ''];
+
+        foreach(array_keys($vals) as $name) {
+            $IN = ($name == $iname);
+            $DN = ($name == $dname);
+            $IT = (array_key_exists($name, $inter));
+            $DT = (array_key_exists($name, $doc));
+
+            $count = 
+                ($DT ? $doc[$name] : 0) + 
+                ($IT ? $inter[$name] : 0);
+
+            $count = (!$count) ? 1 : $count;
+
+            $res[] = [
+                'name' => $name,
+                'count' => $count,
+                'type' => self::getTagType($IN, $DN, $IT, $DT),
+            ];
+
+        }
+
+        return $res;
     }
 
     public function saveTags($tags) {
-        foreach($tags as $tag_name => $count) {
+        print_r($tags);
+        foreach($tags as $tag_val) {
             $tag = new Tag;
-            $tag->name = $tag_name;
-            if($tag->validate()) {
-                $tag->save();
-                $map = new MapDocumentTag;
-                $map->document_id = $this->id;
-                $map->tag_id = $tag->getPrimaryKey();
-                $map->count = $count;
-                if($map->validate()) $map->save();
-            }
+            $tag->name = $tag_val['name'];
+            if($tag->validate()) $tag->save();
+            else $tag = Tag::find()->where(['name' => $tag->name])->one();
+
+            $map = new MapDocumentTag;
+            $map->document_id = $this->id;
+            $map->tag_id = $tag->getPrimaryKey();
+            $map->count = $tag_val['count'];
+            $map->type_id = $tag_val['type'];
+            if($map->validate()) $map->save();
+            else 
+                Yii::info('Error saving map'. print_r($map->errors, 1));
         }
     }
 
@@ -172,5 +197,17 @@ class Document extends ActiveRecord
     {
         $query_tags = array_count_values(Tag::escape($query));
         return self::match(array_keys($query_tags));
+    }
+
+    public static function getTagType($IN, $DN, $IT, $DT) {
+        if($DN && $IN) return 8;
+        elseif($DN && $IT && !$IN) return 7;
+        elseif($IN && $DT) return 6;
+        elseif($DN) return 5;
+        elseif($IN) return 4;
+        elseif($DT && $IT) return 3;
+        elseif($DT) return 2;
+        elseif($IT) return 1;
+        else return 0;
     }
 }
