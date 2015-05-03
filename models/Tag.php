@@ -136,18 +136,16 @@ class Tag extends \yii\db\ActiveRecord
     }
 
     public static function getTop($count, $user_id = false) {
-        $query = (new Query)->select(['tag_id', new Expression('COUNT(*) AS count')])
+        $query = (new Query)->select(['tag_id', new Expression('COUNT(*) AS count'), 'name'])
             ->from('view')
-            ->indexBy('tag_id');
-        if($user_id) $query->where(['user_id' => $user_id]);
-        $viewed = $query->groupBy('tag_id')
+            ->join('INNER JOIN', 'tag', 'tag.id = tag_id')
+            ->indexBy('tag_id')
+            ->groupBy(['tag_id', 'name'])
             ->orderBy(new Expression('COUNT(*) DESC'))
-            ->limit($count)->all();
+            ->limit($count);
+        if($user_id) $query->where(['user_id' => $user_id]);
 
-
-        $tags = static::find()->where(['id' => array_column($viewed, 'tag_id')])->all();
-        foreach($tags as $tag) $tag->_viewCount = $viewed[$tag->id]['count'];
-        return $tags;
+        return $query->all();
     }
 
     public function __toString() {

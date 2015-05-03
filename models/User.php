@@ -208,6 +208,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         );
     }
 
+    public function getTopTags($count) {
+        return Tag::getTop($count, $this->id);
+    }
+
+    public function getTagCounts($tags) {
+        return (new Query())->select(['tag_id', new Expression('COUNT(*) AS count')])
+            ->indexBy('tag_id')
+            ->from('view')
+            ->where(['tag_id' => $tags, 'user_id' => $this->id])
+            ->groupBy('tag_id')
+            ->all();
+    }
+
     /**
      * Get tags for multiple users
      */

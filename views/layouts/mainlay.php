@@ -43,8 +43,10 @@ AppAsset::register($this);
             if(!Yii::$app->user->isGuest)
                 $items[] = ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/actual']];
 
-            if(Yii::$app->user->id == 1)
+            if(Yii::$app->user->id == 1) {
                 $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
+                $items[] = ['label' => Yii::t('app', 'Tags'), 'url' => ['/tag/index']];
+            }
 
             echo LoginWidget::widget();
             echo Nav::widget([
