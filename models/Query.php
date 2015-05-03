@@ -62,7 +62,9 @@ class Query extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
         if($this->isNewRecord && !$this->created) {
-            $this->created = time();
+            $this->created = date('Y-m-d G:i:s');
         }
+        parent::beforeSave($insert);
+        return true;
     }
 }

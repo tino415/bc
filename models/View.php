@@ -35,7 +35,7 @@ class View extends \yii\db\ActiveRecord
         return [
             [['document_id', 'user_id', 'tag_id'], 'required'],
             [['document_id', 'user_id', 'tag_id'], 'integer'],
-            [['created'], 'safe']
+            [['created', 'possition'], 'safe']
         ];
     }
 
@@ -79,7 +79,9 @@ class View extends \yii\db\ActiveRecord
 
     public function beforeSave($insert) {
         if($this->isNewRecord && !$this->created) {
-            $this->created = time();
+            $this->created = date('Y-m-d G:i:s');
         }
+        parent::beforeSave($insert);
+        return true;
     }
 }
