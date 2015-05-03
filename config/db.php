@@ -1,6 +1,6 @@
 <?php
 
-//return [
+return [
     'class' => 'yii\db\Connection',
     'dsn' => 'pgsql:'.
             'host=localhost;'.
