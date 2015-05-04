@@ -11,6 +11,7 @@ use app\models\Schema;
 use app\models\Tag;
 use app\models\MapDocumentTag;
 use yii\base\ErrorException;
+use yii\db\Query;
 
 define(
     'SONG_XPATH',
@@ -239,7 +240,8 @@ class DocumentController extends SMParserController {
                 $pids[] = $pid;
             } else {
 
-                $documents = Document::find()->limit($limit)->offset($offset);
+                $documents = Document::find()->where($where)
+                    ->limit($limit)->offset($offset);
                 foreach($documents->each() as $document) {
                     echo "Working with $document->id\n";
                     $function($document);
@@ -449,20 +451,13 @@ class DocumentController extends SMParserController {
     }
 
     public function actionParallelnametags($processes = 4) {
+        echo "Preparing\n";
+        $tagnames = (new Query)->select('name')->from('tag');
+        echo "Staring parallel, selecting documents with no name tag\n";
         $this->parallelDocuments($processes, function($document) {
-            foreach([$document->name, $document->interpret->name] as $name) {
-                $tag = new Tag;
-                $tag->name = mb_strtolower($name, 'UTF-8');
-                if($tag->validate()) $tag->save();
-                else $tag = Tag::find()->where(['name' => $tag->name])->one();
-
-                $map = new MapDocumentTag;
-                $map->document_id = $document->id;
-                $map->tag_id = $tag->id;
-                if($map->validate()) $map->save();
-            }
-        });
-        return 0;
+            $document->createTagsFromAtts();
+        }, ['not in', 'name', $tagnames]);
+        echo "Done\n";
     }
 
     public function actionList() {

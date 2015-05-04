@@ -108,7 +108,7 @@ class Tag extends \yii\db\ActiveRecord
 
     public static function escape($string, $stop_words = true) {
         $string = preg_replace(
-            '/[!?#*<>\[\]\(\)@$%^&{}\'"\`\/\\-\\\\ \t\n\.;:,_=]+/',
+            '/[!?#*<>\[\]\(\)@$%^&{}\'"\`\\-\\\\ \t\n\.;:,_=]+/',
             ' ',
             $string
         );
