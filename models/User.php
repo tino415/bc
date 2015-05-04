@@ -178,11 +178,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
         $tags = [];
         Yii::info("Counting clusters\n");
-        for($i=0; $i<$view_count; $i+=$cluster_size)
+
+        for($i=0; $i<$view_count; $i+=$cluster_size) {
             $querySlice = (new Query)->select('*')
                 ->from('view')
-                ->limit($cluster_size)
-                ->offset($i)
+                ->limit("$cluster_size")
+                ->offset("$i")
                 ->orderBy('id');
 
             $topOfSlice = (new Query)->select('tag_id')
@@ -190,26 +191,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 ->groupBy('tag_id')
                 ->orderBy(new Expression('COUNT(*)'));
 
-            $tags = Tag::find()
+            array_merge($tags, Tag::find()
                 ->where(['id' => $topOfSlice])
-                ->limit($per_cluster_top)
-                ->all();
+                ->limit("$per_cluster_top")
+                ->indexBy('id')
+                ->all()
+            );
+        }
 
-            //$tags = $tags + 
-            //  Tag::findBySql("
-            //      SELECT * FROM tag WHERE id IN (
-            //          SELECT tag_id FROM (
-            //              SELECT * FROM view LIMIT :limit OFFSET :offset
-            //          ) AS cluster
-            //          GROUP BY tag_id
-            //          ORDER BY COUNT(*)
-            //      )
-            //      LIMIT :limit_per
-            //  ", [
-            //      ':limit' => $cluster_size,
-            //      ':offset' => $i,
-            //      ':limit_per' => $per_cluster_top,
-            //  ])->all();
         return $tags;
     }
 
@@ -226,16 +215,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public function getTopTags($count) {
-        return Tag::getTop($count, $this->id);
+        return Tag::getTop($count)
+            ->where(['user_id' => $this->id]);
     }
 
     public function getTagCounts($tags) {
         return (new Query())->select(['tag_id', new Expression('COUNT(*) AS count')])
-            ->indexBy('tag_id')
             ->from('view')
             ->where(['tag_id' => $tags, 'user_id' => $this->id])
-            ->groupBy('tag_id')
-            ->all();
+            ->groupBy('tag_id');
     }
 
     /**

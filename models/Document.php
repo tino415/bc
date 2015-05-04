@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
+use \yii\db\Expression;
+use \yii\db\Query;
 use \app\components\ActiveRecord;
 
 /** * This is the model class for table "document".
@@ -174,30 +176,26 @@ class Document extends ActiveRecord
     }
 
     public static function match($tags, $exclude = false) {
-        $tag_match = 'name LIKE(\''.
-            implode(
-                "') OR name LIKE('", 
-                $tags
-            ).
-            '\')';
-        if(!$exclude) $exclude = '';
-        elseif(is_numeric($exclude)) $exclude = " AND document_id <> $exclude ";
-        elseif(is_array($exclude))
-            $exclude = " AND document_id NOT IN (".implode(', ', $exclude).") ";
+        $or = ['or'];
 
-        $document_ids = Yii::$app->db->createCommand("
-            SELECT document_id FROM map_document_tag
-            WHERE tag_id IN (SELECT id FROM tag WHERE $tag_match)
-            $exclude
-            GROUP BY document_id
-            ORDER BY SUM(weight) DESC
-            LIMIT 50
-        ")->queryAll();
-        $ids = [];
-        foreach($document_ids as $did) $ids[] = $did['document_id'];
-        unset($document_ids);
+        foreach($tags as $tag)
+            $or[] = ['name' => "$tag"];
 
-        return Document::find()->where(['id' => $ids])->all();
+        $subQuery = (new Query)->select('id')
+            ->from('tag')
+            ->where($or);
+
+        $query = (new Query)->select('document_id')
+            ->from('map_document_tag')
+            ->where(['tag_id' => $subQuery])
+            ->groupBy('document_id')
+            ->orderBy(new Expression('SUM(weight)'))
+            ->limit("50");
+
+        if($exclude)
+            $query->andWhere(['not in', 'document_id', $exclude]);
+
+        return Document::find()->where(['id' => $query])->all();
     }
 
     public static function search($query, $limit = 50)

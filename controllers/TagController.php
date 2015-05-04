@@ -32,7 +32,7 @@ class TagController extends Controller {
     public function actionIndex($top = 50) {
         return $this->render('index', [
             'users' => User::find()->all(),
-            'mostViewesTags' => Tag::getTop($top),
+            'mostViewedTags' => Tag::getTop($top)->all(),
             'top' => $top
         ]);
     }

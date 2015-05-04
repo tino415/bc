@@ -3,54 +3,46 @@
 use miloschuman\highcharts\Highcharts;
 use yii\helpers\ArrayHelper;
 
+$this->title = Yii::t('app', 'Tag Statystics');
 ?>
 <div class="panel panel-default">
     <?php foreach($users as $user): ?>
-    <?php
-        $topTags = $user->getTopTags($top);
-        $categories = [];
-        $series = ['name' => $user->username, 'data' => []];
-        foreach($topTags as $topTag) {
-            $categories[] = $topTag['name'];
-            $series['data'][] = $topTag['count'];
-        }
-    ?>
+    <?php $topTags = $user->getTopTags($top)->all(); ?>
 
     <div class="col-md-6">
         <?= Highcharts::widget([
                 'options' => [
-                    'title' => ['text' => 'Tag view statistics'],
+                    'title' => ['text' => 
+                        Yii::t('app', 'Most viewes tags')." for $user->username"
+                    ],
                     'xAxis' => [
-                        'categories' => $categories,
+                        'categories' => ArrayHelper::getColumn($topTags, 'name'),
                     ],
                     'yAxis' => [
-                        'title' => ['text' => 'Viewed']
+                        'title' => ['text' => Yii::t('app', 'Viewed')]
                     ],
-                    'series' => [$series]
+                    'series' => [[
+                        'name' => $user->username,
+                        'data' => ArrayHelper::getColumn($topTags, 'count')
+                    ]]
                 ]
         ]); ?>
     </div>
     <?php endforeach; ?>
 
-    <?php
-        $categories = [];
-        $series = ['name' => $user->username, 'data' => []];
-        foreach($mostViewesTags as $topTag) {
-            $categories[] = $topTag['name'];
-            $series['data'][] = $topTag['count'];
-        }
-    ?>
-
     <?= Highcharts::widget([
             'options' => [
-                'title' => ['text' => 'Most viewes tags'],
+                'title' => ['text' => Yii::t('app', 'Most viewes tags')],
                 'xAxis' => [
-                    'categories' => $categories,
+                    'categories' => ArrayHelper::getColumn($mostViewedTags, 'name'),
                 ],
                 'yAxis' => [
-                    'title' => ['text' => 'Viewed']
+                    'title' => ['text' => Yii::t('app', 'Viewed')]
                 ],
-                'series' => [$series]
+                'series' => [[
+                    'name' => 'All',
+                    'data' => ArrayHelper::getColumn($mostViewedTags, 'count')
+                ]]
             ]
         ]); ?>
 </div>
