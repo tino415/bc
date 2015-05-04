@@ -27,6 +27,7 @@ class DocumentController extends Controller {
     }
 
     public function actionIndex($query = null) {
+        if(!is_null($query)) Session::create();
         return $this->render('index',[
             'phrase' => $query,
             'results' => (is_null($query)) ?
