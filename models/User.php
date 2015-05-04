@@ -177,22 +177,39 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         );
 
         $tags = [];
+        Yii::info("Counting clusters\n");
         for($i=0; $i<$view_count; $i+=$cluster_size)
-            $tags = $tags + 
-                Tag::findBySql("
-                    SELECT * FROM tag WHERE id IN (
-                        SELECT tag_id FROM (
-                            SELECT * FROM view LIMIT :limit OFFSET :offset
-                        ) AS cluster
-                        GROUP BY tag_id
-                        ORDER BY COUNT(*)
-                    )
-                    LIMIT :limit_per
-                ", [
-                    ':limit' => $cluster_size,
-                    ':offset' => $i,
-                    ':limit_per' => $per_cluster_top,
-                ])->all();
+            $querySlice = (new Query)->select('*')
+                ->from('view')
+                ->limit($cluster_size)
+                ->offset($i)
+                ->orderBy('id');
+
+            $topOfSlice = (new Query)->select('tag_id')
+                ->from(['cluster' => $querySlice])
+                ->groupBy('tag_id')
+                ->orderBy(new Expression('COUNT(*)'));
+
+            $tags = Tag::find()
+                ->where(['id' => $topOfSlice])
+                ->limit($per_cluster_top)
+                ->all();
+
+            //$tags = $tags + 
+            //  Tag::findBySql("
+            //      SELECT * FROM tag WHERE id IN (
+            //          SELECT tag_id FROM (
+            //              SELECT * FROM view LIMIT :limit OFFSET :offset
+            //          ) AS cluster
+            //          GROUP BY tag_id
+            //          ORDER BY COUNT(*)
+            //      )
+            //      LIMIT :limit_per
+            //  ", [
+            //      ':limit' => $cluster_size,
+            //      ':offset' => $i,
+            //      ':limit_per' => $per_cluster_top,
+            //  ])->all();
         return $tags;
     }
 
