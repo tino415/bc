@@ -170,9 +170,20 @@ class Document extends ActiveRecord
     }
 
     public static function recommend() {
-        if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(Yii::$app->user->id);
-        else $tags = Tag::getProfileTags(Yii::$app->user->id);
-        return self::match($tags);
+        if(Yii::$app->params['time_aware_recommendation']) {
+            if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(
+                Yii::$app->params['anonymousUserId']
+            );
+            else $tags = Tag::getProfileTags(Yii::$app->user->id);
+            return self::match($tags);
+        } else {
+            if(Yii::$app->user->isGuest)
+                return User::findOne(Yii::$app->params['anonymousUserId'])
+                    ->recommendDocuments;
+            else
+                return User::findOne(Yii::$app->user->id)
+                    ->recommendDocuments;
+        }
     }
 
     public static function match($tags, $exclude = false) {
@@ -196,6 +207,9 @@ class Document extends ActiveRecord
             $query->andWhere(['not in', 'document_id', $exclude]);
 
         return Document::find()->where(['id' => $query])->all();
+    }
+
+    public static function matchCounted($tags, $counts, $exclude = false) {
     }
 
     public static function search($query, $limit = 50)

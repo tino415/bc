@@ -9,6 +9,7 @@ use app\models\DocumentType;
 use app\models\Interpret;
 use app\models\Schema;
 use app\models\Tag;
+use app\models\User;
 use app\models\MapDocumentTag;
 use yii\base\ErrorException;
 use yii\db\Query;
