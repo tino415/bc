@@ -7,8 +7,7 @@ use \yii\helpers\Url;
 use \yii\helpers\BaseArrayHelper;
 use \app\components\ActiveRecord;
 
-/**
- * This is the model class for table "document".
+/** * This is the model class for table "document".
  *
  * @property integer $id
  * @property string $name
@@ -140,11 +139,14 @@ class Document extends ActiveRecord
         foreach($tags as $tag_val) {
             $tag = new Tag;
             $tag->name = (string)$tag_val['name'];
-            if($tag->validate()) $tag->save();
-            else {
-                print_r($tag->errors);
+            try {
+                if($tag->validate()) $tag->save();
+                else $tag = Tag::find()->where(['name' => $tag->name])->one();
+            } catch(\Exception $e) {
+                Yii::error("$e\n");
                 $tag = Tag::find()->where(['name' => $tag->name])->one();
             }
+
 
             $map = new MapDocumentTag;
             $map->document_id = $this->id;
@@ -154,7 +156,7 @@ class Document extends ActiveRecord
             try {
                 if($map->validate()) $map->save();
                 else Yii::info('Error saving map'. print_r($map->errors, 1));
-            } catch(Exceptions $e) {
+            } catch(\Exception $e) {
                 Yii::error("$e\n");
             }
         }
