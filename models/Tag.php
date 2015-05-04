@@ -116,13 +116,15 @@ class Tag extends \yii\db\ActiveRecord
 
         $pieces = preg_split('/[ \(\(]/', $string);
         $result = [];
-        foreach($pieces as $piece) 
-            if( !$stop_words || (
-                !array_key_exists($piece, Yii::$app->params['stopwords']) &&
-                strlen($piece) > Yii::$app->params['min_tag_length']
+        foreach($pieces as $piece) {
+            if( !empty($piece) && (
+                !$stop_words || (
+                !array_key_exists($piece, Yii::$app->params['stopwords'])
+                )
                 )
             )
-                $result[] = $piece;
+            $result[] = $piece;
+        }
         unset($pieces);
         return $result;
     }

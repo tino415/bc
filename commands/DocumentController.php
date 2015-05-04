@@ -450,13 +450,19 @@ class DocumentController extends SMParserController {
         return 0;
     }
 
+    public function actionNametag($id) {
+        echo "Working with $id\n";
+        Document::findOne($id)->createTagsFromAtts();
+        echo "Done\n";
+        return 0;
+    }
+
     public function actionParallelnametags($processes = 4) {
-        echo "Preparing\n";
-        $tagnames = (new Query)->select('name')->from('tag');
         echo "Staring parallel, selecting documents with no name tag\n";
+        $count = 0;
         $this->parallelDocuments($processes, function($document) {
             $document->createTagsFromAtts();
-        }, ['not in', 'name', $tagnames]);
+        });
         echo "Done\n";
     }
 

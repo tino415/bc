@@ -137,21 +137,26 @@ class Document extends ActiveRecord
     }
 
     public function saveTags($tags) {
-        print_r($tags);
         foreach($tags as $tag_val) {
             $tag = new Tag;
-            $tag->name = $tag_val['name'];
+            $tag->name = (string)$tag_val['name'];
             if($tag->validate()) $tag->save();
-            else $tag = Tag::find()->where(['name' => $tag->name])->one();
+            else {
+                print_r($tag->errors);
+                $tag = Tag::find()->where(['name' => $tag->name])->one();
+            }
 
             $map = new MapDocumentTag;
             $map->document_id = $this->id;
             $map->tag_id = $tag->getPrimaryKey();
             $map->count = $tag_val['count'];
             $map->type_id = $tag_val['type'];
-            if($map->validate()) $map->save();
-            else 
-                Yii::info('Error saving map'. print_r($map->errors, 1));
+            try {
+                if($map->validate()) $map->save();
+                else Yii::info('Error saving map'. print_r($map->errors, 1));
+            } catch(Exceptions $e) {
+                Yii::error("$e\n");
+            }
         }
     }
 
