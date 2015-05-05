@@ -236,8 +236,13 @@ class DocumentController extends SMParserController {
 
                 $documents = Document::find()->where($where)
                     ->limit($limit)->offset($offset);
+                    $all_offset = $offset;
+                    $all_end = $offset + $limit;
+                    $offset = 0;
+                    $end = $limit;
                 foreach($documents->each() as $document) {
-                    echo "Working with $document->id\n";
+                    $limit++;
+                    echo "$i: Working with $document->id progresss $offset/$limit globaly $all_offset/$all_end\n";
                     $function($document);
                     echo "Document $document->id done\n";
                 }

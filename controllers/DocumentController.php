@@ -72,7 +72,18 @@ class DocumentController extends Controller {
                 ]
             ]),
         ]);
+    }
 
+    public function actionStats($id, $action = false) {
+        $model = Document::findOne($id);
+        if($action && $action == 'createTagsFromAtts')
+            $model->createTagsFromAtts();
+        return $this->render('stats', [
+            'model' => $model,
+            'tags' => new ActiveDataProvider([
+                'query' => $model->getMapDocumentTags()
+            ]),
+        ]);
     }
 
     public function actionLoadtags($id, $api = false) {

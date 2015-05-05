@@ -157,15 +157,22 @@ class Document extends ActiveRecord
                 $tag = Tag::find()->where(['name' => $tag->name])->one();
             }
 
+            $map = MapDocumentTag::find()->where([ 
+                'document_id' => $this->id, 'tag_id' => $tag->getPrimaryKey()
+            ])->one();
 
-            $map = new MapDocumentTag;
+
+            if(!$map) $map = new MapDocumentTag;
             $map->document_id = $this->id;
             $map->tag_id = $tag->getPrimaryKey();
             $map->count = $tag_val['count'];
             $map->type_id = $tag_val['type'];
+
             try {
                 if($map->validate()) $map->save();
-                else Yii::info('Error saving map'. print_r($map->errors, 1));
+                else {
+                    Yii::info('Error saving map'. print_r($map->errors, 1));
+                }
             } catch(\Exception $e) {
                 Yii::error("$e\n");
             }
@@ -174,6 +181,7 @@ class Document extends ActiveRecord
 
     public function createTagsFromAtts() {
         $tags = $this->getTagsFromAtts();
+        Yii::info('Get tags '.print_r($tags, true));
         $this->saveTags($tags);
     }
 

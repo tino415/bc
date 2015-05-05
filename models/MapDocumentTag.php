@@ -40,7 +40,7 @@ class MapDocumentTag extends \yii\db\ActiveRecord
                 'document_id', 
                 'tag_id',
             ]],
-            [['count', 'weight'], 'safe'],
+            [['count', 'weight', 'type_id'], 'safe'],
         ];
     }
 
