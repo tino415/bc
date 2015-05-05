@@ -20,6 +20,7 @@ $this->registerJS("
         serviceUrl: '".Url::toRoute(['tag/autocomplete'])."',
         maxHeight: 500,
         onSelect: function() {send();},
+        triggerSelectOnValidInput: false,
         beforeRender: function(container) {
             container.css('background-color', '#FFF');
             container.css('font-size', '20px');
@@ -29,14 +30,6 @@ $this->registerJS("
             container.css('border-bottom-right-radius', '3px');
             container.children('div').each(function() {
                 $(this).css('padding', '5px');
-                $(this).hover(
-                    function() { $(this).css('background-color', '#BDC5C7'); },
-                    function() { $(this).css('background-color', '#FFF') }
-                )
-                $(this).focus(
-                    function() { $(this).css('background-color', '#BDC5C7'); },
-                    function() { $(this).css('background-color', '#FFF') }
-                )
             })
         }
     })")

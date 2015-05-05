@@ -98,6 +98,7 @@ a.desc:after {
     height: 20px;
 }
 
-div.automplete-suggestions {
-    background-color: #FFF;
+.autocomplete-selected {
+    background-color: #DDD;
 }
+
