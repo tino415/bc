@@ -82,14 +82,14 @@ class MapDocumentTag extends \yii\db\ActiveRecord
                 "   t2.U / (1 + 0.0115*t2.U) * ".
                 "   LOG((SELECT COUNT(*) FROM document) / nf) * ".
                 "   CASE    WHEN tg2.type_id = 0 THEN 0.5".
-                "           WHEN tg2.type_id = 1 THEN 0.6".
-                "           WHEN tg2.type_id = 2 THEN 0.7".
-                "           WHen tg2.type_id = 3 THEN 0.8".
-                "           WHEN tg2.type_id = 4 THEN 0.9".
-                "           WHEN tg2.type_id = 5 THEN 1".
-                "           WHEN tg2.type_id = 6 THEN 1.1".
-                "           WHEN tg2.type_id = 7 THEN 1.2".
-                "           WHEN tg2.type_id = 8 THEN 1.3".
+                "           WHEN tg2.type_id = 1 THEN 0.7".
+                "           WHEN tg2.type_id = 2 THEN 0.9".
+                "           WHen tg2.type_id = 3 THEN 1.1".
+                "           WHEN tg2.type_id = 4 THEN 1.3".
+                "           WHEN tg2.type_id = 5 THEN 1.5".
+                "           WHEN tg2.type_id = 6 THEN 1.7".
+                "           WHEN tg2.type_id = 7 THEN 1.9".
+                "           WHEN tg2.type_id = 8 THEN 2.1".
                 "   END ".
 
                 "FROM map_document_tag AS tg ".

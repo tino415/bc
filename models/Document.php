@@ -102,6 +102,14 @@ class Document extends ActiveRecord
         return $this->hasMany( Schema::className(), ['document_id' => 'id']);
     }
 
+    public function getTagsOrdered() {
+        return Tag::find()
+            ->innerJoin('map_document_tag map',
+                new Expression('map.tag_id = tag.id'))
+            ->where(['map.document_id' => $this->id])
+            ->orderBy('map.weight DESC');
+    }
+
     public function getTagsFromAtts() {
         $doc = $this->nameTags;
         $inter = $this->interpret->nameTags;

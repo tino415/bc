@@ -23,7 +23,7 @@ use yii\helpers\Url;
         <div><?= $model->interpret->name ?></div>
         <div><?= $model->type->name ?></div>
         <div>
-        <?php foreach($model->getTags()->limit(20)->all() as $tag): ?>
+        <?php foreach($model->getTagsOrdered()->limit(20)->each() as $tag): ?>
         <span class="label label-default"><?= $tag; ?></span>
         <?php endforeach; ?>
         </div>
