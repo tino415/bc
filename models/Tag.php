@@ -105,13 +105,14 @@ class Tag extends \yii\db\ActiveRecord
         return $this->_viewCount;
     }
 
-    public static function getTop($count) {
-        return (new Query)->select(['tag_id', 'name', new Expression('COUNT(*) AS count')])
+    public static function getTop() {
+        return (new Query)->select(['tag.id AS id', 'tag.name AS name',
+                new Expression('COUNT(*) AS count')]
+            )
             ->from('view')
-            ->join('INNER JOIN', 'tag', 'tag.id = tag_id')
-            ->groupBy(['tag_id', 'name'])
-            ->orderBy(new Expression('COUNT(*) DESC'))
-            ->limit($count);
+            ->innerJoin('tag', new Expression('tag.id = view.tag_id'))
+            ->groupBy(['tag.id', 'tag.name'])
+            ->orderBy(new Expression('COUNT(*) DESC'));
     }
 
     public function __toString() {

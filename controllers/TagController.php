@@ -32,8 +32,24 @@ class TagController extends Controller {
     public function actionIndex($top = 50) {
         return $this->render('index', [
             'users' => User::find()->all(),
-            'mostViewedTags' => Tag::getTop($top)->all(),
-            'top' => $top
+            'mostViewedTags' => Tag::getTop()->limit($top)->all(),
+            'top' => $top,
         ]);
+    }
+
+    public function actionAutocomplete($query) {
+        Yii::$app->response->format = 'json';
+
+        $query = mb_strtolower($query, 'UTF-8');
+
+        $suggestions = Tag::find()
+            ->where(['like', 'name', $query])
+            ->limit(10)
+            ->all();
+
+        return [
+            'query' => $query,
+            'suggestions' => ArrayHelper::getColumn($suggestions, 'name'),
+        ];
     }
 }

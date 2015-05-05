@@ -23,13 +23,6 @@ class DocumentController extends SMParserController {
     
     private $_tag_cache = false;
 
-    const TAG_TYPE_UNKNOWN = 1;
-    const TAG_TYPE_NAME = 2;
-    const TAG_TYPE_INTERPRET_NAME = 3;
-    const TAG_TYPE_FULL_NAME = 4;
-    const TAG_TYPE_FULL_INTERPRET_NAME = 5;
-    const TAG_TYPE_LABEL = 6;
-
     private $TAG_MAPPING = [
         'texty' => 'text',
         'melodie' => 'melodia',

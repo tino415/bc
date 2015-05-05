@@ -10,7 +10,7 @@ use miloschuman\highcharts\Highcharts;
 
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = $this->title;
-$topTags = $model->getTopTags(100)->all();
+$topTags = $model->topTags->limit(50)->all();
 ?>
 <div class="user-profile">
 

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31b8ac913b7c13d065f46b92a6be050f",
+    "hash": "bd5ed7f3c675fc7dc705f019040954d9",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -129,16 +129,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.62",
+            "version": "3.1.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae"
+                "reference": "c40c7287eadc31e341ebbf0c02352eb55b9cbc48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
-                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/c40c7287eadc31e341ebbf0c02352eb55b9cbc48",
+                "reference": "c40c7287eadc31e341ebbf0c02352eb55b9cbc48",
                 "shasum": ""
             },
             "require": {
@@ -371,6 +371,32 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "filsh/jquery-autocomplete",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Filsh/jquery-autocomplete.git",
+                "reference": "c598a15f508979fdf8676908408dde79cf5b152c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Filsh/jquery-autocomplete/zipball/c598a15f508979fdf8676908408dde79cf5b152c",
+                "reference": "c598a15f508979fdf8676908408dde79cf5b152c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "This is a fork of Devbridge https://github.com/devbridge/jQuery-Autocomplete, thanks go to him for getting this thing started!",
+            "keywords": [
+                "autocomplete",
+                "jquery"
+            ],
+            "time": "2014-01-25 15:49:33"
         },
         {
             "name": "fxp/composer-asset-plugin",
@@ -1079,7 +1105,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "fxp/composer-asset-plugin": 10,
-        "miloschuman/yii2-highcharts-widget": 20
+        "miloschuman/yii2-highcharts-widget": 20,
+        "filsh/jquery-autocomplete": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

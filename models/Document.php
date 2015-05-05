@@ -169,21 +169,33 @@ class Document extends ActiveRecord
         $this->saveTags($tags);
     }
 
-    public static function recommend() {
+    public static function recommend($exclude = false) {
         if(Yii::$app->params['time_aware_recommendation']) {
+            Yii::info('Time aware recommendation');
             if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(
                 Yii::$app->params['anonymousUserId']
             );
             else $tags = Tag::getProfileTags(Yii::$app->user->id);
-            return self::match($tags);
+            return self::match($tags, $exclude);
         } else {
+            Yii::info('No time aware recommendation');
             if(Yii::$app->user->isGuest)
                 return User::findOne(Yii::$app->params['anonymousUserId'])
-                    ->recommendDocuments;
+                    ->getRecommendDocuments($exclude);
             else
                 return User::findOne(Yii::$app->user->id)
-                    ->recommendDocuments;
+                    ->getRecommendDocuments($exclude);
         }
+    }
+
+    public function getSimiliar() {
+        return static::find()
+            ->innerJoin('map_document_tag map',
+                new Expression('map.document_id = document.id'))
+            ->where(['map.tag_id' => $this->getTags()->select('tag.id')])
+            ->andWhere(['<>', 'document.id', $this->id])
+            ->groupBy('document.id')
+            ->orderBy(new Expression('SUM(map.weight)'));
     }
 
     public static function match($tags, $exclude = false) {
@@ -206,10 +218,7 @@ class Document extends ActiveRecord
         if($exclude)
             $query->andWhere(['not in', 'document_id', $exclude]);
 
-        return Document::find()->where(['id' => $query])->all();
-    }
-
-    public static function matchCounted($tags, $counts, $exclude = false) {
+        return Document::find()->where(['id' => $query]);
     }
 
     public static function search($query, $limit = 50)

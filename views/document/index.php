@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
-use yii\captcha\Captcha;
+use app\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -23,24 +23,9 @@ $possition = 1;
     </div>
 </div>
 
-<div id='results' class="row">
-<?php foreach($results as $result) : ?>
-<div class="col-sm-6 col-md-4 col-lg-3">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <a href="<?= Url::toRoute([
-                'document/view',
-                'id' => $result->id,
-                'possition' => $possition++,
-            ])?>">
-                <h4><?= $result->name ?></h4>
-            </a>
-        </div>
-        <div class="modal-body">
-            <div>Interpret: <span><?= $result->interpret->name ?></span></div>
-            <span class="label label-info"><?= $result->type->name ?></span>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
-</div>
+<?= ListView::widget([
+    'dataProvider' => $results,
+    'itemView' => '_document',
+    'viewParams' => ['class' => "col-sm-6 col-md-4 col-lg-3"],
+    'options' => ['id' => 'results', 'class' => 'row'],
+])?>

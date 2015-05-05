@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\data\ActiveDataProvider;
 use app\models\Document;
 use app\models\Action;
 use app\models\ActionType;
@@ -17,21 +18,22 @@ use app\components\Globals;
 
 class DocumentController extends Controller {
 
-    private function getRecommendation($exclude = false) {
-        
-        if(Yii::$app->user->isGuest)
-            $tags = User::findOne(Yii::$app->params['anonymousUserId'])->recommendTags;
-        else $tags = User::findOne(Yii::$app->user->id)->recommendTags;
+    public function actionIndex($search = null) {
+        Session::create();
+        if(is_null($search)) {
+            $query = Document::recommend();
+        } else {
+            $query = Document::search($search);
+        }
 
-        return Document::match($tags, $exclude);
-    }
-
-    public function actionIndex($query = null) {
-        if(!is_null($query)) Session::create();
         return $this->render('index',[
-            'phrase' => $query,
-            'results' => (is_null($query)) ?
-                $this->getRecommendation() : Document::search($query)
+            'phrase' => $search,
+            'results' => new ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 50,
+                ]
+            ])
         ]);
     }
 
@@ -57,7 +59,18 @@ class DocumentController extends Controller {
 
         return $this->render('view', [
             'document' => $document,
-            'recommendations' => $this->getRecommendation($document->id)
+            'recommendations' => new ActiveDataProvider([
+                'query' => Document::recommend(),
+                'pagination' => [
+                    'pageSize' => 40,
+                ]
+            ]),
+            'similiar_documents' => new ActiveDataProvider([
+                'query' => $document->getSimiliar(),
+                'pagination' => [
+                    'pageSize' => 1,
+                ]
+            ]),
         ]);
 
     }

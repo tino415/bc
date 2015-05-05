@@ -3,12 +3,34 @@
 use miloschuman\highcharts\Highcharts;
 use yii\helpers\ArrayHelper;
 use app\models\MapDocumentTag;
+use yii\db\Query;
+use yii\db\Expression;
 
 $this->title = Yii::t('app', 'Tag Statystics');
 ?>
 <div class="panel panel-default">
     <?php foreach($users as $user): ?>
-    <?php $topTags = $user->getTagWeights()->limit($top)->all(); ?>
+    <?php 
+        $topTags = $user->getTagWeights()->limit($top)->all();
+        $documentTags = (new Query)->select(
+                new Expression('tag_id AS id, AVG(weight) AS weight')
+            ) ->where(['tag_id' => ArrayHelper::getColumn($topTags, 'id')])
+            ->from('map_document_tag')
+            ->groupBy(['tag_id'])
+            ->indexBy('id')
+            ->all();
+        $mapWeights = [];
+        $selectWeights = [];
+
+        foreach($topTags as $topTag) {
+            $mapWeights[] = round($documentTags[$topTag['id']]['weight'], 2);
+            $selectWeights[] = round(
+                $documentTags[$topTag['id']]['weight'] * $topTag['weight'],
+                2
+            );
+        }
+    ?>
+
 
     <div class="row">
     <div class="col-md-6">
@@ -47,20 +69,16 @@ $this->title = Yii::t('app', 'Tag Statystics');
                     'series' => [
                     [
                         'name' => 'Avarage select weight',
-                        'data' => ArrayHelper::getColumn($topTags, function($element) {
-                            return round($element['avarage_select_weight'], 2);
-                        })
+                        'data' => $selectWeights,
+                    ],
+                    [
+                        'name' => 'Avarage document weights',
+                        'data' => $mapWeights,
                     ],
                     [
                         'name' => 'User weights',
                         'data' => ArrayHelper::getColumn($topTags, function($element){
-                            return round($element['user_weight'], 2);
-                        })
-                    ],
-                    [
-                        'name' => 'Avarage document weights',
-                        'data' => ArrayHelper::getColumn($topTags, function($element){
-                            return round($element['avarage_document_weight'], 2);
+                            return round($element['weight'], 2);
                         })
                     ],
                     ]

@@ -32,7 +32,9 @@ AppAsset::register($this);
                 ],
             ]);
 
-            echo SearchWidget::widget();
+            echo SearchWidget::widget([
+                'url_param' => 'search',
+            ]);
 
             $items = [
                 ['label' => Yii::t('app', 'Home'), 'url' => ['/document/index']],

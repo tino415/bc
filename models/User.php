@@ -159,22 +159,26 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->one();
     }
 
-    public function getRecommendDocuments() {
+    public function getRecommendDocuments($exclude = false) {
         $userTagWeights = (new Query)
             ->select(['tag.id', 'tag.name', new Expression('LOG(COUNT(*)) AS weight')])
             ->from('view')
             ->innerJoin('tag', new Expression('tag.id = view.tag_id'))
-            ->where(['user_id' => 1])
+            ->where(['user_id' => $this->id])
             ->groupBy(['tag.id', 'tag.name'])
             ->having(new Expression('LOG(COUNT(*)) > 0'));
 
-        return Document::find()
+        $query = Document::find()
             ->innerJoin('map_document_tag map',
                 new Expression('map.document_id = document.id'))
+            ->innerJoin('tag',
+                new Expression('map.tag_id = tag.id'))
             ->innerJoin(['user_tag' => $userTagWeights],
-                new Expression('user_tag.id = map.id'))
+                new Expression('user_tag.id = tag.id'))
             ->where(new Expression('(user_tag.weight * map.weight) > 0'))
             ->orderBy(new Expression('(user_tag.weight * map.weight) DESC'));
+        if($exclude) $query->andWhere(['<>', 'document.id', $exclude]);
+        return $query;
     }
 
     public function getShortTermTags() {
@@ -232,26 +236,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         );
     }
 
-    public function getTopTags($count) {
-        return Tag::getTop($count)
+    public function getTopTags() {
+        return Tag::getTop()
             ->where(['user_id' => $this->id]);
     }
 
     public function getTagWeights() {
-        return (new Query)
-            ->select(['tag.id', 'tag.name',
-                new Expression('LOG(COUNT(*)) AS user_weight'),
-                new Expression('AVG(map.weight) AS avarage_document_weight'),
-                new Expression('COUNT(*) AS count'),
-                new Expression('LOG(COUNT(*)) * AVG(map.weight) AS avarage_select_weight'),
-            ])
-            ->from('tag')
-            ->innerJoin('view', new Expression('view.tag_id = tag.id'))
-            ->innerJoin('map_document_tag map', new Expression('map.tag_id = tag.id'))
-            ->where(['view.user_id' => $this->id])
-            ->groupBy('tag.id', 'tag.name')
-            ->having(new Expression('LOG(COUNT(*)) > 0'))
-            ->orderBy(new Expression('LOG(COUNT(*))'));
+        return Tag::getTop()
+            ->addSelect(new Expression('LOG(COUNT(*)) AS weight'))
+            ->where(['user_id' => $this->id]);
     }
 
     public function getTagCounts($tags) {
