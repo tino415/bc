@@ -74,6 +74,7 @@ class MapDocumentTag extends \yii\db\ActiveRecord
 
     public static function calculateWeights() {
         $transaction = Yii::$app->db->beginTransaction();
+        extract(Yii::$app->params['tag_appereance_weights']);
         try {
             Yii::$app->db->createCommand(
                 "UPDATE map_document_tag AS tg2 ".
@@ -81,15 +82,15 @@ class MapDocumentTag extends \yii\db\ActiveRecord
                 "   (LOG(tg2.count) + 1)/t2.sumdtf * ".
                 "   t2.U / (1 + 0.0115*t2.U) * ".
                 "   LOG((SELECT COUNT(*) FROM document) / nf) * ".
-                "   CASE    WHEN tg2.type_id = 0 THEN 0.5".
-                "           WHEN tg2.type_id = 1 THEN 0.7".
-                "           WHEN tg2.type_id = 2 THEN 0.9".
-                "           WHen tg2.type_id = 3 THEN 1.1".
-                "           WHEN tg2.type_id = 4 THEN 1.3".
-                "           WHEN tg2.type_id = 5 THEN 1.5".
-                "           WHEN tg2.type_id = 6 THEN 1.7".
-                "           WHEN tg2.type_id = 7 THEN 1.9".
-                "           WHEN tg2.type_id = 8 THEN 2.1".
+                "   CASE    WHEN tg2.type_id = 0 THEN $none".
+                "           WHEN tg2.type_id = 1 THEN $document_name_tag".
+                "           WHEN tg2.type_id = 2 THEN $interpret_name_tag".
+                "           WHen tg2.type_id = 3 THEN $name_tag".
+                "           WHEN tg2.type_id = 4 THEN $interpret_name".
+                "           WHEN tg2.type_id = 5 THEN $document_name".
+                "           WHEN tg2.type_id = 6 THEN $interpret_name_document_tag".
+                "           WHEN tg2.type_id = 7 THEN $document_name_interpret_tag".
+                "           WHEN tg2.type_id = 8 THEN $name".
                 "   END ".
 
                 "FROM map_document_tag AS tg ".
