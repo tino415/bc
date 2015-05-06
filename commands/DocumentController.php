@@ -13,6 +13,7 @@ use app\models\User;
 use app\models\MapDocumentTag;
 use yii\base\ErrorException;
 use yii\db\Query;
+use app\crawlers\SuperMusicDocumentCrawler;
 
 define(
     'SONG_XPATH',
@@ -215,45 +216,49 @@ class DocumentController extends SMParserController {
         }
     }
 
-    private function parallelDocuments($processes, $function, $where = '1=1') {
-        $document_count = Document::find()->where($where)->count();
-        $batch_size = floor($document_count / $processes);
-
-        Yii::$app->db->close();
-
-        $pids = [];
-
+    private function parallelTask($processes, $function) {
         for($i=0; $i<$processes; $i++) {
+            Yii::$app->db->close();
             $pid = pcntl_fork();
 
-            $offset = $i*$batch_size;
-            $limit = $i*$batch_size + $batch_size;
-
-            if($pid) {
-                echo "Starting $pid with slice [$offset, $limit]\n";
-                $pids[] = $pid;
-            } else {
-
-                $documents = Document::find()->where($where)
-                    ->limit($limit)->offset($offset);
-                    $all_offset = $offset;
-                    $all_end = $offset + $limit;
-                    $offset = 0;
-                    $end = $limit;
-                foreach($documents->each() as $document) {
-                    $limit++;
-                    echo "$i: Working with $document->id progresss $offset/$limit globaly $all_offset/$all_end\n";
-                    $function($document);
-                    echo "Document $document->id done\n";
-                }
-
+            if($pid) $pids[] = $pid;
+            else {
+                $function($i);
             }
-
         }
 
         foreach($pids as $pid) pcntl_waitpid($pid, $status);
+    }
 
-        return 0;
+    private function parallelDocuments($processes, $function, $query) {
+        $document_count = $query->count();
+        $batch_size = floor($document_count / $processes);
+
+        $this->parallelTask($processes, function($pid) use($batch_size) {
+            $offset = $pid * $batch_size;
+            $limit = $offset + $batch_size;
+
+            echo "Starting $pid with slice [$offset, $limit]\n";
+
+            $documents = $query
+                ->limit($limit)->offset($offset);
+            $all_offset = $offset;
+            $all_end = $offset + $limit;
+            $offset = 0;
+            $end = $limit;
+
+            foreach($documents->each as $document) {
+                $offset++;
+                $all_offset++;
+                echo "$i: Working with $document->id".
+                    "progresss $offset/$limit".
+                    "globaly $all_offset/$all_end\n";
+
+                $function($document);
+
+                echo "Document $document->id done\n";
+            }
+        });
     }
 
     private function parseSM(
@@ -273,46 +278,66 @@ class DocumentController extends SMParserController {
         $base_link = 'http://www.supermusic.sk/piesne.php?od='
     )
     {
-        $this->document = new \DOMDocument;
+        $crawler->prepare();
+        $urls = [];
         foreach($capitals as $capital) {
             for($x = 0; $x < count($lowcaps); $x++) {
                 for($y = 0; $y < count($lowcaps); $y += 6) {
                     $url = $base_link.$capital;
                     $url .= ($lowcaps[$x]) ? $lowcaps[$x] : '';
                     $url .= ($lowcaps[$y]) ? $lowcaps[$y] : '';
-
-                    try {
-                        $this->parsePage($url);
-                    } catch(Exception $e) {
-                        $time = microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'];
-                        echo "[$time] Error catched: ".$e->getMessage()."\n";
-                    }
+                    $urls[] = $url;
                 }
             }
         }
+        $crawler->runMultiple($urls, false);
+    }
+
+    private function generateLinks(
+        array $capitals = [
+            'A', 'B', 'C', 'D', 'E', 'F', 'G',
+            'H', 'I', 'J', 'K', 'L', 'M', 'N',
+            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z', '*', 'Ž',
+            'Ť', 'Č'
+        ],
+        $base_link = 'http://www.supermusic.sk/piesne.php?od='
+    )
+    {
+        $lowcaps = array_slice($capitals, 0, -4);
+        foreach($capitals as $capital) {
+            foreach($lowcaps as $lowcap) {
+                $url = $base_link.$capital;
+                $url .= ($lowcap) ? $lowcap : '';
+                $url .= ($lowcap) ? $lowcap : '';
+                $urls[] = $url;
+            }
+        }
+        return $urls;
+    }
+
+    public function actionExploreone() {
+        $links = $this->generateLinks(['A']);
+
+        $crawler = new SuperMusicDocumentCrawler();
+        $crawler->run($links[0]);
     }
 
     public function actionExplore(
+        $processes = 4,
         $capitals = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,*,Ž,Ť,Č'
     )
     {
         $capitals = explode(',', $capitals);
-        
-        $pids = [];
-        foreach($capitals as $capital) {
-            $pid = pcntl_fork();
-            if($pid) {
-                echo "Starting ".end($pids)." with capital $capital\n";
-                $pids[] = $pid;
-            } else {
-                $this->parseSM([$capital]);
-                return 0;
-            }
-        }
 
-        foreach($pids as $pid) {
-            pcntl_waitpid($pid, $status);
-        }
+        echo "Preparing crawler\n";
+        $crawler = new SuperMusicDocumentCrawler();
+        $crawler->prepare();
+
+        echo "Generating links\n";
+        $urls = $this->generateLinks($capitals);
+        $crawler->runMultiple($urls, false);
+        return 0;
 
         return 0;
     }
@@ -356,7 +381,7 @@ class DocumentController extends SMParserController {
             $this->loadTags($document);
             echo "Loading content\n";
             $this->loadContent($document);
-        }, ['content' => null]);
+        }, Document::find()->where(['content' => null]));
         echo "Done";
         return 0;
     }
@@ -393,7 +418,7 @@ class DocumentController extends SMParserController {
         $this->parallelDocuments($processes, function($document) {
             echo "Loading tags\n";
             $this->loadTags($document);
-        });
+        }, Document::find());
 
         foreach($pids as $pid) pcntl_waitpid($pid, $status);
 
@@ -445,7 +470,7 @@ class DocumentController extends SMParserController {
             foreach($document->getTags()->each() as $tag) {
                 $this->typeTags($tag, $document);
             }
-        });
+        }, Document::find());
         return 0;
     }
 
@@ -458,10 +483,19 @@ class DocumentController extends SMParserController {
 
     public function actionParallelnametags($processes = 4) {
         echo "Staring parallel, selecting documents with no name tag\n";
-        $count = 0;
         $this->parallelDocuments($processes, function($document) {
             $document->createTagsFromAtts();
-        });
+        }, Document::find());
+        echo "Done\n";
+    }
+
+    public function actionChecktypes($processes = 4) {
+        echo "Staring parallel, selecting documents with no name tag\n";
+        $this->parallelDocuments($processes, function($document) {
+            $document->createTagsFromAtts();
+        }, Document::find()
+            ->innerJoin('map_document_tag map', 'map.document_id = document.id')
+            ->where('map.type_id = 0'));
         echo "Done\n";
     }
 
@@ -472,5 +506,10 @@ class DocumentController extends SMParserController {
                 echo substr($method, 6)."\n";
             }
         }
+    }
+
+    public function actionTest() {
+        $crawler = new SuperMusicDocumentCrawler();
+        $crawler->run('http://www.supermusic.sk/piesne.php');
     }
 }

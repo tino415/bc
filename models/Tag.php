@@ -14,6 +14,7 @@ use yii\db\Query;
  *
  * @property View[] $views
  * @property Document[] $documents
+ * @property MapDocumentTag[] mapDocumentTags
  */
 class Tag extends \yii\db\ActiveRecord
 {
@@ -54,6 +55,14 @@ class Tag extends \yii\db\ActiveRecord
     public function getViews()
     {
         return $this->hasMany(View::className(), ['tag_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMapDocumentTags()
+    {
+        return $this->hasMany(MapDocumentTag::className(), ['tag_id' => 'id']);
     }
 
     public function getDocuments() {
@@ -113,6 +122,11 @@ class Tag extends \yii\db\ActiveRecord
             ->innerJoin('tag', new Expression('tag.id = view.tag_id'))
             ->groupBy(['tag.id', 'tag.name'])
             ->orderBy(new Expression('COUNT(*) DESC'));
+    }
+
+    public function getMap($document_id) {
+        return $this->getMapDocumentTags()
+            ->where(['document_id' => $document_id]);
     }
 
     public function __toString() {

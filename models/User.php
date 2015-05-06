@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\Query;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "users".
@@ -189,6 +190,54 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->limit(50)
             ->orderBy('id')
             ->all();
+    }
+
+    public function getTimeAwareRecommendDocuments($exclude) {
+        $view_count = View::find()->where(['user_id' => $this->id])->count();
+        $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
+        $cluster_size = floor(
+            $view_count / Yii::$app->params['long_term_groups']
+        );
+
+        $tags = [];
+        Yii::info("Counting clusters\n");
+
+        for($i=0; $i<$view_count; $i+=$cluster_size) {
+            $querySlice = (new Query)->select('*')
+                ->from('view')
+                ->limit("$cluster_size")
+                ->offset("$i")
+                ->orderBy('id');
+
+            $slice_tags = (new Query)->select('tag_id')
+                ->from(['cluster' => $querySlice])
+                ->groupBy('tag_id')
+                ->limit($per_cluster_top)
+                ->orderBy(new Expression('COUNT(*)'))
+                ->all();
+
+            for($j=0; $j<$per_cluster_top; $j++) {
+                if(array_key_exists($slice_tags[$j]["tag_id"], $tags))
+                    $tags[$slice_tags[$j]['tag_id']] += log10($j + 1);
+                else $tags[$slice_tags[$j]['tag_id']] = log10($j + 1);
+            }
+        }
+
+        $case = "CASE map.tag_id \n";
+        foreach($tags as $tag_id => $weight) {
+            $case .= "WHEN $tag_id THEN $weight\n";
+        }
+        $case .= "END\n";
+
+        $query = Document::find()
+            ->innerJoin('map_document_tag map',
+                new Expression('map.document_id = document.id'))
+            ->where(['map.tag_id' => array_keys($tags)])
+            ->limit(50)
+            ->orderBy(new Expression('SUM(map.weight * '.$case.')'))
+            ->groupBy('document.id');
+
+        return $query;
     }
 
     public function getLongTermTags() {

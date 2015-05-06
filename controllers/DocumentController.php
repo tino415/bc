@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
+use yii\web\HttpException;
 use app\models\Document;
 use app\models\Action;
 use app\models\ActionType;
@@ -17,6 +18,13 @@ use app\models\MapDocumentTag;
 use app\components\Globals;
 
 class DocumentController extends Controller {
+
+    protected function loadDocument($id) {
+        if($document = Document::findOne($id)) {
+            return $document;
+        }
+        throw new HttpException(404, 'Document not found');
+    }
 
     public function actionIndex($search = null) {
         Session::create();
@@ -38,8 +46,7 @@ class DocumentController extends Controller {
     }
 
     public function actionView($id, $possition = null) {
-        $document = Document::findOne($id);
-        $DOM = new \DOMDocument;
+        $document = $this->loadDocument($id);
 
         $session = Session::getSession();
         if($session) $session->renev();
@@ -75,7 +82,7 @@ class DocumentController extends Controller {
     }
 
     public function actionStats($id, $action = false) {
-        $model = Document::findOne($id);
+        $model = $this->loadDocument($id);
         if($action && $action == 'createTagsFromAtts')
             $model->createTagsFromAtts();
         return $this->render('stats', [
@@ -86,72 +93,14 @@ class DocumentController extends Controller {
         ]);
     }
 
-    public function actionLoadtags($id, $api = false) {
-        if($api) Yii::$app->response->format = 'json';
+    public function actionSimiliar($id1, $id2) {
+        $document1 = $this->loadDocument($id1);
+        $document2 = $this->loadDocument($id2);
 
-        $document = Document::findOne($id);
-        $artist = urlencode($document->interpret->name);
-        $track = urlencode($document->name);
-        $exists_tags = Tag::find()->indexBy('name');
-        $apy_key = Yii::$app->params['last_fm_api_key'];
-
-        $url = 
-            "http://ws.audioscrobbler.com/2.0/".
-            "?method=track.getTopTags".
-            "&api_key=$apy_key&".
-            "artist=$artist&".
-            "track=$track&".
-            "format=json";
-
-        $data = Globals::download($url);
-        $json = json_decode($data, true);
-        $tags = [];
-        $message = 'Tags updated';
-
-        if(array_key_exists('toptags', $json)) {
-
-            if(array_key_exists('tag', $json['toptags'])) {
-
-                $tags = $json['toptags']['tag'];
-
-                foreach($tags as $tag) {
-                    if(!array_key_exists($tag['name'], $exists_tags)) {
-                        $newtag = new Tag;
-                        $newtag->name = $tag['name'];
-                        $newtag->save();
-                        $newtag->id = $newtag->getPrimaryKey();
-                        $tags[$tag['name']] = $newtag;
-                    }
-
-                    if(!View::find()->where([
-                        'document_id' => $document->id,
-                        'tag_id' => $tags[$tag['name']]->id,
-                    ])->exists())
-                    {
-                        $map = new MapDocumentTag;
-                        $map->document_id = $document->id;
-                        $map->tag_id = $tags[$tag['name']]->id;
-                        $map->count = ($tag['count'] > 50) ? 2 : 1;
-                        $map->save();
-                    }
-                }
-            }
-        }
-
-        if(array_key_exists('error', $json))
-            $message = $json['message'];
-
-        $params = [
-            'url' => $url,
-            'document' => $document,
-            'message' => $message,
-            'tags' => $tags,
-        ];
-
-        if(!$api) {
-            return $this->render('tagfound', $params);
-        } else {
-            return $params;
-        }
+        return $this->render('similiar', [
+            'document1' => $document1,
+            'document2' => $document2,
+            'similiar' => Document::similiarTags($document1, $document2)->all()
+        ]);
     }
 }

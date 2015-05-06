@@ -4,7 +4,7 @@ return [
     'adminEmail' => 'cernakmartin3@gmail.com',
     'anonymousUserId' => '2',
     'long_term_groups' => '5',
-    'time_aware_recommendation' => false,
+    'time_aware_recommendation' => true,
     'tag_appereance_weights' => [
         'none' => 0.5,
         'document_name_tag' => 0.7,

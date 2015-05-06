@@ -24,7 +24,12 @@ use yii\helpers\Url;
         <div><?= $model->type->name ?></div>
         <div>
         <?php foreach($model->getTagsOrdered()->limit(20)->each() as $tag): ?>
-        <span class="label label-default"><?= $tag; ?></span>
+
+        <?php 
+            if(isset($similiar) && in_array($tag->id, $similiar)) $label = 'label-info';
+            else $label = 'label-default';
+        ?>
+        <span class="label <?= $label ?>"><?= $tag; ?></span>
         <?php endforeach; ?>
         </div>
     </div>

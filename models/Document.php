@@ -98,7 +98,6 @@ class Document extends ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getSchemas() {
-        Yii::info('Schemas');
         return $this->hasMany( Schema::className(), ['document_id' => 'id']);
     }
 
@@ -188,11 +187,12 @@ class Document extends ActiveRecord
     public static function recommend($exclude = false) {
         if(Yii::$app->params['time_aware_recommendation']) {
             Yii::info('Time aware recommendation');
-            if(Yii::$app->user->isGuest) $tags = Tag::getProfileTags(
-                Yii::$app->params['anonymousUserId']
-            );
-            else $tags = Tag::getProfileTags(Yii::$app->user->id);
-            return self::match($tags, $exclude);
+            if(Yii::$app->user->isGuest)
+                return User::findOne(Yii::$app->params['anonymousUserId'])
+                    ->getTimeAwareRecommendDocuments($exclude);
+            else
+                return User::findOne(Yii::$app->user->id)
+                    ->getTimeAwareRecommendDocuments($exclude);
         } else {
             Yii::info('No time aware recommendation');
             if(Yii::$app->user->isGuest)
@@ -208,10 +208,19 @@ class Document extends ActiveRecord
         return static::find()
             ->innerJoin('map_document_tag map',
                 new Expression('map.document_id = document.id'))
-            ->where(['map.tag_id' => $this->getTags()->select('tag.id')])
+            ->where(['map.tag_id' => $this->getTags()->select('tag_id')])
             ->andWhere(['<>', 'document.id', $this->id])
             ->groupBy('document.id')
-            ->orderBy(new Expression('SUM(map.weight)'));
+            ->orderBy(new Expression('SUM(map.weight) DESC'));
+    }
+
+    public static function similiarTags($document1, $document2) {
+        return Tag::find()
+            ->innerJoin('map_document_tag map1', new Expression('map1.tag_id = tag.id'))
+            ->where(['map1.document_id' => $document1->id])
+            ->innerJoin('map_document_tag map2', new Expression('map2.tag_id = tag.id'))
+            ->andWhere(['map2.document_id' => $document2->id])
+            ->andWhere(new Expression('map1.document_id = map2.document_id'));
     }
 
     public static function match($tags, $exclude = false) {
@@ -228,7 +237,7 @@ class Document extends ActiveRecord
             ->from('map_document_tag')
             ->where(['tag_id' => $subQuery])
             ->groupBy('document_id')
-            ->orderBy(new Expression('SUM(weight)'))
+            ->orderBy(new Expression('SUM(weight) DESC'))
             ->limit("50");
 
         if($exclude)
@@ -237,7 +246,7 @@ class Document extends ActiveRecord
         return Document::find()->where(['id' => $query]);
     }
 
-    public static function search($query, $limit = 50)
+    public static function search($query)
     {
         $query_tags = array_count_values(Tag::escape($query));
         return self::match(array_keys($query_tags));

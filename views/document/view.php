@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\ListView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -47,6 +48,7 @@ $this->title = Yii::t('app', 'song');
                 <h4>
                     <strong><?= $document->interpret->name ?></strong> - 
                     <?= $document->name ?>
+                    <span class="label label-default"><?= $document->type->name ?></span>
                 </h4>
                 <div class="row">
                     <div class="col-md-4">
@@ -106,7 +108,10 @@ $this->title = Yii::t('app', 'song');
                 <?= ListView::widget([
                     'dataProvider' => $similiar_documents,
                     'itemView' => '_document',
-                    'viewParams' => ['offset' => 1000],
+                    'viewParams' => [
+                        'offset' => 1000,
+                        'similiar' => ArrayHelper::getColumn($document->tags, 'id'),
+                    ],
                 ]); ?>
                 </div>
             </div>
