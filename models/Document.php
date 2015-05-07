@@ -215,17 +215,6 @@ class Document extends ActiveRecord
             ->orderBy(new Expression('SUM(map.weight * doc_map.weight) DESC'));
     }
 
-    public function getSimiliarWeight() {
-        return (new Query)->select(['document.id', new Expression('SUM(weight) AS weight')])
-            ->from('document')
-            ->innerJoin('map_document_tag map',
-                new Expression('map.document_id = document.id'))
-            ->where(['map.tag_id' => $this->getTags()->select('tag_id')])
-            ->andWhere(['<>', 'document.id', $this->id])
-            ->groupBy('document.id')
-            ->orderBy(new Expression('SUM(map.weight) DESC'));
-    }
-
     public static function similiarTags($document1, $document2) {
         return Tag::find()
             ->innerJoin('map_document_tag map1', new Expression('map1.tag_id = tag.id'))

@@ -39,16 +39,16 @@ AppAsset::register($this);
             $items = [
                 ['label' => Yii::t('app', 'Home'), 'url' => ['/document/index']],
                 ['label' => Yii::t('app', 'Songbook'), 'url' => ['/user/merge']],
+                ['label' => Yii::t('app','Recommend My'), 'url' => ['/document/recommendmy']],
                 //['label' => 'Contact', 'url' => ['/site/contact']],
             ];
 
-            if(!Yii::$app->user->isGuest)
+            if(!Yii::$app->user->isGuest) 
                 $items[] = ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/actual']];
 
-            if(Yii::$app->user->id == 1) {
-                $items[] = ['label' => Yii::t('app', 'Users'), 'url' => ['/user/index']];
-                $items[] = ['label' => Yii::t('app', 'Tags'), 'url' => ['/tag/index']];
-            }
+            //if(Yii::$app->user->id == 1) {
+            //  $items[] = ['label' => Yii::t('app', 'Tags'), 'url' => ['/tag/index']];
+            //}
 
             echo LoginWidget::widget();
             echo Nav::widget([

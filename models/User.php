@@ -134,6 +134,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTags() {
+        return $this->hasMany(Tag::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getQueries()
     {
         return $this->hashMany(Query::className(), ['user_id' => 'id']);
@@ -192,7 +199,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->all();
     }
 
-    public function getTimeAwareRecommendDocuments($exclude) {
+    public function getTimeAwareRecommendDocuments($exclude = false) {
         $view_count = View::find()->where(['user_id' => $this->id])->count();
         $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
         $cluster_size = floor(
@@ -237,52 +244,14 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->orderBy(new Expression('SUM(map.weight * '.$case.')'))
             ->groupBy('document.id');
 
+        if($exclude)
+            $query->andWhere(['<>', 'document.id', $exclude]);
+
         return $query;
-    }
-
-    public function getLongTermTags() {
-        $view_count = View::find()->where(['user_id' => $this->id])->count();
-        $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
-        $cluster_size = floor(
-            $view_count / Yii::$app->params['long_term_groups']
-        );
-
-        $tags = [];
-        Yii::info("Counting clusters\n");
-
-        for($i=0; $i<$view_count; $i+=$cluster_size) {
-            $querySlice = (new Query)->select('*')
-                ->from('view')
-                ->limit("$cluster_size")
-                ->offset("$i")
-                ->orderBy('id');
-
-            $topOfSlice = (new Query)->select('tag_id')
-                ->from(['cluster' => $querySlice])
-                ->groupBy('tag_id')
-                ->orderBy(new Expression('COUNT(*)'));
-
-            array_merge($tags, Tag::find()
-                ->where(['id' => $topOfSlice])
-                ->limit("$per_cluster_top")
-                ->indexBy('id')
-                ->all()
-            );
-        }
-
-        return $tags;
     }
 
     public function getSessionTags() {
         return (Session::getSession()) ? Session::getSession()->tags : [];
-    }
-
-    public function getRecommendTags() {
-        return array_merge(
-            $this->shortTermTags,
-            $this->sessionTags,
-            $this->longTermTags
-        );
     }
 
     public function getTopTags() {
@@ -292,7 +261,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getTagWeights() {
         return Tag::getTop()
-            ->addSelect(new Expression('LOG(COUNT(*)) AS weight'))
+            ->addSelect(new Expression('LOG(COUNT(*))+1 AS weight'))
             ->where(['user_id' => $this->id]);
     }
 
@@ -312,7 +281,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $tags = [];
 
         foreach($users as $user) {
-            $tags = $tags + $user->recommendTags;
+            $tags = $tags + Tag::find()
+                ->innerJoin('view', new Expression('view.tag_id = tag.id'))
+                ->groupBy('tag.id')
+                ->orderBy(new Expression('LOG(COUNT(*))'))
+                ->where(['user_id' => $user->id])
+                ->limit(20)->all();
         }
 
         return $tags;

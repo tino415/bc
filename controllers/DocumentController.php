@@ -103,4 +103,18 @@ class DocumentController extends Controller {
             'similiar' => Document::similiarTags($document1, $document2)->all()
         ]);
     }
+
+    public function actionRecommendmy() {
+        if(Yii::$app->user->isGuest)
+            $user = User::findOne(Yii::$app->params['anonymousUserId']);
+        else $user = User::findOne(Yii::$app->user->id);
+        return $this->render('recommendmy', [
+            'full' => new ActiveDataProvider([
+                'query' => $user->getRecommendDocuments()
+            ]),
+            'timeAware' => new ActiveDataProvider([
+                'query' => $user->getTimeAwareRecommendDocuments()
+            ]),
+        ]);
+    }
 }
