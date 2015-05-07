@@ -110,6 +110,7 @@ class Document extends ActiveRecord
     }
 
     public function getTagsFromAtts() {
+        exit("INTAGS");
         $doc = $this->nameTags;
         $inter = $this->interpret->nameTags;
         $dname = mb_strtolower($this->name, 'UTF-8');
@@ -148,13 +149,9 @@ class Document extends ActiveRecord
         foreach($tags as $tag_val) {
             $tag = new Tag;
             $tag->name = (string)$tag_val['name'];
-            try {
-                if($tag->validate()) $tag->save();
-                else $tag = Tag::find()->where(['name' => $tag->name])->one();
-            } catch(\Exception $e) {
-                Yii::error("$e\n");
-                $tag = Tag::find()->where(['name' => $tag->name])->one();
-            }
+
+            if($tag->validate()) $tag->save();
+            else $tag = Tag::find()->where(['name' => $tag->name])->one();
 
             $map = MapDocumentTag::find()->where([ 
                 'document_id' => $this->id, 'tag_id' => $tag->getPrimaryKey()

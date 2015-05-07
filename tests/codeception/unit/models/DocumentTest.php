@@ -3,25 +3,35 @@
 namespace tests\codeception\unit\models;
 
 use Yii;
-use yii\codeception\TestCase;
+use yii\codeception\DbTestCase;
 use Codeception\Specify;
 use app\models\Tag;
 use app\models\Document;
 use app\models\MapDocumentTag;
 use yii\helpers\ArrayHelper;
+use tests\codeception\fixtures\DocumentFixture;
 
-class DocumentTest extends TestCase {
+class DocumentTest extends DbTestCase {
 
     use Specify;
 
-    protected function setUp() {
-        parent::setUp();
-        Tag::deleteAll();
-        //$this->loadFixtures(['document']);
+    public function fixtures() {
+        return [
+            'document' => DocumentFixture::className()
+        ];
     }
     
     public function testTagGenerationSimple() {
+
+        MapDocumentTag::deleteAll();
+        Tag::deleteAll();
+
+        $this->loadFixtures($this->getFixtures());
+        
+
         $model = Document::findOne(1);
+        print_r($model->getTagsFromAtts());
+        exit();
         $tags = $model->getTagsFromAtts();
 
         $names = ArrayHelper::getColumn($tags, 'name');
