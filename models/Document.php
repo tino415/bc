@@ -110,9 +110,9 @@ class Document extends ActiveRecord
     }
 
     public function getTagsFromAtts() {
-        exit("INTAGS");
         $doc = $this->nameTags;
         $inter = $this->interpret->nameTags;
+        exit("INTAGS");
         $dname = mb_strtolower($this->name, 'UTF-8');
         $iname = mb_strtolower($this->interpret->name, 'UTF-8');
         $res = [];
