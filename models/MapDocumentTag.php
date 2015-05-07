@@ -75,6 +75,7 @@ class MapDocumentTag extends \yii\db\ActiveRecord
     public static function calculateWeights() {
         $transaction = Yii::$app->db->beginTransaction();
         extract(Yii::$app->params['tag_appereance_weights']);
+        print_r(Yii::$app->params['tag_appereance_weights']);
         try {
             Yii::$app->db->createCommand(
                 "UPDATE map_document_tag AS tg2 ".

@@ -10,6 +10,9 @@ use app\models\Document;
 use app\models\MapDocumentTag;
 use yii\helpers\ArrayHelper;
 use tests\codeception\fixtures\DocumentFixture;
+use tests\codeception\fixtures\DocumentTypeFixture;
+use tests\codeception\fixtures\InterpretFixture;
+
 
 class DocumentTest extends DbTestCase {
 
@@ -17,7 +20,9 @@ class DocumentTest extends DbTestCase {
 
     public function fixtures() {
         return [
-            'document' => DocumentFixture::className()
+            'document' => DocumentFixture::className(),
+            'document_type' => DocumentTypeFixture::className(),
+            'interpret' => InterpretFixture::className(),
         ];
     }
     
@@ -30,8 +35,6 @@ class DocumentTest extends DbTestCase {
         
 
         $model = Document::findOne(1);
-        print_r($model->getTagsFromAtts());
-        exit();
         $tags = $model->getTagsFromAtts();
 
         $names = ArrayHelper::getColumn($tags, 'name');
