@@ -2,6 +2,44 @@
 
 \section{Návrh riešenia}
 
+V tejto kapitole sa budeme zaoberať zvolenými technológiamy a abstraktným návrhom 
+aplikácie.
+
+\subsection{Platforma}
+
+Prácu som sa rozhodol vypracovať vo forme webovej aplikácie.
+Túto formu som zvolili najmä pre väčšiu dostupnosť pre koncového používateľa.
+Tak isto veľkým plus je že celá aplikácie beží na strane tvorcu takže prípadne zmeny 
+v systéme nebude potrebne synchronizovať naprieč viacerímy zariadeniamy. 
+Ďaľšou výhodou je redukovanie problémov zo synchronizáciou databáza medzi koncovímy 
+zariadeniamy.
+
+Tak isto protabilita riešenia je pomerne dobrá, nepotrebujem sa zaoberať rôznymi verziamy
+operačných systémov. Proti tomuto by sa dalo argumentovať rozdielmy medzi 
+internetovými prehliadačmy a potrebu responzívneho dizajnu pre mobilné zariadenia,
+ale toto všetko sa dá jednoducho vyriešiť voľbou správny grafických knižníc.
+
+Keďže sa jedná o webovú aplikáciu, bude bežať čiastočne vo forme klient serve ako 
+html, css a javascript kód bežiaci vo vyhľadávači používateľa a php kód bežiaci na strane.
+
+\paragraph{Klient}
+
+Klientska časť je postavená na JavaScripte, HTML a CSS. Aby som zabezpečil responzívny 
+dyzajn a portabilitu naprieč prehliadačmy, rozhodol som sa použiť knižnicu Bootstrap,
+ktorá ja postavená na CSS a jQuery. Vďaka nej nemusím kontrolovať vyzualnu stránku v 
+rôznych prehliadačoch a vytvorenie dizajnu, ktorý dobre spolupracuje z rôznimy rozmermy
+obrazoviek a rozlíšení, ma stojí pomerne málo námahy. Tak isto plánujem použiť 
+jQuery v prípade potreby implementácie logiky na klientskej strane.
+
+\paragraph{Server}
+
+Na strane servera som sa rozhodol použiť jazyk PHP5 najmä z dôvodu že s ním mám predošlé 
+skúsenosti, tak isto pre tento jazyk sa dá ľahko vyhladať hosting a má veľmi rozsiahlu 
+dokumentáciu. Avšak v tomto jazyku je nedostatok štruktúri čo niekedy môže viesť k veľkým
+neudržateľným aplikáciam, preto som sa rozhodol použiť aplikačný rámec (angl. framework) 
+Yii2 ktorý má sadú odporúčaných praktík vďaka ktorím je aplikácia dlhodobo udržateľná.
+
+
 Implementácia je postavená okolo dvoch základných funkcionalít,
 ktoré sa budú navzájom dopĺňať,
 pôjde vyhľadávanie v hudobných dokumentoch
@@ -57,7 +95,7 @@ v ktorom sú jednou dimenziou vlastnosti jedného dokuemntu a druhou vlastností
 dokumentu, prípade vyhľadávacieho reťazca alebo používateľský profil.
 Následne sa vracajú dokumenty ktoré majú najpodobnejší smer vektora k požadovanej fráze.
 
-V MySQL je tento prístup implementovaný pomocov nasledujúcej rovnice \cite{14}:
+V MySQL je tento prístup implementovaný pomocov nasledujúcej rovnice\footnote[1]{http://dev.mysql.com/doc/internals/en/full-text-search.html}:
 
 \[
     w_d = \frac{\log(dtf_d) + 1}{\sum_{i=1}^{t} \log (dtf_i) + 1} .

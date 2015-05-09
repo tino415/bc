@@ -1,21 +1,62 @@
 \newpage 
 \section{Úvod}
 
-Ako z jej názvu vyplýva, informatika je predmet zameraný na prácu s informáciami. To čo kedysi bolo najväčším problémom, teda dostať nejaké informácie k používateľom, už dávno nie je problém. Vďaka internetu sa dajú informácie dostať prakticky všade. No teraz čelíme väčšiemu problému. Naša spoločnosť dokáže za účelom zábavy, rozvoja alebo produktivity vyprodukovať neuveriteľné množstvo informácií. Precíznosť archivácie údajov je asi najväčšia v histórií, problém nastáva ak chceme nejaké údaje vyhľadať. Klasický prístup spravovania informácií už nie sú dostačujúce a jednoduché vyhľadávanie už nieje dostatočne efektívne na to aby sme boli schopní nájsť požadované informácie.
+Ako z jej názvu vyplýva,
+informatika je predmet zameraný na prácu s informáciami.
+To čo kedysi bolo najväčším problémom,
+teda dostať nejaké informácie k používateľom,
+už dávno nie je problém. Vďaka internetu sa dajú informácie dostať prakticky všade.
+No teraz čelíme väčšiemu problému.
+Naša spoločnosť dokáže za účelom zábavy,
+rozvoja alebo produktivity vyprodukovať neuveriteľné množstvo informácií.
+Precíznosť archivácie údajov je asi najväčšia v histórií,
+problém nastáva ak chceme nejaké údaje vyhľadať.
+Klasický prístup spravovania informácií už nie sú dostačujúce a
+jednoduché vyhľadávanie už nieje dostatočne efektívne na to aby
+sme boli schopní nájsť požadované informácie.
 
-Dokonca aj vyhľadávanie ako také prestáva byť dostatočne efektívne, namiesto neho sa dostáva do popredia odporúčanie, ktoré doslova používateľovi ponúkne informácie, ktoré by ho mohli zaujímať, bez toho aby musel vynaložiť akúkoľvek námahu na hľadanie. Aby mohol systém robiť takúto predikciu potrebuje poznať používateľa a to mu umožňuje profilovanie používateľov. Profil používateľa je komplexná vec. Záujmy používateľa môžu byť ovplyvnené jeho demografickými parametrami (vek, vzdelanie, miesto pobytu), záujmami a všeobecnými novinkami ako vydanie nového albumu obľúbenej kapely alebo uvedenie nového zariadenia na trh. Do úvahy musíme brať aj udalosti v živote používateľa, napríklad narodenie potomka tiež v určitom smere ovplyvní používateľove záujmy. Z toho vyplýva že profil musí byť dynamický, a preto je potrebné nejakým spôsobom aj odoberať záujmy, o ktoré používateľ už viac neprejavuje záujem.
+Dokonca aj vyhľadávanie ako také prestáva byť dostatočne efektívne,
+namiesto neho sa dostáva do popredia odporúčanie,
+ktoré doslova používateľovi ponúkne informácie,
+ktoré by ho mohli zaujímať, bez toho aby musel vynaložiť akúkoľvek námahu na hľadanie.
+Aby mohol systém robiť takúto predikciu potrebuje poznať používateľa a
+to mu umožňuje profilovanie používateľov.
+Profil používateľa je komplexná vec.
+Záujmy používateľa môžu byť ovplyvnené jeho demografickými parametrami
+(vek, vzdelanie, miesto pobytu),
+záujmami a všeobecnými novinkami ako vydanie nového
+albumu obľúbenej kapely alebo uvedenie nového zariadenia na trh.
+Do úvahy musíme brať aj udalosti v živote používateľa,
+napríklad narodenie potomka tiež v určitom smere ovplyvní používateľove záujmy.
+Z toho vyplýva že profil musí byť dynamický,
+a preto je potrebné nejakým spôsobom aj odoberať záujmy,
+o ktoré používateľ už viac nezaujíma.
 
-Cieľom tohoto projektu je vytvoriť aplikáciu ktorá bude schopná dynamicky odporúčať. Na riešenie hore spomenutých problémov existuje množstvo prístupov. Každý z týchto prístupov má mierne lepšie výsledky v iných situáciách, čiže dosť závisí od domény, pre ktorú bude systém odporúčať. V tomto projekte sa budeme zaoberať doménou hudobných dokumentov (akordy, texty, taby, preklady). Táto oblasť ešte nie je prebádaná, čo nám prináša nové možnosti ako aj nové problémy.
+Cieľom tohoto projektu je vytvoriť aplikáciu ktorá bude schopná dynamicky odporúčať.
+Na riešenie hore spomenutých problémov existuje množstvo prístupov.
+Každý z týchto prístupov má mierne lepšie výsledky v iných situáciách,
+čiže dosť závisí od domény, pre ktorú bude systém odporúčať.
+V tomto projekte sa budeme zaoberať doménou
+hudobných dokumentov (akordy, texty, taby, preklady).
+Táto oblasť ešte nie je prebádaná,
+čo nám prináša nové možnosti ako aj nové problémy.
 
 \newpage
 \subsection{Použité pojmy a skratky}
 
 \begin{my_description}
-\item \textbf{relácia} - Sekvencia akcií vykonaná používateľom na vyhľadanie požadovaného dokumentu.
-\item \textbf{akcia} - Jedna elementárna interakcia používateľa so systémom, kliknutie na odkaz, zadanie vyhľadávacieho reťazca.
-\item \textbf{hudobné dokumenty} - Dokumenty, ktoré určitým spôsobom modelujú hudobné dielo v človekom čitateľnej podobe (nemusia zaznamenávať všetky vlastnosti hudobného diela), teda hlavne taby, akordy, texty a ich kombinácie.
-\item \textbf{preferencia} - Akákoľvek vlastnosť hudobného dokumentu, na základe ktorej sa určuje či je daný dokument vhodný pre používateľa.
-\item \textbf{vlastnoť dokumentu} - Opisná vlastnosť dokumentu, ktorú vieme spárovať na nejakú používateľovu preferenciu.
-\item \textbf{používateľov zámer} - súbor preferencií ktorí chcel používateľ vyjadriť pomocou zadaného vyhľadávacieho reťazca.
+\item \textbf{sedenie} - Sekvencia zobrazení dokumentov ktorá je časovo.
+\item \textbf{akcia} - Jedna elementárna interakcia používateľa so systémom,
+    kliknutie na odkaz, zadanie vyhľadávacieho reťazca.
+\item \textbf{dokument} - Je jedno hudobné dielo reprezentovane tabmy,
+    textom, notamy, prekladom alebo iným spôsobom nápomocným k
+    prevedeniu hudobného diela.
+\item \textbf{vlastnosť dokumentu} - Špecifický črt dokumentu ktorý
+    môže ovplivniť používateľové preferencie.
+\item \textbf{značka dokumentu} - Otnačená vlastnosť dokumentu ktorá
+    je rozoznávana vyhľadávacím systémom.
+\item \textbf{preferencia} - Je vlastnosť dokumentu ktorú nejakým spôsobom používateľ preferuje.
+\item \textbf{užitočnosť} - Vlastnosť je hodnota určujúca či je daný dokument preferovaný
+    používateľom.
 \end{my_description}
 
