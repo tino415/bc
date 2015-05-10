@@ -108,6 +108,7 @@ $this->title = Yii::t('app', 'song');
                 <?= ListView::widget([
                     'dataProvider' => $similiar_documents,
                     'itemView' => '_document',
+                    'summary' => '',
                     'viewParams' => [
                         'offset' => 1000,
                         'similiar' => ArrayHelper::getColumn($document->tags, 'id'),

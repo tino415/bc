@@ -4,10 +4,11 @@ namespace app\models;
 
 use Yii;
 use \yii\helpers\Url;
-use \yii\helpers\BaseArrayHelper;
+use \yii\helpers\ArrayHelper;
 use \yii\db\Expression;
 use \yii\db\Query;
 use \app\components\ActiveRecord;
+use \app\components\Globals;
 
 /** * This is the model class for table "document".
  *
@@ -202,13 +203,13 @@ class Document extends ActiveRecord
 
     public function getSimiliar() {
         return static::find()
-            ->innerJoin('map_document_tag map',
-                new Expression('map.document_id = document.id'))
-            ->innerJoin(['doc_map' => $this->getMapDocumentTags()],
-                new Expression('doc_map.tag_id = map.tag_id'))
-            ->where(['<>', 'document.id', $this->id])
+            ->innerJoin('map_document_tag map1', 
+                new Expression('map1.document_id = document.id'))
+            ->innerJoin('map_document_tag map2',
+                new Expression("map2.tag_id = map1.tag_id AND map2.document_id = $this->id"))
             ->groupBy('document.id')
-            ->orderBy(new Expression('SUM(map.weight * doc_map.weight) DESC'));
+            ->orderBy(new Expression('SUM(map1.weight * map2.weight) DESC'))
+            ->having(new Expression('COUNT(*) > 3'));
     }
 
     public static function similiarTags($document1, $document2) {
@@ -220,21 +221,30 @@ class Document extends ActiveRecord
             ->andWhere(new Expression('map1.document_id = map2.document_id'));
     }
 
-    public static function match($tags, $exclude = false) {
-        $or = ['or'];
+    public static function matchIds($tags) {
 
-        foreach($tags as $tag)
-            $or[] = ['name' => "$tag"];
+        $case = Globals::sqlCase(ArrayHelper::map($tags, 'tag_id', 'weight'),'tag_id');
+
+        return Document::find()
+            ->innerJoin('map_document_tag map', new Expression('map.document_id = document.id'))
+            ->where(['map.tag_id' => ArrayHelper::getColumn($tags, 'tag_id')])
+            ->groupBy('document.id, document.name')
+            ->orderBy(new Expression("SUM(weight * $case) DESC"));
+    }
+
+    public static function match($tags, $exclude = false) {
+        $case = Globals::sqlCase($tags,'tag.name');
 
         $subQuery = (new Query)->select('id')
             ->from('tag')
-            ->where($or);
+            ->where(['name' => array_keys($tags)]);
 
         $query = (new Query)->select('document_id')
-            ->from('map_document_tag')
+            ->from('map_document_tag map')
+            ->innerJoin('tag', new Expression('tag.id = map.tag_id'))
             ->where(['tag_id' => $subQuery])
             ->groupBy('document_id')
-            ->orderBy(new Expression('SUM(weight) DESC'))
+            ->orderBy(new Expression("SUM(weight* $case ) DESC"))
             ->limit("50");
 
         if($exclude)
@@ -246,7 +256,7 @@ class Document extends ActiveRecord
     public static function search($query)
     {
         $query_tags = array_count_values(Tag::escape($query));
-        return self::match(array_keys($query_tags));
+        return self::match($query_tags);
     }
 
     public static function getTagType($IN, $DN, $IT, $DT) {

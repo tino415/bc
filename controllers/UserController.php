@@ -190,8 +190,8 @@ class UserController extends Controller
 
         if($model->load(Yii::$app->request->post())) {
             $tags = [];
-            $tags = User::recommendFor(['id' => $model->users]);
-            $documents = Document::match($tags)->all();
+            $tags = User::recommendFor($model->users)->limit(50)->all();
+            $documents = Document::matchIds($tags)->limit(50)->all();
         }
 
         return $this->render('merge', [

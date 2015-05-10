@@ -13,9 +13,8 @@ class m150507_001515_index_map_document_tag extends Migration
 
     public function down()
     {
-        echo "m150507_001515_index_map_document_tag cannot be reverted.\n";
-
-        return false;
+        $this->dropIndex('map_document_tag_tag_id', 'map_document_tag');
+        $this->dropIndex('map_document_tag_document_id', 'map_document_tag');
     }
     
     /*

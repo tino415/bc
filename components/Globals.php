@@ -27,4 +27,12 @@ class Globals {
         curl_close($curl);
         return $return;
     }
+
+    public static function sqlCase($vals, $param) {
+        $case = "CASE $param\n";
+        foreach($vals as $id => $value) {
+            $case .= "WHEN '$id' THEN $value\n";
+        }
+        return $case."END";
+    }
 }

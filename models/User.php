@@ -272,25 +272,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->groupBy('tag_id');
     }
 
-    /**
-     * Get tags for multiple users
-     */
-    public static function recommendFor($where) {
-        
-
-        $users = User::find()->where($where)->all();
-
-        $tags = [];
-
-        foreach($users as $user) {
-            $tags = $tags + Tag::find()
-                ->innerJoin('view', new Expression('view.tag_id = tag.id'))
-                ->groupBy('tag.id')
-                ->orderBy(new Expression('COUNT(*)'))
-                ->where(['user_id' => $user->id])
-                ->limit(20)->all();
-        }
-
-        return $tags;
+    public static function recommendFor($ids) {
+        $expression = new Expression(
+            '((COUNT(DISTINCT user_id) / '.
+            count($ids).'.00) * '.
+            'LOG(COUNT(*) + 1))'
+        );
+        return (new Query())
+            ->select(['tag_id', 'weight' => $expression])
+            ->from('view')
+            ->where(['user_id' => $ids])
+            ->orderBy($expression)
+            ->groupBy('tag_id');
     }
 }
