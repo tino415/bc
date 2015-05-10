@@ -3,80 +3,67 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: references.bib.bib
-I was expecting a `,' or a `}'---line 221 of file references.bib.bib
+I was expecting a `,' or a `}'---line 219 of file references.bib.bib
  :     
- :     author = {Wei Chu and Seung-Taek Park}
+ :     author = {Wei Chu and Seung-Taek Park},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 241 of file references.bib.bib
- :     
- :     year={2011}
-(Error may have been on previous line)
+Unbalanced braces---line 287 of file references.bib.bib
+ :     note="[navštívené 1 mája 2015
+ :                                      }",
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 259 of file references.bib.bib
- :     
- :     year={2000}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "1"
-Warning--I didn't find a database entry for "4"
-Warning--empty journal in 8
+Warning--I didn't find a database entry for "achemoukh"
 Warning--empty booktitle in basic_user_profiles
 Warning--empty journal in modified_bm25
 Warning--empty journal in music_genres_problematics
-Warning--empty journal in 5
 Warning--empty journal in social_tagging_music
-Warning--empty journal in 9
 Warning--empty journal in automatic_genre_recognition
-Warning--empty journal in 11
-Warning--empty journal in 10
-Warning--empty journal in 3
+Warning--empty journal in long_term_profile
+Warning--empty year in long_term_profile
 Warning--can't use both author and editor fields in recommender_categories
 Warning--empty year in recommender_categories
 Warning--empty journal in pivoted_doc_len
 Warning--empty journal in semantic_networks
 Warning--empty year in semantic_networks
-Warning--empty journal in 7
-Warning--empty journal in 6
-You've used 19 entries,
+You've used 11 entries,
             2118 wiz_defined-function locations,
-            586 strings with 6511 characters,
-and the built_in function-call counts, 4636 in all, are:
-= -- 426
-> -- 220
+            557 strings with 5919 characters,
+and the built_in function-call counts, 2773 in all, are:
+= -- 258
+> -- 127
 < -- 2
-+ -- 90
-- -- 70
-* -- 247
-:= -- 847
-add.period$ -- 60
-call.type$ -- 19
-change.case$ -- 90
++ -- 52
+- -- 40
+* -- 153
+:= -- 501
+add.period$ -- 35
+call.type$ -- 11
+change.case$ -- 52
 chr.to.int$ -- 0
-cite$ -- 37
-duplicate$ -- 200
-empty$ -- 349
-format.name$ -- 70
-if$ -- 920
+cite$ -- 23
+duplicate$ -- 118
+empty$ -- 208
+format.name$ -- 40
+if$ -- 555
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 19
-newline$ -- 101
-num.names$ -- 38
-pop$ -- 130
+int.to.str$ -- 11
+missing$ -- 10
+newline$ -- 60
+num.names$ -- 22
+pop$ -- 71
 preamble$ -- 1
-purify$ -- 73
+purify$ -- 42
 quote$ -- 0
-skip$ -- 135
+skip$ -- 82
 stack$ -- 0
-substring$ -- 124
-swap$ -- 14
+substring$ -- 84
+swap$ -- 13
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 72
-warning$ -- 18
-while$ -- 40
-width$ -- 21
-write$ -- 182
-(There were 3 error messages)
+type$ -- 42
+warning$ -- 12
+while$ -- 24
+width$ -- 13
+write$ -- 109
+(There were 2 error messages)

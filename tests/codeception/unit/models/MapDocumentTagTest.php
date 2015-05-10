@@ -27,7 +27,6 @@ class MapDocumentTagTest extends DbTestCase {
 
         $map1 = MapDocumentTag::findOne(1);
         $map2 = MapDocumentTag::findOne(8);
-        exit(print_r($map2));
 
         $this->specify('Check weights', function() use($map1, $map2) {
             expect('Weight should by 0.893', round($map1->weight, 3))->equals(0.893);

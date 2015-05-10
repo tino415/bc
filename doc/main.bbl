@@ -1,11 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{8}
-Amr Ahmed, Yucheng Low, Mohamed Aly, Vanja Josifovski, and Alexander~J. Smola.
-\newblock Scalable distributed inference of dynamic user interests for
-  behavioral targeting.
-\newblock august 2011.
-
 \bibitem{basic_user_profiles}
 Peter Brusilovsky.
 \newblock User profiles for personalized information access.
@@ -16,21 +10,16 @@ S.~Cronen-Townsend and W.~B. Croft.
 \newblock Quantifying query ambiguity.
 \newblock 2002.
 
+\bibitem{probability_ir}
+Alexander Dekhtyar.
+\newblock Probabilistic information retrieval part 1: Survey.
+\newblock [navštívené 10 januara 2015], 2000.
+
 \bibitem{music_genres_problematics}
 Franco Fabbri.
 \newblock A theory of musical genres: Two applications.
 \newblock 1980.
 \newblock [navštívené 27 apríla 2015].
-
-\bibitem{probability_ir}
-information_retrieval.
-\newblock Probabilistic information retrieval part i: Survey.
-\newblock [navštívené 10 januara 2015].
-
-\bibitem{5}
-Karin Kosina.
-\newblock Music genre recognition.
-\newblock 2002.
 
 \bibitem{social_tagging_music}
 Paul Lamere.
@@ -38,30 +27,14 @@ Paul Lamere.
 \newblock 2009.
 \newblock [navštívené 24 apríla 2015].
 
-\bibitem{9}
-DIK~L. LEE.
-\newblock Document ranking and the vector-space model.
-\newblock 1997.
-
 \bibitem{automatic_genre_recognition}
 Namunu~C. Maddage, Li~Haithou, and Mohan~S. Kankanhalli.
 \newblock Music structure analysis statistics for popular songs.
 \newblock November 2009.
 
-\bibitem{11}
-Prem Melville, Raymond~J. Mooney, and Ramadass Nagarajan.
-\newblock Content-boosted collaborative filtering for improved recommendations.
-\newblock júl 2002.
-
-\bibitem{10}
-Gašpar Peter.
-\newblock Odporúčanie s využitím osobných vyjadrení.
-\newblock 2014.
-
-\bibitem{3}
-Yves Raimond, Samer Abdallah, and Mark Sandler.
-\newblock The music ontology.
-\newblock 2007.
+\bibitem{long_term_profile}
+Nicolaas Matthijs and Filip Fadlinski.
+\newblock Presonalizing web search using long term borwsing history.
 
 \bibitem{recommender_categories}
 Francesc Ricci, Lior Rokach, Bracha Shapira, and Paul~B. Kantor.
@@ -70,15 +43,10 @@ Francesc Ricci, Lior Rokach, Bracha Shapira, and Paul~B. Kantor.
 \newblock Springer New York Dordrecht Heidelberg London.
 \newblock [navštívené 1 máj 2015].
 
-\bibitem{12}
-Arnold Schoenberg.
-\newblock {\em Fundamentalls of musical composition}.
-\newblock Faber and Faber Limited, 1967.
-
 \bibitem{vector_space_model}
 Hinrich Sch¨utze.
 \newblock Introduction to information retrieval.
-\newblock [navštívené 6 januara 2015].
+\newblock [navštívené 6 januara 2015], 2011.
 
 \bibitem{pivoted_doc_len}
 Amit Singhal, Chris Buckley, and Mandar Mitra.
@@ -89,15 +57,5 @@ Amit Singhal, Chris Buckley, and Mandar Mitra.
 John~F. Sowa.
 \newblock Semantic networks.
 \newblock [navštívené 4 februára 2015].
-
-\bibitem{7}
-Kiryl Tsishchanka.
-\newblock Exponential growth and decay.
-\newblock 2010.
-
-\bibitem{6}
-Tong Zhu.
-\newblock Nonlinear p´olya urn models and self-organizing processes.
-\newblock 2009.
 
 \end{thebibliography}

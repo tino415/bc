@@ -276,6 +276,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * Get tags for multiple users
      */
     public static function recommendFor($where) {
+        
+
         $users = User::find()->where($where)->all();
 
         $tags = [];
@@ -284,7 +286,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             $tags = $tags + Tag::find()
                 ->innerJoin('view', new Expression('view.tag_id = tag.id'))
                 ->groupBy('tag.id')
-                ->orderBy(new Expression('LOG(COUNT(*))'))
+                ->orderBy(new Expression('COUNT(*)'))
                 ->where(['user_id' => $user->id])
                 ->limit(20)->all();
         }

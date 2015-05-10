@@ -182,35 +182,126 @@ akcií kravleru.
 
 \paragraph{Vyhľadanie nových interpretov}
 
+Táto akcia využíva spôsob akým sú na super music triedený interpreti.
+Interpreti sa zobrazujú na stránke \uv{http://www.supermusic.sk/skupiny.php?od=}
+pričom parameter \(od\) sú počiatošné písmena názvu kapely. Experimentálne 
+som overil, že na prejdenie celej databázy potrebujem vygenerovať všetky trojpísmenové
+začiatky názvou, pričom nezáleží na malích a veľkých písmenách. Pre generovaní používam 
+anglickú abecedu až na prvé písmeno kde musím brať do úvahy aj niektorú diakritiku.
+
+Prvé písmeno sa vyberá z množiny 
+\uv{A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, R, S, T, U, V, X, Y, *, Ž, Ť, Č}.
+Tento príkaz sa dá spustiť aj paralélne, kedy vytvorí niekoľko 
+ procesov, avšak príkaz nieje spoľahlivý, vzhľadom na to že v rámci zachovania portability 
+som použil iba základnu knižnicu pcntl. Táto knižnica neobsahuje zámky, ani iný spôsob ako 
+ošetriť prítupy ku zdrojom.
+
+Kravler pre interpretov využíva XPath výrazy
+[\ref{lst:interpret_id}, \ref{lst:interpret_name}, \ref{lst:interpret_alias}] na získanie 
+dát zo stiahnutej stránky.
+
+\begin{lstlisting}[caption=XPath na vyhľadanie interpretovho identifikátora,
+    label=lst:interpret_id]
+//table[@bgcolor="#333333" and position() = 2]//a/@id
+\end{lstlisting}
+
+\begin{lstlisting}[caption=XPath na vyhľadanie interpretovho mena,label=lst:interpret_name]
+//table[@bgcolor="#333333" and position() = 2]//a/@href
+\end{lstlisting}
+
+\begin{lstlisting}[caption=XPath na vyhľadanie interpretovho aliasu,label=lst:interpret_alias]
+//table[@bgcolor="#333333" and position() = 2]//a/text()
+\end{lstlisting}
+
+Tieto hodnoty sa ešte ďalej spracúvajú, napríklad vytiahnutie pri druhom XPath-te
+\ref{lst:interpret_name} 
+získame url z ktorej musíme aktuálne meno získať pomocou regulárneho výrazu.
+
+\begin{lstlisting}[caption=Regulárny výraz na získanie mena interpreta z url interpreta,
+    label=lst:regex_interpret_name]
+/&name=.*\$/
+\end{lstlisting}
+
 \paragraph{Vyhľadanie nových dokumentov}
 
-Pri tejto akcií sa využíva spôsob triedenie piesni na supermusic. Piesne sú triedené podľa
-abecedy a na ich zobrazenie slúži adresa \uv{http://www.supermusic.sk/piesne.php?od=\$param}.
-pričom param je reťazec na ktorý majú piesne začínať. Experimentálne som overil že 
-na zobrazenie skoro všetkých dokumentov mi stačí použiť dva znaky.
+Táto akcia funguje podobne ako akcia akcia Vyhľadanie nových interpretov. Tiež genreuje adresy
+z abecedy a adresy \uv{http://www.supermusic.sk/piesne.php?od=}.
+pričom dopĺňa písmená na koniec adresy.
 
 Prvý znak je anglická abeceda rozšírená o niekoľko slovenský a českých interpunkčný písmen
-plus hviezda. Teda v provom rade sú písmená z množiny \({A, B, C, D, E, F, G, H, I, J, K, L, M,
-N, O, P, Q, R, S, T, U, V, X, Y, Z, Č. Ď, Ľ, Ř, Š, Ť, Ž, *}\),
+plus hviezda. Teda v provom rade sú písmená z množiny \uv{A, B, C, D, E, F, G, H, I, J, K, L, M,
+N, O, P, Q, R, S, T, U, V, X, Y, Z, Č. Ď, Ľ, Ř, Š, Ť, Ž, *},
 v druhej rade už je anglická abeceda.
 
-Následne sa snaží získať zoznam piesni zo staihnutej stránky, za týmto účelom používam try
-XPath výrazy
+Následne sa snaží získať zoznam piesni zo staihnutej stránky, za týmto účelom používam
+XPath výrazy [\ref{lst:document_id}, \ref{lst:document_name}, \ref{lst:document_interpret}, 
+\ref{lst:document_type}].
 
-\begin{itemize}
-\item{\uv{//table[@width=740]//td/a/text()} na vyhľadanie všetkých názvou piesni,}
-\item{\uv{//table[@width=740]//td/a/@href} na ziskanie univerzánlneho identifikátora piesne,}
-\item{\uv{//table[@width=740]//td/imt/@src} na získanie typu dokumentu,}
-\item{\uv{//table[@width=740]//td/text()} na získanie názvu interpréta.}
-\end{itemize}
+\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_name]
+//table[@width=740]//td/a/text()
+\end{lstlisting}
 
-Tieto parametre sa následne ďalej spracuvávaju.
+\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_id]
+//table[@width=740]//td/a/@href
+\end{lstlisting}
+
+\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_type]
+//table[@width=740]//td/imt/@src
+\end{lstlisting}
+
+\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_interpret]
+//table[@width=740]//td/text()
+\end{lstlisting}
 
 \paragraph{Stiahnutie nových dokumentov}
 
+Počas hľadania nových dokumentov sa ešte nesťahujú obsahy dokumentov. Takže 
+všetky nové dokumenty ešte nemajú žiadný obsah, táto akcia si vyberie nové dokumenty
+a následne ich sťahuj, url dokumenty sa dá získať tak že zoberiem url
+\uv{http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=} a na jej
+koniec pridám identifikátor dokumentu.
+
+Následne sa dokument spracuje, a ak to je potrebné prispôsobý sa aplikácií.
+
 \paragraph{Vygenerovanie značiek}
 
+Aby bolo možné odporúčať, je potrebné vygenerovať značky pre dokumenty. Značky
+sa generujú z názvu dokument, názvu interpréta a typu dokumentu tak, že sa rozdelia na
+slová. Následne sa odstrania slová zo slabou semantickou 
+silou\footnote{http://en.wikipedia.org/wiki/Stop\_words}  (angl. stopwords).
+Na filtrovanie takýchto slóv používa už hotový zoznam slóv vytvorený v rámci 
+projektu stop-words\footnote{https://code.google.com/p/stop-words/}
+Z tohoto projekty využívam sady
+
+\begin{itemize}
+\item{stop-words\_czech\_3\_cz,}
+\item{stop-words\_english\_3\_en,}
+\item{stop-words\_slovak\_2\_sk.}
+\end{itemize}
+
+Text sa ešte pre tým normalizuje a tak isto sa určí doména značky, pre jednoduchosť 
+ukladania neukladám značku pre každú doménu osobytne, ale mám vytvorený číselník
+ktorý priradzuje presné domény značkám. 
+
+\begin{itemize}
+\item{\(8\) znamená že značka je názov dokumentu aj názvo interpreta,}
+\item{\(7\) znamená že značka je názov dokumentu a značka z názvu interpreta,}
+\item{\(6\) znamená že značka je názov interpreta a značkou z názvu dokumentu,}
+\item{\(5\) znamená že značka je názov dokumentu,}
+\item{\(4\) znamená že značka je názov interpreta,}
+\item{\(3\) znamená že značka je značkou v názve dokumentu aj interpreta,}
+\item{\(2\) znamená že značka je značkou v názve dokumentu,}
+\item{\(1\) znamená že značka je značkou v názve interpreta,}
+\item{\(0\) znamená že značka je buď značka získana z typu dokumentu alebo služby last.fm.}
+\end{itemize}
+
 \paragraph{Doplnenie značiek z last.fm}
+
+Na dopĺňanie značiek používam službu track.getTopTags z last.fm apy. Ktorá 
+vráti pre interpreta a názvo piesne najčastejšie prideľované značky. Tie následne
+pridám k danej piesni. Keďže počet pridelení vrátených z last.fm vysoko prebíjal
+počty vytvorené z názvu dokumentu a interpreta, rozhodol som sa túto hodnotu 
+nevyužiť.
 
 \paragraph{Váhovanie značiek dokumentov}
 
@@ -220,81 +311,126 @@ v ktorom sú jednou dimenziou vlastnosti jedného dokuemntu a druhou vlastností
 dokumentu, prípade vyhľadávacieho reťazca alebo používateľský profil.
 Následne sa vracajú dokumenty ktoré majú najpodobnejší smer vektora k požadovanej fráze.
 
-V MySQL je tento prístup implementovaný pomocov nasledujúcej rovnice\footnote[1]{http://dev.mysql.com/doc/internals/en/full-text-search.html}:
+V MySQL\footnote{http://dev.mysql.com/doc/internals/en/full-text-search.html}
+je tento prístup implementovaný pomocov nasledujúcej 
+rovnice \ref{eq:mysql_language_model}.
 
-\[
+\begin{equation}\label{eq:mysql_language_model}
     w_d = \frac{\log(dtf_d) + 1}{\sum_{i=1}^{t} \log (dtf_i) + 1} .
         \frac{U}{1+0.0115 * U} .
         \log \frac {N}{nf}
-\]
+\end{equation}
 
+Rovnica obsahuje
 \begin{itemize}
-\item{\(dtf_d\) je sila (množstvo koľko krát sa nachádza pojem v text v prípade analízy textu)
-    vlastnosti vyhodnocovaného dokumentu}
-\item{\(dtf_i\) sila i-tej vlastnosti}
-\item{\(U\) počet unikátnych vlastnosti dokumentu}
-\item{\(N\) počet všetkých dokumentov}
-\item{\(nf\) je počet dokumentov ktoré obsahuje danú vlastnosť}
+\item{\(dtf_d\) je množstvo koľko krát sa nachádza značka v dokumente,}
+\item{\(dtf_i\) množstvo i-tej značky dokument,}
+\item{\(U\) počet unikátnych značiek dokumentu, }
+\item{\(N\) počet všetkých dokumentov, }
+\item{\(nf\) je počet dokumentov ktoré obsahuje danú značku}
 \end{itemize}
 
-Rovnica sa dá rozdeliť na tri časti.
-
-\paragraph{Základná časť}
-Je to primárna rovnica určujúca váhu pojmu.
-
-\paragraph{Normalizačný faktor} 
-Spôsobý, že ak je dokument kratší ako preiemerná dĺžka dokuemntu,
-jeho relevancia stúpa. \cite{pivoted_doc_len}
-
-\paragraph{Inverzná frequencia}
-Zabezpečuje že menej časté pojmy majú vyššiu váhu.
-
-\subsection{Filtrovanie bezvýznamných značiek (angl. stopwords)}
-
-Niektoré slová sú pri vyhľadávaní a indexovaní zbytočné. Síce 
-sa dá použiť tf*idf ktorý redukuje váhu slov na základe ich 
-unikátnosti, ale tieto slová aj tak musí systém spracovať, ja som 
-sa rozhodol použiť kombináciu českých, anglických a slovenských slóv z
-projektu TODO: Ako ? google code stop-words
-
-
-\subsection{Zostavenie spevníka}
-
-Aplikácia bude podporovať funkcionalitu automatického generovania spevníka,
-kedy si používateľ zvoli používateľov s ktorými si chce ísť zahrať
-a aplikácia automatický vygeneruje spevník
-zložený s nejpreferovanejších hudobných diel daných používateľov.
-
-\subsection{Krawler ?}
-
-Tento komponenet prehľadáva databázu ktorá je cieľom môjho odporúčača,
-využíva k tomu abecedne zobrazenie záznamov databázy.
-Databáza sa nedá zobraziť od do,
-takže granularitu zobrazenie stránok som musel určiť pokusom,
-najskôr som si zobrazoval všetky troj písmenkove názvy,
-čo bolo 30*26*26 zobrazení (20280), čo ale trvalo príliš dlho,
-tak som v tretej sade prehľadával iba každé štvrté písmenko,
-čo zredukovalo počet stranok na 3380.
-
-\subsection{Indexing}
-
-Jestvuje veľa spôsobov ako sa dá označovať a vyhľadať obsah, ja som sa počas prieskumu zameral na try:
-
-\paragraph{Priama tagovacia tabuľka}
-
-Vytvoril som tabuľku tagov, kde bol každý tag fyzický priamo vložený spolu z id dokumentu ku ktoremu sa viaže,
-tento prístup ale nebol dostatočne rýchli na vygenerovanie, ani na vyhľadávanie. Pri vyhľadávaní nad 118989 značkamy 
-označujúcimi 47002 dokumentov zabral 44.6984 sekúnd. Nepomohlo ani zindexovanie podľa mena.
-
-\subsection{Váhovanie Dokumentu}
-
-\[w(d_j) = \sum_{i=1}^{N} w(t_i) \]
+Rovnica sa dá rozdeliť na tri časti:
 
 \begin{itemize}
-\item{\(N\)} Počet značiek v dokumente,
-\item{\(t_i\)} I-ty pojem v dokumente,
-\item{\(d_j\)} J-ty dokument.
+\item{\textbf{Základná časť} je to primárna rovnica určujúca váhu pojmu,}
+\item{\textbf{Normalizačný faktor} spôsobý, že ak je dokument kratší ako preiemerná dĺžka
+dokuemntu, jeho relevancia stúpa. \cite{pivoted_doc_len}}
+\item{\textbf{Inverzná frequencia} zabezpečuje že menej časté pojmy majú vyššiu váhu.}
 \end{itemize}
+
+\subsection{Odporúčanie}
+
+V rámci odporúčania je vytvorených niekoľko algoritmov.
+
+\paragraph{Agregované odporúčanie}
+
+Ako referenčné odporúčanie som zvolil agregovanie všetkých zobrazených značiek, a vátenie
+tých ktoré používateľ navštevoval najčastejšie. Matematicky je tento algoritmus vyjadrený
+rovnicou \ref{eq:aggregated_recommendation},
+
+\begin{equation}\label{eq:aggregated_recommendation}
+u(d_i, u_k) = \sum\limit_{j = 0}^{j = N_{d_i u_k}} u(z_j)
+\end{equation}
+
+kde \(u(d_i, u_k)\) je užitočnosť dokumentu \(d_i\) pre používateľa \(u_k\),
+ďalej \(N_{d_i u_k}\) čo je spoločný počet značiek dokumentu \(d_i\) a používateľa
+\(u_k\) a \(u(z_j, d_i)\), čo je užitočnosť zančky \(z_j\) vzhľadom na dokument 
+\(d_i\).
+
+\paragraph{Vlastné odporúčanie}
+
+Pri agregovanom odporúčaní však ale nastáva jeden zásadný problém, 
+ak používateľ v istom čase zobrázy jeden dokument veľa krát, môže to tak ovplivniť 
+jeho záujmi na dlhší čas. Napríklad na obrázku \ref{fig:casova_os} by značka 1 aj
+značka 2 mala rovnakú váhu.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.55]{casova_os}
+        \caption{Zobrazenia značiek na časovej osy.}
+        \label{fig:casova_os}
+    \end{center}
+\end{figure}
+
+Na vyriešenie tohoto problému som sa rozhodol implementovať algoritmus, pri ktorom si 
+rozdelím históriu zobrazení značiek na \(n\) rovnakých častí, značky v každej časti 
+si zoradím podľa počtu zobrazení a vrátim si \(i\) najzobrazovanejších značiek. 
+Pri každej časti považujem pozíciu na ktorej sa značka umiestnila za jej váhu.
+
+Následne pre každú značku spočítam jej váhy zo všetkých skupín v ktorých sa vyskytla. 
+Túto váhu nakoniec ešte zlogaritmuje z dôvodu že značky ktoré boli na prvých priečkach 
+zvykli mať obrovský náskok oprotí nižším. Na ukážke \ref{lst:profile_tags} môžeme
+vidieť pseudo kód tohoto algoritmu.
+
+\begin{lstlisting}[label=lst:profile_tags, caption=Získanie značiek profilu]
+Znacky ziskajZnackyProfilu(zobrazeneZnacky):
+    znackyProfilu = []
+    velkosťJednejSkupiny = 
+        pocet(zobrazeneZnacky) / configuracia('pocetSkupin')
+
+    for i=0; i<pocet(zobrazeneZnacky); i+= velkostJednejSkupiny:
+        zoskupeneZnacky = zoskup(
+            zobrazeneZnacky, podla=znacky, pocet(*)
+        )
+        zoradeneZnacky = zorad(zoskupeneZnacky, podla=pocet(*))
+        for j=0; j<configuracia('vrchSkupiny'); j++:
+            znackyProfilu[zoradeneZnacky[j].nazov] += j;
+    
+    foreach znackyProfilu as znackaProfilu:
+        znackaProfilu = log(znackaProfilu)
+\end{lstlisting}
+
+\paragraph{Skupinové odporúčanie}
+
+Aplikácia tak isto umožňuje vytváranie spevníkov pre viacerích používateľov. Pre zjednodušenie
+táto funkcionalita je implementovaná v dvoch krokoch. V prvom kroku sa získaju a ováhujú značky
+vybranej skupiny používateľov, v druhom sa vrátia najužitočnejšie dokumentu na základe značiek.
+
+\begin{lstlisting}[label=lst:group_tags, caption=Získanie značiek skupiny používateľov]
+Znacky ziskajZnackySkupiny(zobrazeneZnacky, pouzivatelia)
+    znackySkupiny = []
+    foreach pouzivatelia as pouzivatel:
+        znacky = vyfiltruj(zobrazeneZnacky, podla=pouzivatel)
+        zoskupeneZnacky = zoskou(znacky, podla='znacka', pocet(*))
+
+\end{lstlisting}
+
+%\paragraph{Priama tagovacia tabuľka}
+%
+%Vytvoril som tabuľku tagov, kde bol každý tag fyzický priamo vložený spolu z id dokumentu ku ktoremu sa viaže,
+%tento prístup ale nebol dostatočne rýchli na vygenerovanie, ani na vyhľadávanie. Pri vyhľadávaní nad 118989 značkamy 
+%označujúcimi 47002 dokumentov zabral 44.6984 sekúnd. Nepomohlo ani zindexovanie podľa mena.
+%
+%\subsection{Váhovanie Dokumentu}
+%
+%\[w(d_j) = \sum_{i=1}^{N} w(t_i) \]
+%
+%\begin{itemize}
+%\item{\(N\)} Počet značiek v dokumente,
+%\item{\(t_i\)} I-ty pojem v dokumente,
+%\item{\(d_j\)} J-ty dokument.
+%\end{itemize}
 
 %\section{Návrh, špecifikácia požiadaviek a pod.}
 %Aenean consequat, sapien a posuere tincidunt, massa purus egestas nisl, sed sollicitudin neque mi vel augue. Sed condimentum nibh ut metus condimentum ornare. Maecenas ultrices tempor condimentum. Etiam nec lorem leo, id consequat tellus. Etiam id mattis massa. Phasellus commodo, lacus in viverra lacinia, quam leo ultricies tellus, condimentum vehicula dui nisl a magna. In mi felis, malesuada eget tincidunt eget, rutrum ac lacus. In a nisl tellus. Mauris hendrerit egestas odio ac consequat. Curabitur aliquam convallis nibh sed blandit. Ut et viverra felis. Sed varius quam non mauris facilisis tincidunt. Quisque et libero eros, sed hendrerit sapien. Aliquam nec faucibus neque. Integer dictum arcu sed risus scelerisque fermentum. Pellentesque vitae ipsum lorem, sed lacinia ligula~\cite{4}.

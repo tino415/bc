@@ -13,7 +13,7 @@ use app\models\User;
 use app\models\MapDocumentTag;
 use yii\base\ErrorException;
 use yii\db\Query;
-use app\crawlers\SuperMusicDocumentCrawler;
+use app\crawlers\DocumentExplorerCrawler;
 
 define(
     'SONG_XPATH',
@@ -23,6 +23,8 @@ define(
 class DocumentController extends SMParserController {
     
     private $_tag_cache = false;
+
+    protected $base_link = 'http://www.supermusic.sk/piesne.php?od=';
 
     private $TAG_MAPPING = [
         'texty' => 'text',
@@ -208,7 +210,7 @@ class DocumentController extends SMParserController {
         $content = $xpath->query('//td[@class="piesen"]')->item(0);
 
         if(empty($content)) {
-            Yii::info('Page vythout "pisesn" class, document will by deleted'."\n");
+            Yii::info('Page vythout "piesen" class, document will by deleted'."\n");
             $document->delete();
         } else {
             $document->content = $this->document->saveHTML($content);
@@ -261,65 +263,10 @@ class DocumentController extends SMParserController {
         });
     }
 
-    private function parseSM(
-        array $capitals = [
-            'A', 'B', 'C', 'D', 'E', 'F', 'G',
-            'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-            'V', 'W', 'X', 'Y', 'Z', '*', 'Ž',
-            'Ť', 'Č'
-        ],
-        array $lowcaps = [
-            false, 'a', 'b', 'c', 'd', 'e', 'f', 'g',
-            'h', 'i', 'j', 'k', 'l', 'm', 'n',
-            'o', 'p', 'r', 's', 't', 'u', 'v',
-            'w', 'x', 'y', 'z'
-        ],
-        $base_link = 'http://www.supermusic.sk/piesne.php?od='
-    )
-    {
-        $crawler->prepare();
-        $urls = [];
-        foreach($capitals as $capital) {
-            for($x = 0; $x < count($lowcaps); $x++) {
-                for($y = 0; $y < count($lowcaps); $y += 6) {
-                    $url = $base_link.$capital;
-                    $url .= ($lowcaps[$x]) ? $lowcaps[$x] : '';
-                    $url .= ($lowcaps[$y]) ? $lowcaps[$y] : '';
-                    $urls[] = $url;
-                }
-            }
-        }
-        $crawler->runMultiple($urls, false);
-    }
-
-    private function generateLinks(
-        array $capitals = [
-            'A', 'B', 'C', 'D', 'E', 'F', 'G',
-            'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-            'V', 'W', 'X', 'Y', 'Z', '*', 'Ž',
-            'Ť', 'Č'
-        ],
-        $base_link = 'http://www.supermusic.sk/piesne.php?od='
-    )
-    {
-        $lowcaps = array_slice($capitals, 0, -4);
-        foreach($capitals as $capital) {
-            foreach($lowcaps as $lowcap) {
-                $url = $base_link.$capital;
-                $url .= ($lowcap) ? $lowcap : '';
-                $url .= ($lowcap) ? $lowcap : '';
-                $urls[] = $url;
-            }
-        }
-        return $urls;
-    }
-
     public function actionExploreone() {
         $links = $this->generateLinks(['A']);
 
-        $crawler = new SuperMusicDocumentCrawler();
+        $crawler = new DocumentExplorerCrawler();
         $crawler->run($links[0]);
     }
 
@@ -331,13 +278,12 @@ class DocumentController extends SMParserController {
         $capitals = explode(',', $capitals);
 
         echo "Preparing crawler\n";
-        $crawler = new SuperMusicDocumentCrawler();
+        $crawler = new DocumentExplorerCrawler;
         $crawler->prepare();
 
         echo "Generating links\n";
         $urls = $this->generateLinks($capitals);
         $crawler->runMultiple($urls, false);
-        return 0;
 
         return 0;
     }
@@ -509,7 +455,7 @@ class DocumentController extends SMParserController {
     }
 
     public function actionTest() {
-        $crawler = new SuperMusicDocumentCrawler();
+        $crawler = new SMDocumentExplorerCrawler();
         $crawler->run('http://www.supermusic.sk/piesne.php');
     }
 }

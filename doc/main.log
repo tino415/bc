@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  10 MAY 2015 02:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  10 MAY 2015 19:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main
+**main.tex
 (./main.tex
 LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 4 languages loaded.
@@ -1192,14 +1192,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 l.200 \(z\p
            \)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
 ? 
-[7] [8] <figures/semantic_network.png, id=240, 554.07pt x 325.215pt>
+[7] [8] <figures/semantic_network.png, id=241, 554.07pt x 325.215pt>
 File: figures/semantic_network.png Graphic file (type png)
 
 <use figures/semantic_network.png>
 Package pdftex.def Info: figures/semantic_network.png used on input line 249.
 (pdftex.def)             Requested size: 304.73944pt x 178.86879pt.
  [9 <./figures/semantic_network.png>]
-<figures/bayes_network.png, id=249, 259.97125pt x 163.61125pt>
+<figures/bayes_network.png, id=250, 259.97125pt x 163.61125pt>
 File: figures/bayes_network.png Graphic file (type png)
 
 <use figures/bayes_network.png>
@@ -1211,7 +1211,7 @@ l.279 boli ich značky \(Z = {z_1, _z_
                                       2... d_n}\), následne ak sme chcely o...
 
 ? 
-<figures/recommend_bayes_network.png, id=252, 614.295pt x 285.065pt>
+<figures/recommend_bayes_network.png, id=253, 614.295pt x 285.065pt>
 File: figures/recommend_bayes_network.png Graphic file (type png)
 
 <use figures/recommend_bayes_network.png>
@@ -1331,10 +1331,6 @@ Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                removing `\textasciicaron' on input line 424.
 
 [13]
-
-Package natbib Warning: Citation `lont_term_profile' on page 14 undefined on in
-put line 444.
-
 ! Undefined control sequence.
 l.457 u_{j}(d_i) = \sum\limit
                              _{t=1}^N_{z_t}f(z_t) * u(z_t)
@@ -1392,7 +1388,7 @@ Package natbib Warning: Citation `achemoukh' on page 15 undefined on input line
  493.
 
 ) (./design.tex [15] [16] [17]
-<figures/app_structure.png, id=351, 732.7375pt x 340.27126pt>
+<figures/app_structure.png, id=354, 732.7375pt x 340.27126pt>
 File: figures/app_structure.png Graphic file (type png)
 
 <use figures/app_structure.png>
@@ -1410,7 +1406,7 @@ LaTeX Warning: Command \' invalid in math mode on input line 144.
 
 LaTeX Warning: Command \v invalid in math mode on input line 150.
 
-[19] <figures/user_document_data_model.png, id=366, 404.51125pt x 392.46625pt>
+[19] <figures/user_document_data_model.png, id=369, 404.51125pt x 392.46625pt>
 File: figures/user_document_data_model.png Graphic file (type png)
 
 <use figures/user_document_data_model.png>
@@ -1418,97 +1414,147 @@ Package pdftex.def Info: figures/user_document_data_model.png used on input lin
 e 158.
 (pdftex.def)             Requested size: 222.48187pt x 215.85709pt.
 
-<figures/crawler_flowchart.png, id=369, 594.22pt x 219.82124pt>
+<figures/crawler_flowchart.png, id=372, 594.22pt x 219.82124pt>
 File: figures/crawler_flowchart.png Graphic file (type png)
 
 <use figures/crawler_flowchart.png>
 Package pdftex.def Info: figures/crawler_flowchart.png used on input line 177.
 (pdftex.def)             Requested size: 326.822pt x 120.90204pt.
+ [20 <./figures/user_document_data_model.png>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 204.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `pcr' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 
-Overfull \hbox (78.28821pt too wide) in paragraph at lines 187--191
-\T1/ptm/m/n/12 (-20) pod�a abe-cedy a na ich zo-bra-ze-nie sl��i ad-resa ^^Rhtt
-p://www.supermusic.sk/piesne.php?od=$param^^P.
- []
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.204     label=lst:interpret_id]
+                                 
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 205.
+LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 205.
 
-[20 <./figures/user_document_data_model.png>]
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-LaTeX Warning: Command \v invalid in math mode on input line 194.
-
-
-Overfull \hbox (46.691pt too wide) in paragraph at lines 192--195
-[]$\T1/ptm/m/n/12 (-20) ,
- []
-
-[21 <./figures/crawler_flowchart.png>] [22]
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.208 ...erpretovho mena,label=lst:interpret_name]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.212 ...retovho aliasu,label=lst:interpret_alias]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [21 <./figures/crawler_flowchart.png>]
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.221     label=lst:regex_interpret_name]
+                                         
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.240 ...e názvou piesni,label=lst:document_name]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.244 ...nie názvou piesni,label=lst:document_id]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.248 ...e názvou piesni,label=lst:document_type]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.252 ...zvou piesni,label=lst:document_interpret]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+! Misplaced alignment tab character &.
+<argument> ...rmusic.sk/skupina.php?action=piesen&
+                                                  idpiesne=
+l.261 ...c.sk/skupina.php?action=piesen&idpiesne=}
+                                                   a na jej
+? 
+[22] [23] [24]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 251.
+(hyperref)                removing `\textasciicaron' on input line 342.
 
-[23]) [24] (./main.bbl
-! Missing $ inserted.
-<inserted text> 
-                $
-l.26 information_
-                 retrieval.
+! Undefined control sequence.
+l.349 u(d_i, u_k) = \sum\limit
+                              _{j = 0}^{j = N_{d_i u_k}} u(z_j)
 ? 
+<figures/casova_os.png, id=435, 815.045pt x 97.36375pt>
+File: figures/casova_os.png Graphic file (type png)
 
-LaTeX Warning: Command \v invalid in math mode on input line 28.
+<use figures/casova_os.png>
+Package pdftex.def Info: figures/casova_os.png used on input line 364.
+(pdftex.def)             Requested size: 448.27612pt x 53.55022pt.
 
+Overfull \hbox (58.27612pt too wide) in paragraph at lines 364--365
+ [] 
+ []
 
-LaTeX Warning: Command \' invalid in math mode on input line 28.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 28.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.29 
-     
+[25 <./figures/casova_os.png>]
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.380 ...tags, caption=Získanie značiek profilu]
+                                                  
 ? 
-! Missing } inserted.
-<inserted text> 
-                }
-l.29 
-     
-? 
-! Extra }, or forgotten \endgroup.
-\par ...m \@noitemerr {\@@par }\fi \else {\@@par }
-                                                  \fi 
-l.29 
-     
-? 
-[25])
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)) [26] (./main.bbl)
 
 Package natbib Warning: There were undefined citations.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-[26]
+[27]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 936CAA7A27D7BAABE0B4B677A14730D3;1512.
+(rerunfilecheck)             Checksum: 20BA772D5FCCC1177876CA18B0C43BC8;1206.
 
 
 LaTeX Warning: There were undefined references.
@@ -1519,28 +1565,33 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 15829 strings out of 494994
- 240345 string characters out of 6180200
- 353675 words of memory out of 5000000
- 18377 multiletter control sequences out of 15000+600000
- 70683 words of font info for 172 fonts, out of 8000000 for 9000
+ 15910 strings out of 494994
+ 242506 string characters out of 6180200
+ 383319 words of memory out of 5000000
+ 18408 multiletter control sequences out of 15000+600000
+ 72569 words of font info for 178 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
- 55i,13n,92p,923b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
-c/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/u
-sr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/font
-s/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/pu
-blic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share
-/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
-lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (34 pages, 301249 bytes).
+ 55i,13n,92p,927b,1035s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{lstnumber.9.16} has been referenced but does not 
+exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/fo
+nts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.e
+nc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/e
+nc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+r8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cou
+rier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (35 pages, 331442 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
- 441 compressed objects within 5 object streams
- 152 named destinations out of 1000 (max. 500000)
- 31943 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 554 PDF objects out of 1000 (max. 8388607)
+ 485 compressed objects within 5 object streams
+ 175 named destinations out of 1000 (max. 500000)
+ 33964 words of extra memory for PDF output out of 35830 (max. 10000000)
 

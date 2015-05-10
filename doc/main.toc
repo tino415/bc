@@ -41,18 +41,10 @@
 \contentsline {subsection}{\numberline {4.2}Indexovanie dokumentov a v\IeC {\'a}hovanie}{20}{subsection.4.2}
 \contentsline {paragraph}{Kravler}{20}{section*.36}
 \contentsline {paragraph}{Vyh\IeC {\v l}adanie nov\IeC {\'y}ch interpretov}{21}{section*.38}
-\contentsline {paragraph}{Vyh\IeC {\v l}adanie nov\IeC {\'y}ch dokumentov}{21}{section*.39}
-\contentsline {paragraph}{Stiahnutie nov\IeC {\'y}ch dokumentov}{22}{section*.40}
-\contentsline {paragraph}{Vygenerovanie zna\IeC {\v c}iek}{22}{section*.41}
-\contentsline {paragraph}{Doplnenie zna\IeC {\v c}iek z last.fm}{22}{section*.42}
-\contentsline {paragraph}{V\IeC {\'a}hovanie zna\IeC {\v c}iek dokumentov}{22}{section*.43}
-\contentsline {paragraph}{Z\IeC {\'a}kladn\IeC {\'a} \IeC {\v c}as\IeC {\v t}}{22}{section*.44}
-\contentsline {paragraph}{Normaliza\IeC {\v c}n\IeC {\'y} faktor}{22}{section*.45}
-\contentsline {paragraph}{Inverzn\IeC {\'a} frequencia}{23}{section*.46}
-\contentsline {subsection}{\numberline {4.3}Filtrovanie bezv\IeC {\'y}znamn\IeC {\'y}ch zna\IeC {\v c}iek (angl. stopwords)}{23}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Zostavenie spevn\IeC {\'\i }ka}{23}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Krawler ?}{23}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}Indexing}{23}{subsection.4.6}
-\contentsline {paragraph}{Priama tagovacia tabu\IeC {\v l}ka}{23}{section*.47}
-\contentsline {subsection}{\numberline {4.7}V\IeC {\'a}hovanie Dokumentu}{24}{subsection.4.7}
-\contentsline {section}{Literat\'ura}{25}{subsection.4.7}
+\contentsline {paragraph}{Vyh\IeC {\v l}adanie nov\IeC {\'y}ch dokumentov}{22}{section*.39}
+\contentsline {paragraph}{Stiahnutie nov\IeC {\'y}ch dokumentov}{23}{section*.40}
+\contentsline {paragraph}{Vygenerovanie zna\IeC {\v c}iek}{23}{section*.41}
+\contentsline {paragraph}{Doplnenie zna\IeC {\v c}iek z last.fm}{24}{section*.42}
+\contentsline {paragraph}{V\IeC {\'a}hovanie zna\IeC {\v c}iek dokumentov}{24}{section*.43}
+\contentsline {subsection}{\numberline {4.3}Odpor\IeC {\'u}\IeC {\v c}anie}{25}{subsection.4.3}
+\contentsline {section}{Literat\'ura}{27}{lstnumber.9.16}

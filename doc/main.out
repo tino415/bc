@@ -13,9 +13,5 @@
 \BOOKMARK [1][-]{section.4}{Implement\341cia}{}% 13
 \BOOKMARK [2][-]{subsection.4.1}{Datov\375 model}{section.4}% 14
 \BOOKMARK [2][-]{subsection.4.2}{Indexovanie dokumentov a v\341hovanie}{section.4}% 15
-\BOOKMARK [2][-]{subsection.4.3}{Filtrovanie bezv\375znamn\375ch znaciek \(angl. stopwords\)}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.4}{Zostavenie spevn\355ka}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.5}{Krawler ?}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.6}{Indexing}{section.4}% 19
-\BOOKMARK [2][-]{subsection.4.7}{V\341hovanie Dokumentu}{section.4}% 20
-\BOOKMARK [1][-]{subsection.4.7}{Literat\372ra}{}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Odpor\372canie}{section.4}% 16
+\BOOKMARK [1][-]{lstnumber.9.16}{Literat\372ra}{}% 17
