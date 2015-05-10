@@ -58,7 +58,6 @@ class InterpretController extends SMParserController {
         ];
 
         $main = ($main) ? $main : $chars;
-
         $this->document = new \DOMDocument;
 
         // foreach created one interator, when iterate throught 
