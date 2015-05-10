@@ -6,12 +6,16 @@
 \BOOKMARK [2][-]{subsection.2.3}{Pou\236\355vatelsk\351 profily}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.4}{V\341hovanie znaciek}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.5}{Evol\372cia pou\236\355vatelsk\375ch preferenci\355}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{N\341vrh rie\235enia}{}% 9
+\BOOKMARK [1][-]{section.3}{N\341vrh aplik\341cie}{}% 9
 \BOOKMARK [2][-]{subsection.3.1}{Platforma}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.2}{Vyhlad\341vanie hudobn\375ch dokumentov}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.3}{Zostavenie spevn\355ka}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.4}{Krawler ?}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.5}{Indexing}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.6}{Filtrovanie bezv\375znamn\375ch znaciek \(angl. stopwords\)}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.7}{V\341hovanie Dokumentu}{section.3}% 16
-\BOOKMARK [1][-]{subsection.3.7}{Literat\372ra}{}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Z\341kladn\351 rozvrhnutie aplik\341cie}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.3}{\227pecifik\341cia slu\236ieb}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Implement\341cia}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Datov\375 model}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Indexovanie dokumentov a v\341hovanie}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.3}{Filtrovanie bezv\375znamn\375ch znaciek \(angl. stopwords\)}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.4}{Zostavenie spevn\355ka}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.5}{Krawler ?}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.6}{Indexing}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.7}{V\341hovanie Dokumentu}{section.4}% 20
+\BOOKMARK [1][-]{subsection.4.7}{Literat\372ra}{}% 21

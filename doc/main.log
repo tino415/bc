@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  9 MAY 2015 19:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  10 MAY 2015 02:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1192,14 +1192,14 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 l.200 \(z\p
            \)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
 ? 
-[7] [8] <figures/semantic_network.png, id=256, 554.07pt x 325.215pt>
+[7] [8] <figures/semantic_network.png, id=240, 554.07pt x 325.215pt>
 File: figures/semantic_network.png Graphic file (type png)
 
 <use figures/semantic_network.png>
 Package pdftex.def Info: figures/semantic_network.png used on input line 249.
 (pdftex.def)             Requested size: 304.73944pt x 178.86879pt.
  [9 <./figures/semantic_network.png>]
-<figures/bayes_network.png, id=265, 259.97125pt x 163.61125pt>
+<figures/bayes_network.png, id=249, 259.97125pt x 163.61125pt>
 File: figures/bayes_network.png Graphic file (type png)
 
 <use figures/bayes_network.png>
@@ -1211,7 +1211,7 @@ l.279 boli ich znaƒçky \(Z = {z_1, _z_
                                       2... d_n}\), n√°sledne ak sme chcely o...
 
 ? 
-<figures/recommend_bayes_network.png, id=268, 614.295pt x 285.065pt>
+<figures/recommend_bayes_network.png, id=252, 614.295pt x 285.065pt>
 File: figures/recommend_bayes_network.png Graphic file (type png)
 
 <use figures/recommend_bayes_network.png>
@@ -1391,25 +1391,79 @@ m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-£et zo-bra
 Package natbib Warning: Citation `achemoukh' on page 15 undefined on input line
  493.
 
-) (./design.tex [15]
+) (./design.tex [15] [16] [17]
+<figures/app_structure.png, id=351, 732.7375pt x 340.27126pt>
+File: figures/app_structure.png Graphic file (type png)
 
-Package hyperref Warning: Composite letter `\textasciicaron+l'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 33.
+<use figures/app_structure.png>
+Package pdftex.def Info: figures/app_structure.png used on input line 81.
+(pdftex.def)             Requested size: 403.00687pt x 187.14977pt.
 
-<figures/servers.png, id=334, 660.4675pt x 573.14125pt>
-File: figures/servers.png Graphic file (type png)
+Overfull \hbox (13.00687pt too wide) in paragraph at lines 81--82
+ [] 
+ []
 
-<use figures/servers.png>
-Package pdftex.def Info: figures/servers.png used on input line 40.
-(pdftex.def)             Requested size: 363.25824pt x 315.22865pt.
- [16] [17 <./figures/servers.png>] [18]
+[18 <./figures/app_structure.png>]
+
+LaTeX Warning: Command \' invalid in math mode on input line 144.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 150.
+
+[19] <figures/user_document_data_model.png, id=366, 404.51125pt x 392.46625pt>
+File: figures/user_document_data_model.png Graphic file (type png)
+
+<use figures/user_document_data_model.png>
+Package pdftex.def Info: figures/user_document_data_model.png used on input lin
+e 158.
+(pdftex.def)             Requested size: 222.48187pt x 215.85709pt.
+
+<figures/crawler_flowchart.png, id=369, 594.22pt x 219.82124pt>
+File: figures/crawler_flowchart.png Graphic file (type png)
+
+<use figures/crawler_flowchart.png>
+Package pdftex.def Info: figures/crawler_flowchart.png used on input line 177.
+(pdftex.def)             Requested size: 326.822pt x 120.90204pt.
+
+Overfull \hbox (78.28821pt too wide) in paragraph at lines 187--191
+\T1/ptm/m/n/12 (-20) pod©a abe-cedy a na ich zo-bra-ze-nie sl˙∫i ad-resa ^^Rhtt
+p://www.supermusic.sk/piesne.php?od=$param^^P.
+ []
+
+[20 <./figures/user_document_data_model.png>]
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+LaTeX Warning: Command \v invalid in math mode on input line 194.
+
+
+Overfull \hbox (46.691pt too wide) in paragraph at lines 192--195
+[]$\T1/ptm/m/n/12 (-20) ,
+ []
+
+[21 <./figures/crawler_flowchart.png>] [22]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 112.
+(hyperref)                removing `\textasciicaron' on input line 251.
 
-[19]) [20] (./main.bbl
+[23]) [24] (./main.bbl
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -1443,25 +1497,19 @@ l.29
 l.29 
      
 ? 
-[21])
+[25])
 
 Package natbib Warning: There were undefined citations.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-[22]
+[26]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
  (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 936CAA7A27D7BAABE0B4B677A14730D3;1512.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 2A6B480A6FB395DE7FF30496E192E64B;1783
-(rerunfilecheck)             After:  49935FD0E1560D37D8028207927B29FC;1228.
 
 LaTeX Warning: There were undefined references.
 
@@ -1471,76 +1519,28 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 15800 strings out of 494994
- 239767 string characters out of 6180200
- 353570 words of memory out of 5000000
- 18371 multiletter control sequences out of 15000+600000
- 70553 words of font info for 170 fonts, out of 8000000 for 9000
+ 15829 strings out of 494994
+ 240345 string characters out of 6180200
+ 353675 words of memory out of 5000000
+ 18377 multiletter control sequences out of 15000+600000
+ 70683 words of font info for 172 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  55i,13n,92p,923b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{figure.caption.38} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.5} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.4} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.3} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.7.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.7} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.6.2} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.6.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.6} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{section.5} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{section.4} has been referenced but does not exist, 
-replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.2.8} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.2.7} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.2.6} has been referenced but does not ex
-ist, replaced by a fixed one
-
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr
-/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/fonts/
-enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/
-share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/publ
-ic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/t
-exmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-r8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (30 pages, 262158 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
+c/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/u
+sr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (34 pages, 301249 bytes).
 PDF statistics:
- 464 PDF objects out of 1000 (max. 8388607)
- 409 compressed objects within 5 object streams
- 134 named destinations out of 1000 (max. 500000)
- 31965 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 505 PDF objects out of 1000 (max. 8388607)
+ 441 compressed objects within 5 object streams
+ 152 named destinations out of 1000 (max. 500000)
+ 31943 words of extra memory for PDF output out of 35830 (max. 10000000)
 

@@ -26,17 +26,33 @@
 \contentsline {paragraph}{Presonalizovan\IeC {\'e} BM25 v\IeC {\'a}hovanie}{13}{section*.26}
 \contentsline {subsection}{\numberline {2.5}Evol\IeC {\'u}cia pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'y}ch preferenci\IeC {\'\i }}{14}{subsection.2.5}
 \contentsline {paragraph}{Dlhodob\IeC {\'e} z\IeC {\'a}ujmy}{14}{section*.27}
-\contentsline {section}{\numberline {3}N\IeC {\'a}vrh rie\IeC {\v s}enia}{16}{section.3}
+\contentsline {section}{\numberline {3}N\IeC {\'a}vrh aplik\IeC {\'a}cie}{16}{section.3}
 \contentsline {subsection}{\numberline {3.1}Platforma}{16}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Vyh\IeC {\v l}ad\IeC {\'a}vanie hudobn\IeC {\'y}ch dokumentov}{16}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Zostavenie spevn\IeC {\'\i }ka}{18}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Krawler ?}{18}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Indexing}{18}{subsection.3.5}
-\contentsline {paragraph}{Priama tagovacia tabu\IeC {\v l}ka}{18}{section*.29}
-\contentsline {paragraph}{Model vektorovho priestoru (angl. vector space model}{18}{section*.30}
-\contentsline {paragraph}{Z\IeC {\'a}kladn\IeC {\'a} \IeC {\v c}as\IeC {\v t}}{19}{section*.31}
-\contentsline {paragraph}{Normaliza\IeC {\v c}n\IeC {\'y} faktor}{19}{section*.32}
-\contentsline {paragraph}{Inverzn\IeC {\'a} frequencia}{19}{section*.33}
-\contentsline {subsection}{\numberline {3.6}Filtrovanie bezv\IeC {\'y}znamn\IeC {\'y}ch zna\IeC {\v c}iek (angl. stopwords)}{20}{subsection.3.6}
-\contentsline {subsection}{\numberline {3.7}V\IeC {\'a}hovanie Dokumentu}{20}{subsection.3.7}
-\contentsline {section}{Literat\'ura}{21}{subsection.3.7}
+\contentsline {paragraph}{Klient}{16}{section*.28}
+\contentsline {paragraph}{Server}{17}{section*.29}
+\contentsline {paragraph}{V\IeC {\'y}vojov\IeC {\'a} platforma}{17}{section*.30}
+\contentsline {subsection}{\numberline {3.2}Z\IeC {\'a}kladn\IeC {\'e} rozvrhnutie aplik\IeC {\'a}cie}{17}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}\IeC {\v S}pecifik\IeC {\'a}cia slu\IeC {\v z}ieb}{18}{subsection.3.3}
+\contentsline {paragraph}{Odpor\IeC {\'u}\IeC {\v c}anie}{19}{section*.32}
+\contentsline {section}{\numberline {4}Implement\IeC {\'a}cia}{19}{section.4}
+\contentsline {subsection}{\numberline {4.1}Datov\IeC {\'y} model}{19}{subsection.4.1}
+\contentsline {paragraph}{Model dokumentu}{19}{section*.33}
+\contentsline {paragraph}{Model pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}a}{20}{section*.34}
+\contentsline {subsection}{\numberline {4.2}Indexovanie dokumentov a v\IeC {\'a}hovanie}{20}{subsection.4.2}
+\contentsline {paragraph}{Kravler}{20}{section*.36}
+\contentsline {paragraph}{Vyh\IeC {\v l}adanie nov\IeC {\'y}ch interpretov}{21}{section*.38}
+\contentsline {paragraph}{Vyh\IeC {\v l}adanie nov\IeC {\'y}ch dokumentov}{21}{section*.39}
+\contentsline {paragraph}{Stiahnutie nov\IeC {\'y}ch dokumentov}{22}{section*.40}
+\contentsline {paragraph}{Vygenerovanie zna\IeC {\v c}iek}{22}{section*.41}
+\contentsline {paragraph}{Doplnenie zna\IeC {\v c}iek z last.fm}{22}{section*.42}
+\contentsline {paragraph}{V\IeC {\'a}hovanie zna\IeC {\v c}iek dokumentov}{22}{section*.43}
+\contentsline {paragraph}{Z\IeC {\'a}kladn\IeC {\'a} \IeC {\v c}as\IeC {\v t}}{22}{section*.44}
+\contentsline {paragraph}{Normaliza\IeC {\v c}n\IeC {\'y} faktor}{22}{section*.45}
+\contentsline {paragraph}{Inverzn\IeC {\'a} frequencia}{23}{section*.46}
+\contentsline {subsection}{\numberline {4.3}Filtrovanie bezv\IeC {\'y}znamn\IeC {\'y}ch zna\IeC {\v c}iek (angl. stopwords)}{23}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Zostavenie spevn\IeC {\'\i }ka}{23}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Krawler ?}{23}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Indexing}{23}{subsection.4.6}
+\contentsline {paragraph}{Priama tagovacia tabu\IeC {\v l}ka}{23}{section*.47}
+\contentsline {subsection}{\numberline {4.7}V\IeC {\'a}hovanie Dokumentu}{24}{subsection.4.7}
+\contentsline {section}{Literat\'ura}{25}{subsection.4.7}
