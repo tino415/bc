@@ -2,6 +2,7 @@
 
 use yii\db\Schema;
 use yii\db\Migration;
+use yii\db\Expression;
 
 class m150502_132445_tag_types extends Migration
 {
@@ -10,6 +11,7 @@ class m150502_132445_tag_types extends Migration
         $tableOptions = null;
         if($this->db->driverName === 'mysql') {
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_slovak_ci ENGINE=InnoDB';
+            Yii::$app->db->createCommand("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO'")->execute();
         }
 
         $this->createTable('map_document_tag_type', [

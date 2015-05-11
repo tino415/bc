@@ -178,7 +178,7 @@ a Používateľa \(p_2\) ktorý preferuje značku \(z_0\).
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
 \hline
-\(z\p\)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
+z\\p  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
 \(z_0\) & 0     & 0        & 1        \\ \hline
 \(z_1\) & 0     & 1        & 0        \\ \hline
 \(z_2\) & 0     & 1        & 0        \\ \hline
@@ -197,7 +197,7 @@ hodnôt sú hodnotamy súradníc užitočnosti daných preferencií \ref{table:w
 \begin{center}
 \begin{tabular}{|l|l|l|l|}
 \hline
-\(z\p\)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
+z\\p  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
 \(z_0\) & 0     & 0        & 2        \\ \hline
 \(z_1\) & 0     & 2        & 0        \\ \hline
 \(z_2\) & 0     & 5        & 1        \\ \hline
@@ -276,7 +276,7 @@ alebo \(b\) sa hodnota \(c\) automaticky prepočíta.
 Ako príklad ako využiť takúto sieť môžem uviesť zjednodušený príklad z
 prezentácie \cite{probability_ir}, kde najhornejšie vrcholy (tie ktoré nezávyseli od iných 
 premenných) boli dokumenty \(D = {d_1, d_2 ... d_n}\) a pod nimy
-boli ich značky \(Z = {z_1, _z_2... d_n}\), následne ak sme chcely odporúčať (príklad je 
+boli ich značky \(Z = {z_1, z_2... d_n}\), následne ak sme chcely odporúčať (príklad je 
 aplikovaný na vyhľadávací dotaz, avšak dotaz môže byť nahradení používateľským profilom),
 na najspodnejšie body sme pripojili preferencie používateľa \(P = {p_1, p_2... p_n}\).
 Náčrt siete môžeme vydieť na obrázku \ref{fig:recommend_bayes_network}.
@@ -412,8 +412,7 @@ je matematický reprezentovaná rovnicou \ref{eq:bm25}.
 \begin{equation} \label{eq:bm25}
 w_{BM25}(t_i) = \log{
     \frac{(r_{t_i} + 0.5)(N - n_{t_i} + 0.5)}
-        {(n_{t_i} + 0.5)(R - r_{t_i} + 0.5)}}\],
-    }
+        {(n_{t_i} + 0.5)(R - r_{t_i} + 0.5)}}
 \end{equation}
 
 Kde \(N\) je počet všetkých dokumentov, \(n_{t_i}\) je počet
@@ -472,7 +471,7 @@ u_{u}(d_i) = \sum\limit_{t=1}^N_{z_i} u(z_t)
 (angl. unigram language model) kde užitočnosť značiek je použitá ako ako frekvencia značiek
 v rovnicy \ref{eq:language_model}.
 
-\begin{equation} \label{eq:language_model}
+\begin{equation}\label{eq:language_model}
 u_{lm}(d_i) = \sum\limit_{t=1}^N_{z_i}\log{\fract{u(z_t) + 1}{\sum\limit_{j=1}^N_{z_i}}}
 \end{equation}
 

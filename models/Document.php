@@ -203,20 +203,22 @@ class Document extends ActiveRecord
 
     public function getSimiliar() {
         return static::find()
-            ->innerJoin('map_document_tag map1', 
-                new Expression('map1.document_id = document.id'))
-            ->innerJoin('map_document_tag map2',
-                new Expression("map2.tag_id = map1.tag_id AND map2.document_id = $this->id"))
+            ->innerJoin('map_document_tag map1', 'map1.document_id=document.id')
+            ->innerJoin('map_document_tag map2', ['AND',
+                    'map2.tag_id=map1.tag_id',
+                    ['map2.document_id' => $this->id],
+                    ['<>', 'map1.document_id', $this->id]
+                ])
             ->groupBy('document.id')
             ->orderBy(new Expression('SUM(map1.weight * map2.weight) DESC'))
-            ->having(new Expression('COUNT(*) > 3'));
+            ->having(new Expression('COUNT(*) > 1'));
     }
 
     public static function similiarTags($document1, $document2) {
         return Tag::find()
-            ->innerJoin('map_document_tag map1', new Expression('map1.tag_id = tag.id'))
+            ->innerJoin('map_document_tag map1', 'map1.tag_id=tag.id')
             ->where(['map1.document_id' => $document1->id])
-            ->innerJoin('map_document_tag map2', new Expression('map2.tag_id = tag.id'))
+            ->innerJoin('map_document_tag map2', 'map2.tag_id=tag.id')
             ->andWhere(['map2.document_id' => $document2->id])
             ->andWhere(new Expression('map1.document_id = map2.document_id'));
     }
@@ -226,7 +228,7 @@ class Document extends ActiveRecord
         $case = Globals::sqlCase(ArrayHelper::map($tags, 'tag_id', 'weight'),'tag_id');
 
         return Document::find()
-            ->innerJoin('map_document_tag map', new Expression('map.document_id = document.id'))
+            ->innerJoin('map_document_tag map', 'map.document_id=document.id')
             ->where(['map.tag_id' => ArrayHelper::getColumn($tags, 'tag_id')])
             ->groupBy('document.id, document.name')
             ->orderBy(new Expression("SUM(weight * $case) DESC"));
@@ -239,18 +241,20 @@ class Document extends ActiveRecord
             ->from('tag')
             ->where(['name' => array_keys($tags)]);
 
+        // Because mysql bricks
         $query = (new Query)->select('document_id')
             ->from('map_document_tag map')
-            ->innerJoin('tag', new Expression('tag.id = map.tag_id'))
+            ->innerJoin('tag', 'tag.id=map.tag_id')
             ->where(['tag_id' => $subQuery])
             ->groupBy('document_id')
-            ->orderBy(new Expression("SUM(weight* $case ) DESC"))
+            ->orderBy(new Expression("SUM(weight * $case ) DESC"))
             ->limit("50");
 
         if($exclude)
             $query->andWhere(['not in', 'document_id', $exclude]);
 
-        return Document::find()->where(['id' => $query]);
+        return Document::find()->where(['id' => 
+            (new Query)->select('document_id')->from(['q' => $query])]);
     }
 
     public static function search($query)

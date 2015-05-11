@@ -3,8 +3,8 @@ namespace app\widgets;
 
 use Yii;
 use yii\base\Widget;
-use app\models\LoginForm;
-use app\models\UserRegisterForm;
+use app\widgets\models\LoginForm;
+use app\widgets\models\UserRegisterForm;
 use yii\helpers\Html;
 
 class LoginWidget extends Widget {

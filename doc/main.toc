@@ -47,4 +47,30 @@
 \contentsline {paragraph}{Doplnenie zna\IeC {\v c}iek z last.fm}{24}{section*.42}
 \contentsline {paragraph}{V\IeC {\'a}hovanie zna\IeC {\v c}iek dokumentov}{24}{section*.43}
 \contentsline {subsection}{\numberline {4.3}Odpor\IeC {\'u}\IeC {\v c}anie}{25}{subsection.4.3}
-\contentsline {section}{Literat\'ura}{27}{lstnumber.9.16}
+\contentsline {paragraph}{Agregovan\IeC {\'e} odpor\IeC {\'u}\IeC {\v c}anie}{25}{section*.44}
+\contentsline {paragraph}{Vlastn\IeC {\'e} odpor\IeC {\'u}\IeC {\v c}anie}{25}{section*.45}
+\contentsline {paragraph}{Skupinov\IeC {\'e} odpor\IeC {\'u}\IeC {\v c}anie}{26}{section*.47}
+\contentsline {paragraph}{Podobnos\IeC {\v t} dokumentov}{27}{section*.48}
+\contentsline {paragraph}{Porovn\IeC {\'a}vanie z dokumentom}{27}{section*.49}
+\contentsline {section}{\numberline {5}Testovanie}{28}{section.5}
+\contentsline {subsection}{\numberline {5.1}Automatizovan\IeC {\'e} testy}{28}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Dotazniky}{28}{subsection.5.2}
+\contentsline {section}{\numberline {6}Zhodnotenie}{29}{section.6}
+\contentsline {subsection}{\numberline {6.1}Mo\IeC {\v z}n\IeC {\'e} vylep\IeC {\v s}enia}{29}{subsection.6.1}
+\contentsline {section}{Literat\'ura}{30}{subsection.6.1}
+\contentsline {section}{\numberline {A}Technick\IeC {\'a} dokument\IeC {\'a}cia}{31}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}\IeC {\v S}pecifik\IeC {\'a}cia po\IeC {\v z}iadaviek}{31}{subsection.A.1}
+\contentsline {paragraph}{Nefunk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.51}
+\contentsline {paragraph}{Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.52}
+\contentsline {subsection}{\numberline {A.2}N\IeC {\'a}vrh projektu}{32}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}Implement\IeC {\'a}cia}{32}{subsection.A.3}
+\contentsline {paragraph}{Funkcie v modely dokumentu}{32}{section*.53}
+\contentsline {paragraph}{Funkcie v modely pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}a}{35}{section*.54}
+\contentsline {paragraph}{Model rela\IeC {\v c}nej tabu\IeC {\v l}ky dokumentov a tagov aj z v\IeC {\'a}hamy}{37}{section*.55}
+\contentsline {section}{\numberline {B}Pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'a} dokument\IeC {\'a}cia}{39}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}In\IeC {\v s}tala\IeC {\v c}n\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{39}{subsection.B.1}
+\contentsline {subsubsection}{\numberline {B.1.1}Nadpis1}{39}{subsubsection.B.1.1}
+\contentsline {subsubsection}{\numberline {B.1.2}Nadpis2}{39}{subsubsection.B.1.2}
+\contentsline {subsection}{\numberline {B.2}Pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{40}{subsection.B.2}
+\contentsline {subsubsection}{\numberline {B.2.1}Nadpis3}{40}{subsubsection.B.2.1}
+\contentsline {section}{\numberline {C}Elektronick\IeC {\'e} m\IeC {\'e}dium}{41}{appendix.C}

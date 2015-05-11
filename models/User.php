@@ -6,6 +6,7 @@ use Yii;
 use yii\db\Query;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
+use app\components\Globals;
 
 /**
  * This is the model class for table "users".
@@ -167,26 +168,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->one();
     }
 
-    public function getRecommendDocuments($exclude = false) {
+    public function getRecommendDocuments() {
         $userTagWeights = (new Query)
-            ->select(['tag.id', 'tag.name', new Expression('LOG(COUNT(*)) AS weight')])
+            ->select(['tag_id', new Expression('LOG(COUNT(*)) AS weight')])
             ->from('view')
-            ->innerJoin('tag', new Expression('tag.id = view.tag_id'))
             ->where(['user_id' => $this->id])
-            ->groupBy(['tag.id', 'tag.name'])
+            ->groupBy('tag_id')
             ->having(new Expression('LOG(COUNT(*)) > 0'));
 
-        $query = Document::find()
-            ->innerJoin('map_document_tag map',
-                new Expression('map.document_id = document.id'))
-            ->innerJoin('tag',
-                new Expression('map.tag_id = tag.id'))
-            ->innerJoin(['user_tag' => $userTagWeights],
-                new Expression('user_tag.id = tag.id'))
+        return Document::find()
+            ->innerJoin('map_document_tag map','map.document_id=document.id')
+            ->innerJoin(['user_tag' => $userTagWeights],'user_tag.id=map.tag_id')
             ->where(new Expression('(user_tag.weight * map.weight) > 0'))
             ->orderBy(new Expression('(user_tag.weight * map.weight) DESC'));
-        if($exclude) $query->andWhere(['<>', 'document.id', $exclude]);
-        return $query;
     }
 
     public function getShortTermTags() {
@@ -230,18 +224,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             }
         }
 
-        $case = "CASE map.tag_id \n";
-        foreach($tags as $tag_id => $weight) {
-            $case .= "WHEN $tag_id THEN $weight\n";
-        }
-        $case .= "END\n";
+        $case = Globals::sqlCase($tags, 'map.tag_id');
 
         $query = Document::find()
-            ->innerJoin('map_document_tag map',
-                new Expression('map.document_id = document.id'))
+            ->innerJoin('map_document_tag map','map.document_id=document.id')
             ->where(['map.tag_id' => array_keys($tags)])
             ->limit(50)
-            ->orderBy(new Expression('SUM(map.weight * '.$case.')'))
+            ->orderBy(new Expression("SUM(map.weight * $case)"))
             ->groupBy('document.id');
 
         if($exclude)

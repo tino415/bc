@@ -386,7 +386,7 @@ vidieť pseudo kód tohoto algoritmu.
 \begin{lstlisting}[label=lst:profile_tags, caption=Získanie značiek profilu]
 Znacky ziskajZnackyProfilu(zobrazeneZnacky):
     znackyProfilu = []
-    velkosťJednejSkupiny = 
+    velkostJednejSkupiny = 
         pocet(zobrazeneZnacky) / configuracia('pocetSkupin')
 
     for i=0; i<pocet(zobrazeneZnacky); i+= velkostJednejSkupiny:
@@ -405,16 +405,44 @@ Znacky ziskajZnackyProfilu(zobrazeneZnacky):
 
 Aplikácia tak isto umožňuje vytváranie spevníkov pre viacerích používateľov. Pre zjednodušenie
 táto funkcionalita je implementovaná v dvoch krokoch. V prvom kroku sa získaju a ováhujú značky
-vybranej skupiny používateľov, v druhom sa vrátia najužitočnejšie dokumentu na základe značiek.
+vybranej skupiny používateľov, v druhom sa vrátia najužitočnejšie dokumenty na základe značiek.
+Vyhodnotenie užitočnosti tagov zo zobrazení sa vypočítava podľa rovnice \ref{eq:group_recommend},
 
-\begin{lstlisting}[label=lst:group_tags, caption=Získanie značiek skupiny používateľov]
-Znacky ziskajZnackySkupiny(zobrazeneZnacky, pouzivatelia)
-    znackySkupiny = []
-    foreach pouzivatelia as pouzivatel:
-        znacky = vyfiltruj(zobrazeneZnacky, podla=pouzivatel)
-        zoskupeneZnacky = zoskou(znacky, podla='znacka', pocet(*))
+\begin{equation}\label{eq:group_recommend}
+u(z_i) = \frac{N_{u_i}}{N_u} * \log (N_{z_i} + 1)
+\end{equation}
 
-\end{lstlisting}
+kde \(u(z_i)\) je užitočnosť, \(N_{u_i}\) je počet používateľov ktorý už zobrazili značku
+\(z_i\), \(N_u\) je počet používateľov pre ktorých chcem získať značky a \(\N_{z_i}\) je 
+celkový počet zobrazení značky.
+
+\paragraph{Podobnosť dokumentov}
+
+Pre vylepšenie odporúčanií počas prieskumného vyhľadávania, beriem do úvahy aj dokument ktorý
+sa najviac podobá na aktuálny dokument. Podobnosť dokumentov je vyhodnotená pomocov rovnice
+\ref{eq:doc_similiarity}.
+
+\begin{equation}\label{eq:doc_similiarity}
+podobnost(d_i, d_j) = \sum\limit_{k = 0}^{N_{ij}} u(d_i, z_k) * u(d_j, z_k)
+\end{equation}
+
+kde \(N_{ij}\) je počet spoločných značiek dokumentu \(d_i\) a dokumentu \(d_j\) a 
+\(d_i, z_k\) je užitočnosť značky \(z_k\) vzhľadom na dokument \(d_i\).
+
+\paragraph{Porovnávanie z dokumentom}
+
+Dokument môžem porovnať z akou koľvek sadou ováhovaných značiek, či už vytvorenej z profilu 
+používateľa alebo z vyhľadávacieho reťazca. Toto porovnávanie je vyjadrené rovnicou
+\ref{eq:document_match}.
+
+\begin{equation}\label{eq:document_match}
+vyhovuje(d_i, Z) = \sum\limit_{k = 0}^{N_{z}} u(d_i, z_k) * qu(z_k)
+\end{equation}
+
+kde \(Z\) je sada značiek pre ktorú sa snažím najsť vyhovujúci dokument. \(N_z\) je počet značiek
+ktoré má dokument a sada značiek na porovnanie rovnaké, \(u(d_i, z_k)\) je užitočnosť značky
+\(k\) vzhľadom na dokument \(d_i\) a \(qu(z_k)\) je užitočnosť značky \(z_k\) v sade značiek
+\(Z\).
 
 %\paragraph{Priama tagovacia tabuľka}
 %
@@ -444,3 +472,4 @@ Znacky ziskajZnackySkupiny(zobrazeneZnacky, pouzivatelia)
 %\lstinputlisting[float=h,language=javascript,caption={Príklad listingu zo súboru.},label={listing},frame=single,frameround=ffff,captionpos=b,basicstyle=\scriptsize]{figures/listing}
 %
 %Etiam nec lorem leo, id consequat tellus. Etiam id mattis massa. Phasellus commodo, lacus in viverra lacinia, quam leo ultricies tellus, condimentum vehicula dui nisl a magna. In mi felis, malesuada eget tincidunt eget, rutrum ac lacus. In a nisl tellus. Mauris hendrerit egestas odio ac consequat. Etiam nec lorem leo, id consequat tellus. Etiam id mattis massa. Phasellus commodo, lacus in viverra lacinia, quam leo ultricies tellus, condimentum vehicula dui nisl a magna. In mi felis, malesuada eget tincidunt eget, rutrum ac lacus. In a nisl tellus. Mauris hendrerit egestas odio ac consequat. Etiam nec lorem leo, id consequat tellus. Etiam id mattis massa. Phasellus commodo, lacus in viverra lacinia, quam leo ultricies tellus, condimentum vehicula dui nisl a magna. In mi felis, malesuada eget tincidunt eget, rutrum ac lacus. In a nisl tellus. Mauris hendrerit egestas odio ac consequat.
+

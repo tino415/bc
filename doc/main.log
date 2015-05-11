@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  10 MAY 2015 19:51
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  11 MAY 2015 14:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -953,11 +953,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+C'
 LaTeX Warning: Unused global option(s):
     [appendix].
 
-(./main.aux
-
-LaTeX Warning: Label `eq:matching' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
@@ -1104,41 +1100,7 @@ Overfull \hbox (0.36765pt too wide) in paragraph at lines 15--86
 | \T1/ptm/m/n/12 (-20) .................................... 
  []
 
-[6] (./main.toc
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 3.
- (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 3.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 3.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-))
+[6] (./main.toc)
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
@@ -1146,12 +1108,12 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
-
-[8] (./main.lol)
+ [8] (./main.lol)
 \tf@lol=\write6
 \openout6 = `main.lol'.
 
- [9] (./introduction.tex [1
+ [9] (./introduction.tex
+[1
 
 ]) (./analysis.tex [2]
 
@@ -1163,6 +1125,43 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 30.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 37.
+
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 37.
+
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 37.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 37.
+
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 37.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 37.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 37.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 37.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 37.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1171,59 +1170,108 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 37.
  [3]
 
+Package natbib Warning: Citation `music_genres_problematics' on page 4 undefine
+d on input line 40.
+
+
+Package natbib Warning: Citation `automatic_genre_recognition' on page 4 undefi
+ned on input line 48.
+
+
+Package natbib Warning: Citation `social_tagging_music' on page 4 undefined on 
+input line 55.
+
+
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 72.
 
-[4] [5] [6]
+
+Package natbib Warning: Citation `recommender_categories' on page 4 undefined o
+n input line 75.
+
+[4] [5]
+
+Package natbib Warning: Citation `recommender_categories' on page 6 undefined o
+n input line 122.
+
+[6]
+
+Package natbib Warning: Citation `basic_user_profiles' on page 7 undefined on i
+nput line 151.
+
 
 Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 159.
 
-! Undefined control sequence.
-l.181 \(z\p
-           \)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
-? 
+
+Package natbib Warning: Citation `basic_user_profiles' on page 7 undefined on i
+nput line 163.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-! Undefined control sequence.
-l.200 \(z\p
-           \)  & \(p_0\) & \(p_1\) & \(p_2\) \\ \hline
-? 
-[7] [8] <figures/semantic_network.png, id=241, 554.07pt x 325.215pt>
+[7]
+
+Package natbib Warning: Citation `semantic_networks' on page 8 undefined on inp
+ut line 225.
+
+
+Package natbib Warning: Citation `basic_user_profiles' on page 8 undefined on i
+nput line 227.
+
+[8] <figures/semantic_network.png, id=132, 554.07pt x 325.215pt>
 File: figures/semantic_network.png Graphic file (type png)
 
 <use figures/semantic_network.png>
 Package pdftex.def Info: figures/semantic_network.png used on input line 249.
 (pdftex.def)             Requested size: 304.73944pt x 178.86879pt.
  [9 <./figures/semantic_network.png>]
-<figures/bayes_network.png, id=250, 259.97125pt x 163.61125pt>
+
+LaTeX Warning: Reference `fig:bayes_network' on page 10 undefined on input line
+ 264.
+
+<figures/bayes_network.png, id=142, 259.97125pt x 163.61125pt>
 File: figures/bayes_network.png Graphic file (type png)
 
 <use figures/bayes_network.png>
 Package pdftex.def Info: figures/bayes_network.png used on input line 270.
 (pdftex.def)             Requested size: 142.98462pt x 89.98645pt.
 
-! Double subscript.
-l.279 boli ich značky \(Z = {z_1, _z_
-                                      2... d_n}\), následne ak sme chcely o...
 
-? 
-<figures/recommend_bayes_network.png, id=253, 614.295pt x 285.065pt>
+Package natbib Warning: Citation `probability_ir' on page 10 undefined on input
+ line 277.
+
+
+LaTeX Warning: Reference `fig:recommend_bayes_network' on page 10 undefined on 
+input line 282.
+
+<figures/recommend_bayes_network.png, id=143, 614.295pt x 285.065pt>
 File: figures/recommend_bayes_network.png Graphic file (type png)
 
 <use figures/recommend_bayes_network.png>
 Package pdftex.def Info: figures/recommend_bayes_network.png used on input line
  286.
 (pdftex.def)             Requested size: 337.86328pt x 156.78622pt.
- [10 <./figures/bayes_network.png>]
-[11 <./figures/recommend_bayes_network.png>]
+
+
+LaTeX Warning: Reference `eq:bayes_theorem_rel' on page 10 undefined on input l
+ine 300.
+
+
+LaTeX Warning: Reference `eq:bayes_theorem_norel' on page 10 undefined on input
+ line 300.
+
+[10 <./figures/bayes_network.png>] [11 <./figures/recommend_bayes_network.png>]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 327.
+
+
+Package natbib Warning: Citation `vector_space_model' on page 12 undefined on i
+nput line 332.
 
 
 LaTeX Warning: Reference `eg:binary_tf' on page 12 undefined on input line 343.
@@ -1250,6 +1298,9 @@ l.348         \begin{array}{11}
                                
 ? 
 
+LaTeX Warning: Reference `eq:count_tf' on page 12 undefined on input line 359.
+
+
 LaTeX Warning: Reference `eg:log_tg' on page 12 undefined on input line 369.
 
 
@@ -1274,109 +1325,88 @@ l.374         \begin{array}{11}
 ? 
 [12]
 
-! LaTeX Error: \begin{equation} on input line 412 ended by \end{equation*}.
+Package natbib Warning: Citation `vector_space_model' on page 13 undefined on i
+nput line 383.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.415 ...  {(n_{t_i} + 0.5)(R - r_{t_i} + 0.5)}}\]
-                                                  ,
-? 
-! Too many }'s.
-l.416     }
-           
-? 
 
-! LaTeX Error: Bad math environment delimiter.
+LaTeX Warning: Reference `eq:idf' on page 13 undefined on input line 391.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.417 \end{equation}
-                    
-? 
 
-! LaTeX Error: \begin{document} ended by \end{equation}.
+LaTeX Warning: Reference `eq:tfidf' on page 13 undefined on input line 399.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.417 \end{equation}
-                    
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.417 \end{equation}
-                    
-? 
-! Display math should end with $$.
-<to be read again> 
-                   \endgroup 
-l.417 \end{equation}
-                    
-? 
-! Extra \endgroup.
-<recently read> \endgroup 
-                          
-l.417 \end{equation}
-                    
-? 
+
+Package natbib Warning: Citation `modified_bm25' on page 13 undefined on input 
+line 409.
+
+
+LaTeX Warning: Reference `eq:bm25' on page 13 undefined on input line 410.
+
 
 Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 424.
+(hyperref)                removing `\textasciicaron' on input line 423.
 
 [13]
+
+Package natbib Warning: Citation `long_term_profile' on page 14 undefined on in
+put line 443.
+
+
+LaTeX Warning: Reference `eq:matching' on page 14 undefined on input line 453.
+
 ! Undefined control sequence.
-l.457 u_{j}(d_i) = \sum\limit
+l.456 u_{j}(d_i) = \sum\limit
                              _{t=1}^N_{z_t}f(z_t) * u(z_t)
 ? 
 ! Double subscript.
-l.457 u_{j}(d_i) = \sum\limit_{t=1}^N_
+l.456 u_{j}(d_i) = \sum\limit_{t=1}^N_
                                       {z_t}f(z_t) * u(z_t)
 ? 
 
 LaTeX Warning: Reference `eq:unique_matching' on page 14 undefined on input lin
-e 465.
+e 464.
 
 ! Undefined control sequence.
-l.468 u_{u}(d_i) = \sum\limit
+l.467 u_{u}(d_i) = \sum\limit
                              _{t=1}^N_{z_i} u(z_t)
 ? 
 ! Double subscript.
-l.468 u_{u}(d_i) = \sum\limit_{t=1}^N_
+l.467 u_{u}(d_i) = \sum\limit_{t=1}^N_
                                       {z_i} u(z_t)
 ? 
 [14]
+
+LaTeX Warning: Reference `eq:language_model' on page 15 undefined on input line
+ 472.
+
 ! Undefined control sequence.
-l.476 u_{lm}(d_i) = \sum\limit
+l.475 u_{lm}(d_i) = \sum\limit
                               _{t=1}^N_{z_i}\log{\fract{u(z_t) + 1}{\sum\lim...
 
 ? 
 ! Double subscript.
-l.476 u_{lm}(d_i) = \sum\limit_{t=1}^N_
+l.475 u_{lm}(d_i) = \sum\limit_{t=1}^N_
                                        {z_i}\log{\fract{u(z_t) + 1}{\sum\lim...
 
 ? 
 ! Undefined control sequence.
-l.476 ..._i) = \sum\limit_{t=1}^N_{z_i}\log{\fract
+l.475 ..._i) = \sum\limit_{t=1}^N_{z_i}\log{\fract
                                                   {u(z_t) + 1}{\sum\limit_{j...
 
 ? 
 ! Undefined control sequence.
-l.476 ...N_{z_i}\log{\fract{u(z_t) + 1}{\sum\limit
+l.475 ...N_{z_i}\log{\fract{u(z_t) + 1}{\sum\limit
                                                   _{j=1}^N_{z_i}}}
 ? 
 ! Double subscript.
-l.476 ...og{\fract{u(z_t) + 1}{\sum\limit_{j=1}^N_
+l.475 ...og{\fract{u(z_t) + 1}{\sum\limit_{j=1}^N_
                                                   {z_i}}}
 ? 
 
-Overfull \hbox (18.8043pt too wide) in paragraph at lines 489--492
+LaTeX Warning: Reference `eq:pclick' on page 15 undefined on input line 480.
+
+
+Overfull \hbox (18.8043pt too wide) in paragraph at lines 488--491
 []\T1/ptm/m/n/12 (-20) Kde $\OML/lmm/m/it/12 Zobrazenia\OT1/lmr/m/n/12 (\OML/lm
 m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-�et zo-bra
 -zen� do-ku-mentu $\OML/lmm/m/it/12 d[]$ \T1/ptm/m/n/12 (-20) a $\OML/lmm/m/it/
@@ -1385,10 +1415,14 @@ m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-�et zo-bra
 
 
 Package natbib Warning: Citation `achemoukh' on page 15 undefined on input line
- 493.
+ 492.
 
-) (./design.tex [15] [16] [17]
-<figures/app_structure.png, id=354, 732.7375pt x 340.27126pt>
+) (./design.tex [15] [16]
+
+LaTeX Warning: Reference `fig:app_structure' on page 17 undefined on input line
+ 76.
+
+[17] <figures/app_structure.png, id=232, 732.7375pt x 340.27126pt>
 File: figures/app_structure.png Graphic file (type png)
 
 <use figures/app_structure.png>
@@ -1406,7 +1440,12 @@ LaTeX Warning: Command \' invalid in math mode on input line 144.
 
 LaTeX Warning: Command \v invalid in math mode on input line 150.
 
-[19] <figures/user_document_data_model.png, id=369, 404.51125pt x 392.46625pt>
+[19]
+
+LaTeX Warning: Reference `fig:user_document_data_model' on page 20 undefined on
+ input line 153.
+
+<figures/user_document_data_model.png, id=250, 404.51125pt x 392.46625pt>
 File: figures/user_document_data_model.png Graphic file (type png)
 
 <use figures/user_document_data_model.png>
@@ -1414,15 +1453,31 @@ Package pdftex.def Info: figures/user_document_data_model.png used on input lin
 e 158.
 (pdftex.def)             Requested size: 222.48187pt x 215.85709pt.
 
-<figures/crawler_flowchart.png, id=372, 594.22pt x 219.82124pt>
+
+LaTeX Warning: Reference `fig:crawler_flowchart' on page 20 undefined on input 
+line 172.
+
+<figures/crawler_flowchart.png, id=252, 594.22pt x 219.82124pt>
 File: figures/crawler_flowchart.png Graphic file (type png)
 
 <use figures/crawler_flowchart.png>
 Package pdftex.def Info: figures/crawler_flowchart.png used on input line 177.
 (pdftex.def)             Requested size: 326.822pt x 120.90204pt.
  [20 <./figures/user_document_data_model.png>]
+
+LaTeX Warning: Reference `lst:interpret_id' on page 21 undefined on input line 
+200.
+
+
+LaTeX Warning: Reference `lst:interpret_name' on page 21 undefined on input lin
+e 200.
+
+
+LaTeX Warning: Reference `lst:interpret_alias' on page 21 undefined on input li
+ne 200.
+
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 204.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Package microtype Info: Loading generic settings for font family
@@ -1462,6 +1517,10 @@ l.212 ...retovho aliasu,label=lst:interpret_alias]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ) [21 <./figures/crawler_flowchart.png>]
+
+LaTeX Warning: Reference `lst:interpret_name' on page 22 undefined on input lin
+e 217.
+
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1471,6 +1530,22 @@ l.221     label=lst:regex_interpret_name]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 )
+
+LaTeX Warning: Reference `lst:document_id' on page 22 undefined on input line 2
+37.
+
+
+LaTeX Warning: Reference `lst:document_name' on page 22 undefined on input line
+ 237.
+
+
+LaTeX Warning: Reference `lst:document_interpret' on page 22 undefined on input
+ line 237.
+
+
+LaTeX Warning: Reference `lst:document_type' on page 22 undefined on input line
+ 238.
+
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1513,85 +1588,445 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 l.261 ...c.sk/skupina.php?action=piesen&idpiesne=}
                                                    a na jej
 ? 
-[22] [23] [24]
+[22] [23]
+
+LaTeX Warning: Reference `eq:mysql_language_model' on page 24 undefined on inpu
+t line 316.
+
+[24]
+
+Package natbib Warning: Citation `pivoted_doc_len' on page 25 undefined on inpu
+t line 338.
+
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 342.
 
+
+LaTeX Warning: Reference `eq:aggregated_recommendation' on page 25 undefined on
+ input line 350.
+
 ! Undefined control sequence.
-l.349 u(d_i, u_k) = \sum\limit
+l.353 u(d_i, u_k) = \sum\limit
                               _{j = 0}^{j = N_{d_i u_k}} u(z_j)
 ? 
-<figures/casova_os.png, id=435, 815.045pt x 97.36375pt>
+
+LaTeX Warning: Reference `fig:casova_os' on page 25 undefined on input line 365
+.
+
+<figures/casova_os.png, id=314, 815.045pt x 97.36375pt>
 File: figures/casova_os.png Graphic file (type png)
 
 <use figures/casova_os.png>
-Package pdftex.def Info: figures/casova_os.png used on input line 364.
+Package pdftex.def Info: figures/casova_os.png used on input line 370.
 (pdftex.def)             Requested size: 448.27612pt x 53.55022pt.
 
-Overfull \hbox (58.27612pt too wide) in paragraph at lines 364--365
+Overfull \hbox (58.27612pt too wide) in paragraph at lines 370--371
  [] 
  []
 
-[25 <./figures/casova_os.png>]
+[25]
+
+LaTeX Warning: Reference `lst:profile_tags' on page 26 undefined on input line 
+383.
+
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.380 ...tags, caption=Získanie značiek profilu]
+l.386 ...tags, caption=Získanie značiek profilu]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-)) [26] (./main.bbl)
+)
+
+LaTeX Warning: Reference `eq:group_recommend' on page 26 undefined on input lin
+e 409.
+
+[26 <./figures/casova_os.png>]
+! Undefined control sequence.
+l.416 ...re ktorých chcem získať značky a \(\N
+                                                  _{z_i}\) je
+? 
+
+LaTeX Warning: Reference `eq:doc_similiarity' on page 27 undefined on input lin
+e 423.
+
+! Undefined control sequence.
+l.426 podobnost(d_i, d_j) = \sum\limit
+                                      _{k = 0}^{N_{ij}} u(d_i, z_k) * u(d_j,...
+
+? 
+
+LaTeX Warning: Reference `eq:document_match' on page 27 undefined on input line
+ 436.
+
+! Undefined control sequence.
+l.439 vyhovuje(d_i, Z) = \sum\limit
+                                   _{k = 0}^{N_{z}} u(d_i, z_k) * qu(z_k)
+? 
+) (./results.tex [27]) (./conclusions.tex [28]) [29] (./main.bbl)
+(./appendix.tex [30]
+! Undefined control sequence.
+l.12 \begine
+            {itemize}
+? 
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13 \item{
+           \textbf{Rýchlosť} hlavným sledovaným parametrom pri webových...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 13
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 \item{
+           \textbf{Bezpečnosť} je dôležita najmä skrs to že stránka b...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 17
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20 \item{
+           \textbf{Stabilita} aplikácia by mal vydržať fungovať dostaču...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 20
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 \item{
+           \textbf{Modularita} by mala byť zabezpečená pre prípad budúc...
+
+? 
+
+Underfull \hbox (badness 10000) detected at line 22
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{itemize}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.23 \end{itemize}
+                  
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.23 \end{itemize}
+                  
+? 
+[31]
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.62 ... dokumentu zo sadou ováhovaných značie]
+                                                  
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.62 ... dokumentu zo sadou ováhovaných značie]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [32]
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ]
+      
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.89 ]
+      
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.103 ...rázu a vráti na základe nej dokumenty]
+                                                  
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.103 ...rázu a vráti na základe nej dokumenty]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.113 ...načka sa nachádza v názve interpreta.]
+                                                  
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.113 ...načka sa nachádza v názve interpreta.]
+                                                  
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [33]
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.130 ]
+       
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.130 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 ]
+       
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.144 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.166 ]
+       
+? 
+[34]
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.166 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+)
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.185 ]
+       
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.185 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [35]
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.241 ]
+       
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.241 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [36]
+
+! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.265 ]
+       
+? 
+! Undefined control sequence.
+\lst@basicstyle ...otesize \ttfamily \normalfonts 
+                                                  
+l.265 ]
+       
+? 
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
+) [37] [38]
+
+Package hyperref Warning: Composite letter `\textasciicaron+l'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 311.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 314.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 314.
+
+[39]
+
+Package hyperref Warning: Composite letter `\textasciicaron+l'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 323.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 323.
+
+[40])
 
 Package natbib Warning: There were undefined citations.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-[27]
+[41]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
- (./main.aux)
+ (./main.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 20BA772D5FCCC1177876CA18B0C43BC8;1206.
 
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 0DE255954DFC7DD38918FB5BF918B941;432
+(rerunfilecheck)             After:  5AE02D6FA6CCC7E805BF9F9A06087B15;2292.
 
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 15910 strings out of 494994
- 242506 string characters out of 6180200
- 383319 words of memory out of 5000000
- 18408 multiletter control sequences out of 15000+600000
- 72569 words of font info for 178 fonts, out of 8000000 for 9000
+ 16201 strings out of 494994
+ 247165 string characters out of 6180200
+ 441479 words of memory out of 5000000
+ 18403 multiletter control sequences out of 15000+600000
+ 74587 words of font info for 196 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
- 55i,13n,92p,927b,1035s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{lstnumber.9.16} has been referenced but does not 
-exist, replaced by a fixed one
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/fo
-nts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.e
-nc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/e
-nc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/
-share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/publ
-ic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/t
-exmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-r8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cou
-rier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (35 pages, 331442 bytes).
+ 55i,13n,92p,927b,1556s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/
+fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex
+.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts
+/enc/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/c
+ourier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (49 pages, 361709 bytes).
 PDF statistics:
- 554 PDF objects out of 1000 (max. 8388607)
- 485 compressed objects within 5 object streams
- 175 named destinations out of 1000 (max. 500000)
- 33964 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 793 PDF objects out of 1000 (max. 8388607)
+ 707 compressed objects within 8 object streams
+ 417 named destinations out of 1000 (max. 500000)
+ 33876 words of extra memory for PDF output out of 35830 (max. 10000000)
 

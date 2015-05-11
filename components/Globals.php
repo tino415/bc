@@ -29,6 +29,7 @@ class Globals {
     }
 
     public static function sqlCase($vals, $param) {
+        if(count($vals) == 0) return "1";
         $case = "CASE $param\n";
         foreach($vals as $id => $value) {
             $case .= "WHEN '$id' THEN $value\n";

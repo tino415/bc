@@ -3,6 +3,310 @@
 
 \section{Technická dokumentácia}\label{technical_documentation}
 
+\subsection{Špecifikácia požiadaviek}
+
+\paragraph{Nefunkčné požiadavky}
+
+Na systém sú kladené nasledujúce nefunkčné požiadavky
+
+\begine{itemize}
+\item{\textbf{Rýchlosť} hlavným sledovaným parametrom pri webových aplikáciach 
+    čas načítania stránky, podľa štatystík, stránka ktorá sa náčíta nad 2 sekundy 
+    us má veľkú pravdepodobnosť že sa používateľ na ňu
+    nevráti\footnote{http://www.mcrinc.com/Documents/Newsletters/201110\_why\_web\_performance\_matters.pdf},}
+\item{\textbf{Bezpečnosť} je dôležita najmä skrs to že stránka bude profilovať používateľov
+    čo by sa mohlo dať zneužiť. Je potrebné použiť vhodný spôsob prihlasovania a 
+    uladania prihlasovacích údajov,}
+\item{\textbf{Stabilita} aplikácia by mal vydržať fungovať dostačujúce časové obdobie bez výskytu
+    väčšej chyby,}
+\item{\textbf{Modularita} by mala byť zabezpečená pre prípad budúcich úprav aplikácie.}
+\end{itemize}
+
+Aplikácia by mala ďalej byť schopná správe pracovať na platforme PHP verzie vyššej ako 5.4
+pričom je prdpokladaná prítomnosť GD a mcrypt rozšírenia. Po vizualnej stránke by sa plikácia
+mala dobre zobraziť vo všetkých moderných prehliadačoch a to responzívne. Ďalej by aplikácia
+bude potrebovať prítomnosť databázy MySQL verzie aspoň 5.1, prípadne PostrgreSQL.
+
+\paragraph{Funkčné požiadavky}
+
+Aplikácia bude poskytovať možnosť vyhľadania piesne, pričom bude 
+následne poskytovať odporúčania, vďaka čomu umožni prieskumne vyhľadávanie.
+Ďalej bude používateľovy umožňovať nechať si odporúčiť dokumenty na základe 
+ním zobrazených dokumentov a vytvorenie spevníka pre kombináciu niekoľkých 
+používateľov.
+
+Aplikácia bude mať tak isto administračne rozhranie kde bude možne zobrazovať
+spravovať (mazať a upravovať zaregistrovaných používateľov).
+
+\subsection{Návrh projektu}
+
+Projekt ja implementovaný vo aplikačnom rámci Yii2. V rámci tohoto aplikačného rámca 
+je použitých niekoľko návrhových vzorov. Základom je návrhový vzor
+MVC\footnote{http://en.wikipedia.org/wiki/Model\%E2\%80\%93view\%E2\%80\%93controller} 
+ktorý následne na správu dát dopĺňa návrhovým vzorom
+ActiveRecord\footnote{http://en.wikipedia.org/wiki/Active\_record\_pattern} ktorý
+slúži na prácu z dátamy. Tak isto program umožňuje použiť buť LazyLoading\footnote{http://en.wikipedia.org/wiki/Lazy\_loading} alebo 
+EagerLoading\footnote{Pravý opak LazyLoading kedy je snaha vybrať všetky data z databázy naraz}.
+
+Kód je napísaný tak že každý objekt má vlastný súbor a zdrojové súbory sú rozdelené podľa
+toho čo reprezentujú (modely, pohľady, kontrolery, widgety, asety, komponenty, kravlery,
+migracie a testy).
+
+\subsection{Implementácia}
+
+\paragraph{Funkcie v modely dokumentu}
+
+Tieto funkcie sa nachádzajú v súbore models/Document.php
+
+\begin{lstlisting}[code=php,
+caption=Funkdiac na porovnanie dokumentu zo sadou ováhovaných značie]
+public static function match($tags, $exclude = false) {
+    $case = Globals::sqlCase($tags,'tag.name');
+
+    $subQuery = (new Query)->select('id')
+        ->from('tag')
+        ->where(['name' => array_keys($tags)]);
+
+    $query = (new Query)->select('document_id')
+        ->from('map_document_tag map')
+        ->innerJoin('tag', new Expression('tag.id = map.tag_id'))
+        ->where(['tag_id' => $subQuery])
+        ->groupBy('document_id')
+        ->orderBy(new Expression("SUM(weight* $case ) DESC"))
+        ->limit("50");
+
+    if($exclude)
+        $query->andWhere(['not in', 'document_id', $exclude]);
+
+    return Document::find()->where(['id' => $query]);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+    code=php,
+    caption=Porovnanie dokumentu zo sadov značiek\, akurát že predpokladá identifikátor
+    značiek namiesto mien
+]
+public static function matchIds($tags) {
+
+    $case = Globals::sqlCase(ArrayHelper::map($tags, 'tag_id', 'weight'),'tag_id');
+
+    return Document::find()
+        ->innerJoin('map_document_tag map', 'map.document_id=document.id')
+        ->where(['map.tag_id' => ArrayHelper::getColumn($tags, 'tag_id')])
+        ->groupBy('document.id, document.name')
+        ->orderBy(new Expression("SUM(weight * $case) DESC"));
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+code=php,caption=Funkcia ktorá zoberie vyhľadávaciu frázu a vráti na základe nej dokumenty]
+public static function search($query)
+{
+    $query_tags = array_count_values(Tag::escape($query));
+    return self::match($query_tags);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[code=php,caption=Funkcia ktorá vyhodnocuje typ značky na základe príznakov
+DN - značka je názov dokumentu\, IN - značka je interpret dokumentu\, DT - značka sa nachádza
+v názve dokumentu\, IT - značka sa nachádza v názve interpreta.]
+public static function getTagType($IN, $DN, $IT, $DT) {
+    if($DN && $IN) return 8;
+    elseif($DN && $IT && !$IN) return 7;
+    elseif($IN && $DT) return 6;
+    elseif($DN) return 5;
+    elseif($IN) return 4;
+    elseif($DT && $IT) return 3;
+    elseif($DT) return 2;
+    elseif($IT) return 1;
+    else return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+    code=php, caption=Funkcia ktorá vráti pre aktualny spoločné značky dokumentov
+    dokument1 a dokument2
+]
+public static function similiarTags($document1, $document2) {
+    return Tag::find()
+        ->innerJoin('map_document_tag map1', 'map1.tag_id=tag.id')
+        ->where(['map1.document_id' => $document1->id])
+        ->innerJoin('map_document_tag map2', 'map2.tag_id=tag.id')
+        ->andWhere(['map2.document_id' => $document2->id])
+        ->andWhere(new Expression('map1.document_id = map2.document_id'));
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+    code=php,
+    caption=Funkcia vracajúca podobné dokumenty aktuálnemu dokumentu
+]
+public function getSimiliar() {
+    return static::find()
+        ->innerJoin('map_document_tag map1', 'map1.document_id=document.id')
+        ->innerJoin('map_document_tag map2', ['AND',
+                'map2.tag_id=map1.tag_id',
+                ['map2.document_id' => $this->id],
+                ['<>', 'map1.document_id', $this->id]
+            ])
+        ->groupBy('document.id')
+        ->orderBy(new Expression('SUM(map1.weight * map2.weight) DESC'))
+        ->having(new Expression('COUNT(*) > 1'));
+}
+\end{lstlisting}
+
+\paragraph{Funkcie v modely používateľa}
+
+Tieto funkcie sa nachádzajú v súbore models/User.php
+
+\begin{lstlisting}[
+    code=php,
+    caption=Odporúčanie pre viacerých používateľov\, vráti ováhované značky
+]
+public static function recommendFor($ids) {
+    $expression = new Expression(
+        '((COUNT(DISTINCT user_id) / '.
+        count($ids).'.00) * '.
+        'LOG(COUNT(*) + 1))'
+    );
+    return (new Query())
+        ->select(['tag_id', 'weight' => $expression])
+        ->from('view')
+        ->where(['user_id' => $ids])
+        ->orderBy($expression)
+        ->groupBy('tag_id');
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+    code=php,
+    caption=Algoritmus ktorý vráti dlhodobé zaujmi použitím delenia histórie na obdobia
+]
+public function getTimeAwareRecommendDocuments($exclude = false) {
+        $view_count = View::find()->where(['user_id' => $this->id])->count();
+    $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
+    $cluster_size = floor(
+        $view_count / Yii::$app->params['long_term_groups']
+    );
+
+    $tags = [];
+    Yii::info("Counting clusters\n");
+
+    for($i=0; $i<$view_count; $i+=$cluster_size) {
+        $querySlice = (new Query)->select('*')
+            ->from('view')
+            ->limit("$cluster_size")
+            ->offset("$i")
+            ->orderBy('id');
+
+        $slice_tags = (new Query)->select('tag_id')
+            ->from(['cluster' => $querySlice])
+            ->groupBy('tag_id')
+            ->limit($per_cluster_top)
+            ->orderBy(new Expression('COUNT(*)'))
+            ->all();
+
+        for($j=0; $j<$per_cluster_top; $j++) {
+            if(array_key_exists($slice_tags[$j]["tag_id"], $tags))
+                $tags[$slice_tags[$j]['tag_id']] += log10($j + 1);
+            else $tags[$slice_tags[$j]['tag_id']] = log10($j + 1);
+        }
+    }
+
+    $case = "CASE map.tag_id \n";
+    foreach($tags as $tag_id => $weight) {
+        $case .= "WHEN $tag_id THEN $weight\n";
+    }
+    $case .= "END\n";
+
+    $query = Document::find()
+        ->innerJoin('map_document_tag map',
+            new Expression('map.document_id = document.id'))
+        ->where(['map.tag_id' => array_keys($tags)])
+        ->limit(50)
+        ->orderBy(new Expression('SUM(map.weight * '.$case.')'))
+        ->groupBy('document.id');
+
+    if($exclude)
+        $query->andWhere(['<>', 'document.id', $exclude]);
+
+    return $query;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[
+    code=php,
+    caption=Vráti agregáciu počtov zobrazení značiek
+]
+public function getRecommendDocuments() {
+    $userTagWeights = (new Query)
+        ->select(['tag_id', new Expression('LOG(COUNT(*)) AS weight')])
+        ->from('view')
+        ->where(['user_id' => $this->id])
+        ->groupBy('tag_id')
+        ->having(new Expression('LOG(COUNT(*)) > 0'));
+
+    return Document::find()
+        ->innerJoin('map_document_tag map','map.document_id=document.id')
+        ->innerJoin(['user_tag' => $userTagWeights],'user_tag.id=map.tag_id')
+        ->where(new Expression('(user_tag.weight * map.weight) > 0'))
+        ->orderBy(new Expression('(user_tag.weight * map.weight) DESC'));
+}
+\end{lstlisting}
+
+\paragraph{Model relačnej tabuľky dokumentov a tagov aj z váhamy}
+
+Táto trieda sa nachádza v súbore models/MapDocumentTag.php
+
+\begin{lstlisting}[
+    code=php,
+    caption=Ohodnotí vytvorené referencie dokumentov a značiek
+]
+public static function calculateWeights() {
+    $transaction = Yii::$app->db->beginTransaction();
+    extract(Yii::$app->params['tag_appereance_weights']);
+    try {
+        Yii::$app->db->createCommand(
+            "UPDATE map_document_tag AS tg2 ".
+            "SET weight = ".
+            "   (LOG(tg2.count) + 1)/t2.sumdtf * ".
+            "   t2.U / (1 + 0.0115*t2.U) * ".
+            "   LOG((SELECT COUNT(*) FROM document) / nf) * ".
+            "   CASE    WHEN tg2.type_id = 0 THEN $none".
+            "           WHEN tg2.type_id = 1 THEN $document_name_tag".
+            "           WHEN tg2.type_id = 2 THEN $interpret_name_tag".
+            "           WHen tg2.type_id = 3 THEN $name_tag".
+            "           WHEN tg2.type_id = 4 THEN $interpret_name".
+            "           WHEN tg2.type_id = 5 THEN $document_name".
+            "           WHEN tg2.type_id = 6 THEN $interpret_name_document_tag".
+            "           WHEN tg2.type_id = 7 THEN $document_name_interpret_tag".
+            "           WHEN tg2.type_id = 8 THEN $name".
+            "   END ".
+
+            "FROM map_document_tag AS tg ".
+            "INNER JOIN (".
+            "   SELECT document_id, ".
+            "       SUM(LOG(count) +1) AS sumdtf, ".
+            "       COUNT(tag_id) AS U ".
+            "   FROM map_document_tag ".
+            "   GROUP BY document_id ".
+            ") AS t2 ON t2.document_id = tg.document_id ".
+            "INNER JOIN (".
+            "   SELECT tag_id, COUNT(document_id) AS nf ".
+            "   FROM map_document_tag ".
+            "   GROUP BY tag_id ".
+            ") AS t3 ON t3.tag_id = tg.tag_id ".
+            "WHERE tg2.id = tg.id "
+        )->execute();
+    } catch (Exception $e) {
+        $transaction->rollBack();
+    }
+
+    $transaction->commit();
+}
+\end{lstlisting}
+
 \newpage
 \section{Používateľská dokumentácia}
 Integer lorem sapien, sollicitudin ac aliquet in, posuere et sapien. Nam non vulputate ipsum. Suspendisse quis ante in arcu sagittis auctor sed nec arcu.

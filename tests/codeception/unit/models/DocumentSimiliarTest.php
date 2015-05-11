@@ -17,6 +17,7 @@ class DocumentSimiliarTest extends DbTestCase {
     public function fixtures() {
         return [
             'map' => MapDocumentTagFixture::className(),
+            'document' => DocumentFixture::className(),
         ];
     }
 
