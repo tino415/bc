@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  11 MAY 2015 14:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  11 MAY 2015 19:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -953,7 +953,11 @@ Package hyperref Warning: Composite letter `\textasciicaron+C'
 LaTeX Warning: Unused global option(s):
     [appendix].
 
-(./main.aux)
+(./main.aux
+
+LaTeX Warning: Label `eq:matching' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
@@ -1100,20 +1104,54 @@ Overfull \hbox (0.36765pt too wide) in paragraph at lines 15--86
 | \T1/ptm/m/n/12 (-20) .................................... 
  []
 
-[6] (./main.toc)
+[6] (./main.toc
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 3.
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 3.
+
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 3.
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 3.
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 3.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 3.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [7])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [7] (./main.lof)
+ [8] (./main.lof)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
- [8] (./main.lol)
+
+[9] (./main.lol)
 \tf@lol=\write6
 \openout6 = `main.lol'.
 
- [9] (./introduction.tex
-[1
+ [10] (./introduction.tex [1
 
 ]) (./analysis.tex [2]
 
@@ -1125,43 +1163,6 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 30.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 37.
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
-File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
-(RS)
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 37.
-
-(/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 37.
-
-
-(/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 37.
-
-
-(/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 37.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 37.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 37.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 37.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 37.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1170,108 +1171,46 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 37.
  [3]
 
-Package natbib Warning: Citation `music_genres_problematics' on page 4 undefine
-d on input line 40.
-
-
-Package natbib Warning: Citation `automatic_genre_recognition' on page 4 undefi
-ned on input line 48.
-
-
-Package natbib Warning: Citation `social_tagging_music' on page 4 undefined on 
-input line 55.
-
-
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 72.
 
-
-Package natbib Warning: Citation `recommender_categories' on page 4 undefined o
-n input line 75.
-
-[4] [5]
-
-Package natbib Warning: Citation `recommender_categories' on page 6 undefined o
-n input line 122.
-
-[6]
-
-Package natbib Warning: Citation `basic_user_profiles' on page 7 undefined on i
-nput line 151.
-
+[4] [5] [6]
 
 Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 159.
 
 
-Package natbib Warning: Citation `basic_user_profiles' on page 7 undefined on i
-nput line 163.
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7]
-
-Package natbib Warning: Citation `semantic_networks' on page 8 undefined on inp
-ut line 225.
-
-
-Package natbib Warning: Citation `basic_user_profiles' on page 8 undefined on i
-nput line 227.
-
-[8] <figures/semantic_network.png, id=132, 554.07pt x 325.215pt>
+[7] [8] <figures/semantic_network.png, id=352, 554.07pt x 325.215pt>
 File: figures/semantic_network.png Graphic file (type png)
 
 <use figures/semantic_network.png>
 Package pdftex.def Info: figures/semantic_network.png used on input line 249.
 (pdftex.def)             Requested size: 304.73944pt x 178.86879pt.
  [9 <./figures/semantic_network.png>]
-
-LaTeX Warning: Reference `fig:bayes_network' on page 10 undefined on input line
- 264.
-
-<figures/bayes_network.png, id=142, 259.97125pt x 163.61125pt>
+<figures/bayes_network.png, id=361, 259.97125pt x 163.61125pt>
 File: figures/bayes_network.png Graphic file (type png)
 
 <use figures/bayes_network.png>
 Package pdftex.def Info: figures/bayes_network.png used on input line 270.
 (pdftex.def)             Requested size: 142.98462pt x 89.98645pt.
 
-
-Package natbib Warning: Citation `probability_ir' on page 10 undefined on input
- line 277.
-
-
-LaTeX Warning: Reference `fig:recommend_bayes_network' on page 10 undefined on 
-input line 282.
-
-<figures/recommend_bayes_network.png, id=143, 614.295pt x 285.065pt>
+<figures/recommend_bayes_network.png, id=364, 614.295pt x 285.065pt>
 File: figures/recommend_bayes_network.png Graphic file (type png)
 
 <use figures/recommend_bayes_network.png>
 Package pdftex.def Info: figures/recommend_bayes_network.png used on input line
  286.
 (pdftex.def)             Requested size: 337.86328pt x 156.78622pt.
-
-
-LaTeX Warning: Reference `eq:bayes_theorem_rel' on page 10 undefined on input l
-ine 300.
-
-
-LaTeX Warning: Reference `eq:bayes_theorem_norel' on page 10 undefined on input
- line 300.
-
-[10 <./figures/bayes_network.png>] [11 <./figures/recommend_bayes_network.png>]
+ [10 <./figures/bayes_network.png>]
+[11 <./figures/recommend_bayes_network.png>]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 327.
-
-
-Package natbib Warning: Citation `vector_space_model' on page 12 undefined on i
-nput line 332.
 
 
 LaTeX Warning: Reference `eg:binary_tf' on page 12 undefined on input line 343.
@@ -1298,9 +1237,6 @@ l.348         \begin{array}{11}
                                
 ? 
 
-LaTeX Warning: Reference `eq:count_tf' on page 12 undefined on input line 359.
-
-
 LaTeX Warning: Reference `eg:log_tg' on page 12 undefined on input line 369.
 
 
@@ -1325,35 +1261,11 @@ l.374         \begin{array}{11}
 ? 
 [12]
 
-Package natbib Warning: Citation `vector_space_model' on page 13 undefined on i
-nput line 383.
-
-
-LaTeX Warning: Reference `eq:idf' on page 13 undefined on input line 391.
-
-
-LaTeX Warning: Reference `eq:tfidf' on page 13 undefined on input line 399.
-
-
-Package natbib Warning: Citation `modified_bm25' on page 13 undefined on input 
-line 409.
-
-
-LaTeX Warning: Reference `eq:bm25' on page 13 undefined on input line 410.
-
-
 Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 423.
 
 [13]
-
-Package natbib Warning: Citation `long_term_profile' on page 14 undefined on in
-put line 443.
-
-
-LaTeX Warning: Reference `eq:matching' on page 14 undefined on input line 453.
-
 ! Undefined control sequence.
 l.456 u_{j}(d_i) = \sum\limit
                              _{t=1}^N_{z_t}f(z_t) * u(z_t)
@@ -1375,10 +1287,6 @@ l.467 u_{u}(d_i) = \sum\limit_{t=1}^N_
                                       {z_i} u(z_t)
 ? 
 [14]
-
-LaTeX Warning: Reference `eq:language_model' on page 15 undefined on input line
- 472.
-
 ! Undefined control sequence.
 l.475 u_{lm}(d_i) = \sum\limit
                               _{t=1}^N_{z_i}\log{\fract{u(z_t) + 1}{\sum\lim...
@@ -1403,9 +1311,6 @@ l.475 ...og{\fract{u(z_t) + 1}{\sum\limit_{j=1}^N_
                                                   {z_i}}}
 ? 
 
-LaTeX Warning: Reference `eq:pclick' on page 15 undefined on input line 480.
-
-
 Overfull \hbox (18.8043pt too wide) in paragraph at lines 488--491
 []\T1/ptm/m/n/12 (-20) Kde $\OML/lmm/m/it/12 Zobrazenia\OT1/lmr/m/n/12 (\OML/lm
 m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-�et zo-bra
@@ -1417,12 +1322,8 @@ m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-�et zo-bra
 Package natbib Warning: Citation `achemoukh' on page 15 undefined on input line
  492.
 
-) (./design.tex [15] [16]
-
-LaTeX Warning: Reference `fig:app_structure' on page 17 undefined on input line
- 76.
-
-[17] <figures/app_structure.png, id=232, 732.7375pt x 340.27126pt>
+) (./design.tex [15] [16] [17]
+<figures/app_structure.png, id=465, 732.7375pt x 340.27126pt>
 File: figures/app_structure.png Graphic file (type png)
 
 <use figures/app_structure.png>
@@ -1440,12 +1341,7 @@ LaTeX Warning: Command \' invalid in math mode on input line 144.
 
 LaTeX Warning: Command \v invalid in math mode on input line 150.
 
-[19]
-
-LaTeX Warning: Reference `fig:user_document_data_model' on page 20 undefined on
- input line 153.
-
-<figures/user_document_data_model.png, id=250, 404.51125pt x 392.46625pt>
+[19] <figures/user_document_data_model.png, id=480, 404.51125pt x 392.46625pt>
 File: figures/user_document_data_model.png Graphic file (type png)
 
 <use figures/user_document_data_model.png>
@@ -1453,31 +1349,15 @@ Package pdftex.def Info: figures/user_document_data_model.png used on input lin
 e 158.
 (pdftex.def)             Requested size: 222.48187pt x 215.85709pt.
 
-
-LaTeX Warning: Reference `fig:crawler_flowchart' on page 20 undefined on input 
-line 172.
-
-<figures/crawler_flowchart.png, id=252, 594.22pt x 219.82124pt>
+<figures/crawler_flowchart.png, id=483, 594.22pt x 219.82124pt>
 File: figures/crawler_flowchart.png Graphic file (type png)
 
 <use figures/crawler_flowchart.png>
 Package pdftex.def Info: figures/crawler_flowchart.png used on input line 177.
 (pdftex.def)             Requested size: 326.822pt x 120.90204pt.
  [20 <./figures/user_document_data_model.png>]
-
-LaTeX Warning: Reference `lst:interpret_id' on page 21 undefined on input line 
-200.
-
-
-LaTeX Warning: Reference `lst:interpret_name' on page 21 undefined on input lin
-e 200.
-
-
-LaTeX Warning: Reference `lst:interpret_alias' on page 21 undefined on input li
-ne 200.
-
 LaTeX Font Info:    Try loading font information for T1+pcr on input line 204.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Package microtype Info: Loading generic settings for font family
@@ -1517,10 +1397,6 @@ l.212 ...retovho aliasu,label=lst:interpret_alias]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ) [21 <./figures/crawler_flowchart.png>]
-
-LaTeX Warning: Reference `lst:interpret_name' on page 22 undefined on input lin
-e 217.
-
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1530,22 +1406,6 @@ l.221     label=lst:regex_interpret_name]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 )
-
-LaTeX Warning: Reference `lst:document_id' on page 22 undefined on input line 2
-37.
-
-
-LaTeX Warning: Reference `lst:document_name' on page 22 undefined on input line
- 237.
-
-
-LaTeX Warning: Reference `lst:document_interpret' on page 22 undefined on input
- line 237.
-
-
-LaTeX Warning: Reference `lst:document_type' on page 22 undefined on input line
- 238.
-
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1588,34 +1448,17 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 l.261 ...c.sk/skupina.php?action=piesen&idpiesne=}
                                                    a na jej
 ? 
-[22] [23]
-
-LaTeX Warning: Reference `eq:mysql_language_model' on page 24 undefined on inpu
-t line 316.
-
-[24]
-
-Package natbib Warning: Citation `pivoted_doc_len' on page 25 undefined on inpu
-t line 338.
-
+[22] [23] [24]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 342.
 
-
-LaTeX Warning: Reference `eq:aggregated_recommendation' on page 25 undefined on
- input line 350.
-
 ! Undefined control sequence.
 l.353 u(d_i, u_k) = \sum\limit
                               _{j = 0}^{j = N_{d_i u_k}} u(z_j)
 ? 
-
-LaTeX Warning: Reference `fig:casova_os' on page 25 undefined on input line 365
-.
-
-<figures/casova_os.png, id=314, 815.045pt x 97.36375pt>
+<figures/casova_os.png, id=546, 815.045pt x 97.36375pt>
 File: figures/casova_os.png Graphic file (type png)
 
 <use figures/casova_os.png>
@@ -1627,10 +1470,6 @@ Overfull \hbox (58.27612pt too wide) in paragraph at lines 370--371
  []
 
 [25]
-
-LaTeX Warning: Reference `lst:profile_tags' on page 26 undefined on input line 
-383.
-
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1639,29 +1478,16 @@ l.386 ...tags, caption=Získanie značiek profilu]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-)
-
-LaTeX Warning: Reference `eq:group_recommend' on page 26 undefined on input lin
-e 409.
-
-[26 <./figures/casova_os.png>]
+) [26 <./figures/casova_os.png>]
 ! Undefined control sequence.
 l.416 ...re ktorých chcem získať značky a \(\N
                                                   _{z_i}\) je
 ? 
-
-LaTeX Warning: Reference `eq:doc_similiarity' on page 27 undefined on input lin
-e 423.
-
 ! Undefined control sequence.
 l.426 podobnost(d_i, d_j) = \sum\limit
                                       _{k = 0}^{N_{ij}} u(d_i, z_k) * u(d_j,...
 
 ? 
-
-LaTeX Warning: Reference `eq:document_match' on page 27 undefined on input line
- 436.
-
 ! Undefined control sequence.
 l.439 vyhovuje(d_i, Z) = \sum\limit
                                    _{k = 0}^{N_{z}} u(d_i, z_k) * qu(z_k)
@@ -1977,36 +1803,25 @@ Package natbib Warning: There were undefined citations.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
 [41]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
- (./main.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+ (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 5AE02D6FA6CCC7E805BF9F9A06087B15;2292.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 0DE255954DFC7DD38918FB5BF918B941;432
-(rerunfilecheck)             After:  5AE02D6FA6CCC7E805BF9F9A06087B15;2292.
 
 LaTeX Warning: There were undefined references.
 
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
  ) 
 Here is how much of TeX's memory you used:
- 16201 strings out of 494994
- 247165 string characters out of 6180200
- 441479 words of memory out of 5000000
- 18403 multiletter control sequences out of 15000+600000
+ 16228 strings out of 494994
+ 247570 string characters out of 6180200
+ 443593 words of memory out of 5000000
+ 18429 multiletter control sequences out of 15000+600000
  74587 words of font info for 196 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  55i,13n,92p,927b,1556s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2023,10 +1838,10 @@ ourier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (49 pages, 361709 bytes).
+Output written on main.pdf (50 pages, 371747 bytes).
 PDF statistics:
- 793 PDF objects out of 1000 (max. 8388607)
- 707 compressed objects within 8 object streams
- 417 named destinations out of 1000 (max. 500000)
- 33876 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 990 PDF objects out of 1000 (max. 8388607)
+ 901 compressed objects within 10 object streams
+ 418 named destinations out of 1000 (max. 500000)
+ 34092 words of extra memory for PDF output out of 35830 (max. 10000000)
 

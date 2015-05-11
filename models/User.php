@@ -170,11 +170,13 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function getRecommendDocuments() {
         $userTagWeights = (new Query)
-            ->select(['tag_id', new Expression('LOG(COUNT(*)) AS weight')])
+            ->select(['id' => 'tag_id', new Expression('LOG(COUNT(*)) AS weight')])
             ->from('view')
-            ->where(['user_id' => $this->id])
             ->groupBy('tag_id')
             ->having(new Expression('LOG(COUNT(*)) > 0'));
+
+        if(!$this->isAnonymous())
+            $userTagWeights->where(['user_id' => $this->id]);
 
         return Document::find()
             ->innerJoin('map_document_tag map','map.document_id=document.id')
@@ -193,8 +195,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->all();
     }
 
+    public function isAnonymous() {
+        Yii::info('Anonymous user');
+        return "$this->id" == (string)Yii::$app->params['anonymousUserId'];
+    }
+
     public function getTimeAwareRecommendDocuments($exclude = false) {
-        $view_count = View::find()->where(['user_id' => $this->id])->count();
+        $view_count = View::find();
+        if(!$this->isAnonymous())
+            $view_count->where(['user_id' => $this->id]);
+        $view_count = $view_count->count();
+        if($view_count < 50) return $this->getRecommendDocuments();
         $per_cluster_top = 50 / Yii::$app->params['long_term_groups'];
         $cluster_size = floor(
             $view_count / Yii::$app->params['long_term_groups']
@@ -210,17 +221,21 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 ->offset("$i")
                 ->orderBy('id');
 
+            if(!$this->isAnonymous())
+                $querySlice->where(['user_id'=>$this->id]);
+
             $slice_tags = (new Query)->select('tag_id')
                 ->from(['cluster' => $querySlice])
                 ->groupBy('tag_id')
                 ->limit($per_cluster_top)
-                ->orderBy(new Expression('COUNT(*)'))
+                ->orderBy(new Expression('COUNT(*) DESC'))
                 ->all();
 
-            for($j=0; $j<$per_cluster_top; $j++) {
-                if(array_key_exists($slice_tags[$j]["tag_id"], $tags))
-                    $tags[$slice_tags[$j]['tag_id']] += log10($j + 1);
-                else $tags[$slice_tags[$j]['tag_id']] = log10($j + 1);
+            $j = 0;
+            foreach($slice_tags as $slice_tag) {
+                if(array_key_exists($slice_tag['tag_id'], $tags))
+                    $tags[$slice_tag['tag_id']] += $j++;
+                else $tags[$slice_tag['tag_id']] = $j++;
             }
         }
 
@@ -230,8 +245,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ->innerJoin('map_document_tag map','map.document_id=document.id')
             ->where(['map.tag_id' => array_keys($tags)])
             ->limit(50)
-            ->orderBy(new Expression("SUM(map.weight * $case)"))
-            ->groupBy('document.id');
+            ->orderBy(new Expression("SUM(map.weight * $case) DESC"))
+            ->groupBy('document.id')
+            ->having(new Expression("SUM(map.weight * $case) > 0"));
 
         if($exclude)
             $query->andWhere(['<>', 'document.id', $exclude]);

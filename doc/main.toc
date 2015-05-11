@@ -24,7 +24,7 @@
 \contentsline {paragraph}{Frequencia pojmov}{12}{section*.24}
 \contentsline {paragraph}{Frequencie pojmov, inverzna frequencia dokumentov}{13}{section*.25}
 \contentsline {paragraph}{Presonalizovan\IeC {\'e} BM25 v\IeC {\'a}hovanie}{13}{section*.26}
-\contentsline {subsection}{\numberline {2.5}Evol\IeC {\'u}cia pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'y}ch preferenci\IeC {\'\i }}{14}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.5}Evol\IeC {\'u}cia pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'y}ch preferenci\IeC {\'\i }}{13}{subsection.2.5}
 \contentsline {paragraph}{Dlhodob\IeC {\'e} z\IeC {\'a}ujmy}{14}{section*.27}
 \contentsline {section}{\numberline {3}N\IeC {\'a}vrh aplik\IeC {\'a}cie}{16}{section.3}
 \contentsline {subsection}{\numberline {3.1}Platforma}{16}{subsection.3.1}

@@ -11,7 +11,10 @@ $this->title = Yii::t('app', 'Tag Statystics');
 <div class="panel panel-default">
     <?php foreach($users as $user): ?>
     <?php 
-        $topTags = $user->getTagWeights()->limit($top)->all();
+        if($user->username == "test_user") continue;
+        $topTags = $user->getTagWeights()->limit($top)
+            ->addSelect(new Expression('COUNT(*) AS count'))
+            ->all();
         $documentTags = (new Query)->select(
                 new Expression('tag_id AS id, AVG(weight) AS weight')
             ) ->where(['tag_id' => ArrayHelper::getColumn($topTags, 'id')])
@@ -31,7 +34,6 @@ $this->title = Yii::t('app', 'Tag Statystics');
         }
     ?>
 
-
     <div class="row">
     <div class="col-md-6">
         <?= Highcharts::widget([
@@ -46,10 +48,11 @@ $this->title = Yii::t('app', 'Tag Statystics');
                         'title' => ['text' => Yii::t('app', 'Viewed')]
                     ],
                     'series' => [
-                    [
-                        'name' => 'Counts',
-                        'data' => ArrayHelper::getColumn($topTags, 'count')
-                    ],
+                        [
+                            'name' => 'Counts',
+                            'data' => array_map('intval', 
+                                ArrayHelper::getColumn($topTags, 'count')),
+                        ],
                     ]
                 ]
         ]); ?>

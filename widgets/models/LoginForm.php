@@ -3,6 +3,7 @@
 namespace app\widgets\models;
 
 use Yii;
+use app\models\User;
 use yii\base\Model;
 
 /**
