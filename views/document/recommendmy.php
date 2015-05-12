@@ -19,7 +19,11 @@ use yii\grid\GridView;
                 [
                     'attribute' => 'interpret',
                     'value' => 'interpret.name',
-                ]
+                ],
+                [
+                    'attribute' => 'type',
+                    'value' => 'type.name',
+                ],
             ]
         ]); ?>
         </div>
@@ -43,7 +47,11 @@ use yii\grid\GridView;
                 [
                     'attribute' => 'interpret',
                     'value' => 'interpret.name',
-                ]
+                ],
+                [
+                    'attribute' => 'type',
+                    'value' => 'type.name',
+                ],
             ]
         ]); ?>
         </div>

@@ -512,6 +512,18 @@ Na spravovanie zmien v štruktúre databázy boli použité migrácie aplikačn�
 Na vytvorenie tabuliek a cudzích kľučov stačí spustiť prikaz \uv{./yii migrate}
 v koreňovom priečinku aplikácie (\uv{src/}).
 
+\paragraph{Otestovanie funkčnosti súčiastok}
+
+V prípade potreby je možné v tomto bode spustiť automatizované testovanie, to však vyžaduje 
+prítomnosť ďaľšej databázy (testovanie prepisuje základné dáta), prístupy k databáze pre 
+tester sa nastavujú v súbore \uv{src/tests/codeception/config/config.php}.
+
+Ďalej je potrebne spustiť migrácie, tento krát ich ale púšťame z priečinka \uv{src/tests}
+a použijeme príkaz \uv{./codeception/bin/yii migrate}. Následne môžeme spustiť 
+testy pomocov \uv{codecept run unit}. Aby testovanie fungovalo, vyžaduje sa aby v danom
+prostredí bol nainštalovaný testovací aplikačný rámec
+Codeception\footnote{http://codeception.com/install}.
+
 \paragraph{Príkazy pre manažéra úloh}
 
 Pokiaľ nechceme manuálne spúšťať indexovanie a prednačítanie externých databáz, je dobre 

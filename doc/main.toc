@@ -53,20 +53,20 @@
 \contentsline {paragraph}{Podobnos\IeC {\v t} dokumentov}{27}{section*.48}
 \contentsline {paragraph}{Porovn\IeC {\'a}vanie z dokumentom}{27}{section*.49}
 \contentsline {section}{\numberline {5}Testovanie}{28}{section.5}
-\contentsline {subsection}{\numberline {5.1}Automatizovan\IeC {\'e} testy}{28}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Dotazniky}{28}{subsection.5.2}
+\contentsline {paragraph}{Vlastn\IeC {\'e} testovanie}{28}{section*.50}
+\contentsline {subsection}{\numberline {5.1}Dotazn\IeC {\'\i }k}{28}{subsection.5.1}
 \contentsline {section}{\numberline {6}Zhodnotenie}{29}{section.6}
 \contentsline {subsection}{\numberline {6.1}Mo\IeC {\v z}n\IeC {\'e} vylep\IeC {\v s}enia}{29}{subsection.6.1}
 \contentsline {section}{Literat\'ura}{30}{subsection.6.1}
 \contentsline {section}{\numberline {A}Technick\IeC {\'a} dokument\IeC {\'a}cia}{31}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}\IeC {\v S}pecifik\IeC {\'a}cia po\IeC {\v z}iadaviek}{31}{subsection.A.1}
-\contentsline {paragraph}{Nefunk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.51}
-\contentsline {paragraph}{Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.52}
+\contentsline {paragraph}{Nefunk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.53}
+\contentsline {paragraph}{Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{section*.54}
 \contentsline {subsection}{\numberline {A.2}N\IeC {\'a}vrh projektu}{32}{subsection.A.2}
 \contentsline {subsection}{\numberline {A.3}Implement\IeC {\'a}cia}{32}{subsection.A.3}
-\contentsline {paragraph}{Funkcie v modely dokumentu}{32}{section*.53}
-\contentsline {paragraph}{Funkcie v modely pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}a}{35}{section*.54}
-\contentsline {paragraph}{Model rela\IeC {\v c}nej tabu\IeC {\v l}ky dokumentov a tagov aj z v\IeC {\'a}hamy}{37}{section*.55}
+\contentsline {paragraph}{Funkcie v modely dokumentu}{32}{section*.55}
+\contentsline {paragraph}{Funkcie v modely pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}a}{35}{section*.56}
+\contentsline {paragraph}{Model rela\IeC {\v c}nej tabu\IeC {\v l}ky dokumentov a tagov aj z v\IeC {\'a}hamy}{37}{section*.57}
 \contentsline {section}{\numberline {B}Pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'a} dokument\IeC {\'a}cia}{39}{appendix.B}
 \contentsline {subsection}{\numberline {B.1}Registr\IeC {\'a}cia}{39}{subsection.B.1}
 \contentsline {subsection}{\numberline {B.2}Prihl\IeC {\'a}senie}{39}{subsection.B.2}
@@ -76,9 +76,10 @@
 \contentsline {subsubsection}{\numberline {B.5.1}Zobrazenie odpor\IeC {\'u}\IeC {\v c}an\IeC {\'\i } \uv {Recommend My}}{42}{subsubsection.B.5.1}
 \contentsline {subsubsection}{\numberline {B.5.2}Zobrazenie odpor\IeC {\'u}\IeC {\v c}an\IeC {\'\i } pri zobrazen\IeC {\'\i } dokumentu}{42}{subsubsection.B.5.2}
 \contentsline {subsection}{\numberline {B.6}In\IeC {\v s}tala\IeC {\v c}n\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{45}{subsection.B.6}
-\contentsline {paragraph}{Kontrol\IeC {\'a} minim\IeC {\'a}lny po\IeC {\v z}iadaviek}{45}{section*.64}
-\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia bal\IeC {\'\i }kov Composer-a}{45}{section*.65}
-\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia datab\IeC {\'a}zy}{45}{section*.66}
-\contentsline {paragraph}{Pr\IeC {\'\i }kazy pre mana\IeC {\v z}\IeC {\'e}ra \IeC {\'u}loh}{46}{section*.67}
-\contentsline {paragraph}{Nastavenia}{47}{section*.68}
+\contentsline {paragraph}{Kontrol\IeC {\'a} minim\IeC {\'a}lny po\IeC {\v z}iadaviek}{45}{section*.66}
+\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia bal\IeC {\'\i }kov Composer-a}{45}{section*.67}
+\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia datab\IeC {\'a}zy}{45}{section*.68}
+\contentsline {paragraph}{Otestovanie funk\IeC {\v c}nosti s\IeC {\'u}\IeC {\v c}iastok}{46}{section*.69}
+\contentsline {paragraph}{Pr\IeC {\'\i }kazy pre mana\IeC {\v z}\IeC {\'e}ra \IeC {\'u}loh}{47}{section*.70}
+\contentsline {paragraph}{Nastavenia}{48}{section*.71}
 \contentsline {section}{\numberline {C}Elektronick\IeC {\'e} m\IeC {\'e}dium}{48}{appendix.C}
