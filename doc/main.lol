@@ -17,3 +17,6 @@
 \contentsline {lstlisting}{\numberline {17}Algoritmus ktor\IeC {\'y} vr\IeC {\'a}ti dlhodob\IeC {\'e} zaujmi pou\IeC {\v z}it\IeC {\'\i }m delenia hist\IeC {\'o}rie na obdobia}{35}{lstlisting.17}
 \contentsline {lstlisting}{\numberline {18}Vr\IeC {\'a}ti agreg\IeC {\'a}ciu po\IeC {\v c}tov zobrazen\IeC {\'\i } zna\IeC {\v c}iek}{36}{lstlisting.18}
 \contentsline {lstlisting}{\numberline {19}Ohodnot\IeC {\'\i } vytvoren\IeC {\'e} referencie dokumentov a zna\IeC {\v c}iek}{37}{lstlisting.19}
+\contentsline {lstlisting}{\numberline {20}In\IeC {\v s}tal\IeC {\'a}cia bal\IeC {\'\i }kov Composer-a}{45}{lstlisting.20}
+\contentsline {lstlisting}{\numberline {21}Pr\IeC {\'\i }klad nastavenia datab\IeC {\'a}zy MySQL}{45}{lstlisting.21}
+\contentsline {lstlisting}{\numberline {22}Pr\IeC {\'\i }klad nastavenia datab\IeC {\'a}zy PostgreSQL}{46}{lstlisting.22}

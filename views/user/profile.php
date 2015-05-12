@@ -39,7 +39,7 @@ $topTags = $model->topTags->limit(50)->all();
             ],
             'series' => [[
                 'name' => $model->username,
-                'data' => ArrayHelper::getColumn($topTags, 'count')
+                'data' => array_map('intval', ArrayHelper::getColumn($topTags, 'count'))
             ]]
         ]
     ]); ?>

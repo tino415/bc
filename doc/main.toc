@@ -68,9 +68,17 @@
 \contentsline {paragraph}{Funkcie v modely pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}a}{35}{section*.54}
 \contentsline {paragraph}{Model rela\IeC {\v c}nej tabu\IeC {\v l}ky dokumentov a tagov aj z v\IeC {\'a}hamy}{37}{section*.55}
 \contentsline {section}{\numberline {B}Pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'a} dokument\IeC {\'a}cia}{39}{appendix.B}
-\contentsline {subsection}{\numberline {B.1}In\IeC {\v s}tala\IeC {\v c}n\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{39}{subsection.B.1}
-\contentsline {subsubsection}{\numberline {B.1.1}Nadpis1}{39}{subsubsection.B.1.1}
-\contentsline {subsubsection}{\numberline {B.1.2}Nadpis2}{39}{subsubsection.B.1.2}
-\contentsline {subsection}{\numberline {B.2}Pou\IeC {\v z}\IeC {\'\i }vate\IeC {\v l}sk\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{40}{subsection.B.2}
-\contentsline {subsubsection}{\numberline {B.2.1}Nadpis3}{40}{subsubsection.B.2.1}
-\contentsline {section}{\numberline {C}Elektronick\IeC {\'e} m\IeC {\'e}dium}{41}{appendix.C}
+\contentsline {subsection}{\numberline {B.1}Registr\IeC {\'a}cia}{39}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Prihl\IeC {\'a}senie}{39}{subsection.B.2}
+\contentsline {subsection}{\numberline {B.3}Vyh\IeC {\v l}ad\IeC {\'a}vanie}{40}{subsection.B.3}
+\contentsline {subsection}{\numberline {B.4}Vytvorenie spevn\IeC {\'\i }ku}{40}{subsection.B.4}
+\contentsline {subsection}{\numberline {B.5}Zobrazenie odpor\IeC {\'u}\IeC {\v c}an\IeC {\'\i }}{42}{subsection.B.5}
+\contentsline {subsubsection}{\numberline {B.5.1}Zobrazenie odpor\IeC {\'u}\IeC {\v c}an\IeC {\'\i } \uv {Recommend My}}{42}{subsubsection.B.5.1}
+\contentsline {subsubsection}{\numberline {B.5.2}Zobrazenie odpor\IeC {\'u}\IeC {\v c}an\IeC {\'\i } pri zobrazen\IeC {\'\i } dokumentu}{42}{subsubsection.B.5.2}
+\contentsline {subsection}{\numberline {B.6}In\IeC {\v s}tala\IeC {\v c}n\IeC {\'a} pr\IeC {\'\i }ru\IeC {\v c}ka}{45}{subsection.B.6}
+\contentsline {paragraph}{Kontrol\IeC {\'a} minim\IeC {\'a}lny po\IeC {\v z}iadaviek}{45}{section*.64}
+\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia bal\IeC {\'\i }kov Composer-a}{45}{section*.65}
+\contentsline {paragraph}{In\IeC {\v s}tal\IeC {\'a}cia datab\IeC {\'a}zy}{45}{section*.66}
+\contentsline {paragraph}{Pr\IeC {\'\i }kazy pre mana\IeC {\v z}\IeC {\'e}ra \IeC {\'u}loh}{46}{section*.67}
+\contentsline {paragraph}{Nastavenia}{47}{section*.68}
+\contentsline {section}{\numberline {C}Elektronick\IeC {\'e} m\IeC {\'e}dium}{48}{appendix.C}

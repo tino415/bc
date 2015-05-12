@@ -4,6 +4,7 @@
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
+// Uncoment when deployed
 //defined('YII_DEBUG') or define('YII_DEBUG', false);
 //defined('YII_ENV') or define('YII_ENV', 'prod');
 

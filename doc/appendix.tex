@@ -312,35 +312,251 @@ public static function calculateWeights() {
 
 \subsection{Registrácia}
 
-\begin{itemize}
+\begin{enumerate}
 \item{Navigujem sa na ktorú koľvek stránku, napríklad http://bcmusic.yweb.sk/web/.}
-\item{Kliknem na tlačítko Register v pravom hornom rohu.}
+\item{Kliknem na tlačítko Register v pravom hornom rohu\ref{fig:register_button}.}
+\item{Následne sa mi zobrazí registračný formulár\ref{fig:register_form}}
 \item{Vyplním požadované údaje.}
 \item{Zvolím Register.}
 \item{Ak nevypísalo žiadnu chybu, mali by te byť zaregistrovaný a prihlásený.}
-\end{itemize}
+\end{enumerate}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.55]{tutorial_top_panel_register}
+        \caption{Registrační tlačidlo}
+        \label{fig:register_button}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.55]{register_form}
+        \caption{Registračny formulár}
+        \label{fig:register_form}
+    \end{center}
+\end{figure}
 
 \subsection{Prihlásenie}
 
-\begin{itemize}
+\begin{enumerate}
 \item{Navigujem na ktorúkoľvek podstránku aplikácie.}
 \item{Kliknem na tlačitko Sign In v pravo hore.}
+\item{Následne sa mi zobrazí registračný formulár \ref{fig:login_form}.}
 \item{Vyplním svoje prihlasovacie meno a heslo.}
 \item{Klikne na Login.}
-\item{Ak nenastala žiadna chyba mal by som byť prihláseny na domovskej stránke.}
+\item{Ak nenastala žiadna chyba mali by ste byť prihláseny.}
+\end{enumerate}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.55]{tutorial_top_panel_login}
+        \caption{Prihlasovacie tlačidlo}
+        \label{fig:login_button}
+    \end{center}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.55]{login_form}
+        \caption{Prihlasovací formulár}
+        \label{fig:login_form}
+    \end{center}
+\end{figure}
+
+\subsection{Vyhľadávanie}\label{sec:search}
+
+Vyhľadáva sa pomovo textového poľa v hlavičke stránky \ref{fig:search_screen}(oblasť číslo 1)
+ktoré je dostupné na každej podstránke. V prípade že do neho zadáť vyhľadávací režazec, a
+stlačite buď modru lupu na pravo od poľa alebo enter, zobrazia sa výsledky ako na obrázku
+\ref{fig:search_screen}(oblasť číslo 2).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.44]{search_screen}
+        \caption{Vyhľadávacia obrazovka}
+        \label{fig:search_screen}
+    \end{center}
+\end{figure}
+
+\subsection{Vytvorenie spevníku}
+
+\begin{enumerate}
+\item{Klinem na tlačidlo Songbook v menu \ref{fig:songbook} (oblasť 1).}
+\item{Zaškrtnem pre ktorých používateľov chcem generovať spevník \ref{fig:songbook} (oblasť 2).}
+\item{Kliknem na tlačidlo \uv{Create} \ref{fig:songbook} (oblasť 3).}
+\item{Na obrázku \ref{fig:songbook} (oblasť 4) by sa mi mal zobraziť zoznam odporúčaných
+    piesni do spevníku.}
+\end{enumerate}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.35]{obrazovka_songbook}
+        \caption{Vyhľadávacia obrazovka}
+        \label{fig:songbook}
+    \end{center}
+\end{figure}
+
+\subsection{Zobrazenie odporúčaní}
+
+Odporúčania sa zobrazujú na stránke v dvoch prípadoch, v prípade že navštívite 
+sekciu stránky \uv{Recommend My} alebo pri zobrazení dokumentu.
+
+\subsubsection{Zobrazenie odporúčaní \uv{Recommend My}}
+
+Na túto obrazovku sa dostaneme po kliknutí na \uv{Recommend My} v menu \ref{fig:recommendmy}
+(oblasť 1). Na obrazovke sa následne nachádzajú dve tabuľky reprezentujúci dva rôzne algoritmy
+na odporúčanie.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.35]{recommend_my}
+        \caption{Obrazovka odporúčaní}
+        \label{fig:recommendmy}
+    \end{center}
+\end{figure}
+
+\subsubsection{Zobrazenie odporúčaní pri zobrazení dokumentu}
+
+Na túto obrazovku sa môžeme dostať buď z vyhľadávania opsísanom vo Vyhľadávanie\ref{sec:search}.
+Obrazovka obsahuje prvky
+
+\begin{itemize}
+\item{Na obátku \ref{fig:song} na ľavo (oblasť 1) sa nachádza panel z tagmy dokumentu.}
+\item{V strede (oblasť 2) sa nachádza aktualny obsah dokumentu.}
+\item{Na pravo hore (oblasť 3) je panel ktorý zobrazuje dokumentu najviac podobný
+    aktuálnemu dokumentu.}
+\item{Na pravo dole (oblast 4) je panel ktorý obsahuje odporúčania pre aktuálneho používateľa.}
 \end{itemize}
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.35]{song}
+        \caption{Zobrazenie dokumentu}
+        \label{fig:song}
+    \end{center}
+\end{figure}
+
+\newpage
 
 \subsection{Inštalačná príručka}\label{install_guide}
 
+Zdrojové súbory sú na digitálnom nosiči v podpriečinku src/.
+Aby aplikácia mohla fungovať, potrebuje z webu prístupny podpriečinok src/web a
+potrebuje aby PHP skripty mohli zapisovať do priečinka src/runtime.
 
-\newpage
-\subsection{Používateľská príručka}
-Integer lorem sapien, sollicitudin ac aliquet in, posuere et sapien. Nam non vulputate ipsum. Suspendisse quis ante in arcu sagittis auctor sed nec arcu.
+\paragraph{Kontrolá minimálny požiadaviek}
 
-\subsubsection{Nadpis3}
-Integer lorem sapien, sollicitudin ac aliquet in, posuere et sapien. Nam non vulputate ipsum. Suspendisse quis ante in arcu sagittis auctor sed nec arcu. Cras condimentum massa eu arcu hendrerit ac iaculis nibh euismod. Vivamus non felis consectetur sem pretium ornare. Etiam ipsum ante, laoreet rhoncus ullamcorper nec, cursus non mi. Nunc lacinia lectus id sem consequat varius. Praesent pellentesque, leo nec vulputate egestas, dui arcu consequat nisi, et convallis augue elit in lacus. Nulla luctus faucibus lacinia. Pellentesque interdum ligula non mauris dignissim molestie.
+Pre presne stanovenie splnenia minimálnych požiadaviek, je v 
+priečinku zo zdrojovými súbormy skript \uv{requirements.php}, tento skript
+je potrebne spustiť v konzole. Skript upozorní na prípadné možno 
+problémy z kompatibilitou. Ak vypíše upozornenia, znamená to že aplikácia bude
+fungovať, avšak v niektorých situáciach môže nastať nedefinovaný stav.
 
-\newpage
+\paragraph{Inštalácia balíkov Composer-a}
+
+Na nainštalovanie všetkých knižníc použitých pri vývoji a závyslostiach aplikácie,
+je potrebne zo koreňového priečinka inštalácie (priečinok src/) spustiť
+príkaz \ref{lst:composer_install}. V pripade že nemáte nainštalovaný Composer,
+môžete postupovať podľa oficialneho návodu\footnote{https://getcomposer.org/doc/00-intro.md}.
+
+\begin{lstlisting}[label=composer_install, caption=Inštalácia balíkov Composer-a]
+composer install
+\end{lstlisting}
+
+\paragraph{Inštalácia databázy}
+
+Prvý krok na pripojenie k databáze je nastavenie prístupových parametrov databázy,
+tie sa nastavujú v súbore \uv{src/config/db.php}. Príklad na nastavenie MySQL databázy
+je v ukážke\ref{db_mysql} a príklad na nastavenie PostgreSQL je v ukážke\ref{db_postgres}.
+
+\begin{lstlisting}[label=db_mysql,caption=Príklad nastavenia databázy MySQL]
+<?php
+
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:'.
+            'host=localhost;'.
+            'port=3303;'.
+            'dbname=database',
+    'username' => 'username',
+    'password' => 'password',
+    'charset' => 'utf8',
+];
+\end{lstlisting}
+
+\begin{lstlisting}[label=db_postgres,caption=Príklad nastavenia databázy PostgreSQL]
+<?php
+
+return [
+    'class' => 'yii\db\Connection',
+    'dsn' => 'pgsql:'.
+            'host=localhost;'.
+            'port=5432;'.
+            'dbname=database',
+    'username' => 'username',
+    'password' => 'password',
+    'charset' => 'utf8',
+    'schemaMap' => [
+        'pgsql' => [
+            'class' => 'yii\db\pgsql\Schema',
+            'defaultSchema' => 'public',
+        ]
+    ]
+];
+\end{lstlisting}
+
+Po nastavení pripojenia k databáze je treba ešte vytvoriť v databáze potrebnú štruktúru tabuliek.
+Na spravovanie zmien v štruktúre databázy boli použité migrácie aplikačného rámca Yii2. 
+Na vytvorenie tabuliek a cudzích kľučov stačí spustiť prikaz \uv{./yii migrate}
+v koreňovom priečinku aplikácie (\uv{src/}).
+
+\paragraph{Príkazy pre manažéra úloh}
+
+Pokiaľ nechceme manuálne spúšťať indexovanie a prednačítanie externých databáz, je dobre 
+pridať tieto príkazy do manažéra úloh,
+
+\begin{itemize}
+\item{\textbf{./yii interpret/explore} - získava názvy a identifikátory interpretov zo stránok
+    ktoré obsahuju zoznamy interpretov}
+\item{\textbf{./yii document/explore} - snaží sa získať identifikátory dokumentov,
+    ich interpretov a typ,}
+\item{\textbf{./yii document/parallelnametags} - paralelne vygeneruje značky
+    z názvu dokumentu, názvu interpreta a typu dokumentu,
+\item{\textbf{./yii document/lunloaded} - snaží sa stiahnuť obsahy dokumentov a značky
+    z last.fm, tento príkaz sa dá spustiť aj paralelne ako
+    \textbf{./yii document/parallelunloaded}, tento prístup však nemusí fungovať všade
+    a nie je spoľahlivý}
+\item{\textbf{./yii mapdocumenttag/weight} - vypočítava užitočnosť značiek,}
+\end{itemize}
+
+Aplikácia obsahuje aj ďaľšie príkazy:
+
+\begin{itemize}
+\item{\textbf{./yii document/paralleltaglfm} - paralélne sťahuje značky z last.fm},
+\item{\textbf{./yii document/tagtype \$id} - \$id je parameter identifikátor dokumentu,
+    vygeneruje značky pre dokument z jeho názvu, názvu jeho interpreta a typu dokumentu,}
+\item{\textbf{./yii document/tagtypes} - skontroluje či všetky značky priradené dokumentom
+    sú správneho typu, existuje aj paralelna verzia \textbf{./yii document/paralleltagtypes},}
+\end{itemize}
+
+\paragraph{Nastavenia}
+
+Aplikácia po nainštalovaní bude bežať v vývojovom móde, pre produkčne nastavenie je 
+potrebné zmeniť nastavenia v \uv{src/web/index.php}. V danom súbore je potrebné zmeniť
+zakomentovať riadky 4 a 5 a odkomentovať riadky 8 a 9.
+
+Ďalej aplikácia obsahuje nastavenia v súbore \uv{src/config/params.php}
+
+\begin{itemize}
+\item{\textbf{tag\_appereance\_weights} - váhy jednotlivých domén značiek,}
+\item{\textbf{min\_tag\_lenght} - minimálna dĺžka slova aby sa mohlo stať značkou,}
+\item{\textbf{time\_aware\_recomendation} - ak je nastavený na \uv{true}, pri zo brazení
+    piesne sa na paneli z odporúčaniamy zobrazujú výsledky nášho algoritmu, ak
+    je hodnota \uv{false}, zobrazujú sa výsledky agregačného algorimtu.}
+\end{itemize}
+
 \section{Elektronické médium}
 
 K dokumentu priložené elektronické médium má nasledovnú štruktúru:
@@ -351,28 +567,18 @@ K dokumentu priložené elektronické médium má nasledovnú štruktúru:
     \myitem bakalárska práca spolu s anotáciami v slovenskom a anglickom jazyku
     \end{my_itemize}
 
-\emptyitem /doc/bibtex
+\emptyitem /src/doc
     \begin{my_itemize}
-    \myitem súbor s referenciami vo formáte BibTeX
+    \myitem súbor s referenciami vo formáte BibTeX a súbory dokumentácia vo formáte Latex
     \end{my_itemize}
 
-\emptyitem /doc/latex
-    \begin{my_itemize}
-    \myitem súbory dokumentácie vo formáte Latex
-    \end{my_itemize}
-
-\emptyitem /doc/resources
-    \begin{my_itemize}
-    \myitem dostupné použité zdroje
-    \end{my_itemize}
-
-\emptyitem /source
+\emptyitem /src
     \begin{my_itemize}
     \myitem zdrojové kódy samotnej implementovanej aplikácie
     \end{my_itemize}
 
 \emptyitem readme.txt
     \begin{my_itemize}
-    \myitem popis obsahu média v slovenskom a~anglickom jazyku
+    \myitem popis obsahu média v slovenskom a anglickom jazyku
     \end{my_itemize}
 \end{my_itemize}

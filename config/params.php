@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'adminEmail' => 'cernakmartin3@gmail.com',
+    'adminEmail' => 'sample@email.com',
     'anonymousUserId' => '2',
     'long_term_groups' => '5',
     'time_aware_recommendation' => true,
