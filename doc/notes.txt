@@ -1,9 +1,0 @@
-Nerob prednášku
-    - ako som to overil
-    - prečo si myslím že je to správne
-    - nazvoslovie
-    - 1 - 2 slajdy prečo
-    - 2 - 3 čo ine sa podarilo v tejto problematike
-    - čo som riešil
-    - implementacie, problémy ktoré som riešil
-    - vyhodnotenie

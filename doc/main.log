@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  12 MAY 2015 10:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.12.1)  9 JUN 2015 07:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -958,11 +958,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+c'
 LaTeX Warning: Unused global option(s):
     [appendix].
 
-(./main.aux
-
-LaTeX Warning: Label `eq:matching' multiply defined.
-
-)
+(./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
@@ -1095,21 +1091,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 101--75
 (./anotation.tex [2
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 8--25
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 9--26
 
  []
 
-[3])
-Underfull \hbox (badness 10000) in paragraph at lines 33--81
+[4] [5])
+Underfull \hbox (badness 10000) in paragraph at lines 35--81
 
  []
 
-(./declaration.tex [4] [5])
+(./declaration.tex [6] [7] [8] [9])
 Overfull \hbox (0.36765pt too wide) in paragraph at lines 15--86
 | \T1/ptm/m/n/12 (-20) .................................... 
  []
 
-[6] (./main.toc
+[10] [11] (./main.toc
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 3.
  (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -1143,20 +1140,39 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-) [7])
+) [12])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [8] (./main.lof)
+ [13] (./main.lof)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
-
-[9] (./main.lol)
+[14] (./main.lol)
 \tf@lol=\write6
 \openout6 = `main.lol'.
 
- [10] (./introduction.tex [1
+ [15] (./introduction.tex
+! Undefined control sequence.
+<argument> \evenidemargin 
+                          
+l.3 \setlength{\evenidemargin}{1.0cm}
+                                     
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   \par 
+l.4 
+    
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \par 
+l.4 
+    
+? 
+[1
+
 
 ]) (./analysis.tex [2]
 
@@ -1174,7 +1190,9 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 37.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 37.
- [3]
+ [3
+
+]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
@@ -1189,21 +1207,21 @@ Package hyperref Warning: Composite letter `\textasciicaron+l'
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7] [8] <figures/semantic_network.png, id=386, 554.07pt x 325.215pt>
+[7] [8] <figures/semantic_network.png, id=404, 554.07pt x 325.215pt>
 File: figures/semantic_network.png Graphic file (type png)
 
 <use figures/semantic_network.png>
 Package pdftex.def Info: figures/semantic_network.png used on input line 249.
 (pdftex.def)             Requested size: 304.73944pt x 178.86879pt.
  [9 <./figures/semantic_network.png>]
-<figures/bayes_network.png, id=395, 259.97125pt x 163.61125pt>
+<figures/bayes_network.png, id=413, 259.97125pt x 163.61125pt>
 File: figures/bayes_network.png Graphic file (type png)
 
 <use figures/bayes_network.png>
 Package pdftex.def Info: figures/bayes_network.png used on input line 270.
 (pdftex.def)             Requested size: 142.98462pt x 89.98645pt.
 
-<figures/recommend_bayes_network.png, id=398, 614.295pt x 285.065pt>
+<figures/recommend_bayes_network.png, id=416, 614.295pt x 285.065pt>
 File: figures/recommend_bayes_network.png Graphic file (type png)
 
 <use figures/recommend_bayes_network.png>
@@ -1218,10 +1236,6 @@ Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                removing `\textasciicaron' on input line 327.
 
 
-LaTeX Warning: Reference `eg:binary_tf' on page 12 undefined on input line 343.
-
-
-
 ! LaTeX Error: Illegal character in array arg.
 
 See the LaTeX manual or LaTeX Companion for explanation.
@@ -1241,9 +1255,6 @@ Type  H <return>  for immediate help.
 l.348         \begin{array}{11}
                                
 ? 
-
-LaTeX Warning: Reference `eg:log_tg' on page 12 undefined on input line 369.
-
 
 ! LaTeX Error: Illegal character in array arg.
 
@@ -1279,10 +1290,6 @@ l.456 u_{j}(d_i) = \sum\limit
 l.456 u_{j}(d_i) = \sum\limit_{t=1}^N_
                                       {z_t}f(z_t) * u(z_t)
 ? 
-
-LaTeX Warning: Reference `eq:unique_matching' on page 14 undefined on input lin
-e 464.
-
 ! Undefined control sequence.
 l.467 u_{u}(d_i) = \sum\limit
                              _{t=1}^N_{z_i} u(z_t)
@@ -1323,12 +1330,13 @@ m/m/it/12 d[]; u[]; q[]\OT1/lmr/m/n/12 )$ \T1/ptm/m/n/12 (-20) je po-�et zo-bra
 12 Zobrazenia\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 q[]; u[]\OT1/lmr/m/n/12 )$
  []
 
+) (./design.tex [15] [16
 
-Package natbib Warning: Citation `achemoukh' on page 15 undefined on input line
- 492.
+] [17]
+Underfull \vbox (badness 3646) has occurred while \output is active []
 
-) (./design.tex [15] [16] [17]
-<figures/app_structure.png, id=499, 732.7375pt x 340.27126pt>
+ [18]
+<figures/app_structure.png, id=524, 732.7375pt x 340.27126pt>
 File: figures/app_structure.png Graphic file (type png)
 
 <use figures/app_structure.png>
@@ -1339,30 +1347,34 @@ Overfull \hbox (13.00687pt too wide) in paragraph at lines 81--82
  [] 
  []
 
-[18 <./figures/app_structure.png>]
+[19 <./figures/app_structure.png>] [20]
 
-LaTeX Warning: Command \' invalid in math mode on input line 144.
+LaTeX Warning: Command \' invalid in math mode on input line 147.
 
 
-LaTeX Warning: Command \v invalid in math mode on input line 150.
+LaTeX Warning: Command \v invalid in math mode on input line 153.
 
-[19] <figures/user_document_data_model.png, id=514, 404.51125pt x 392.46625pt>
+<figures/user_document_data_model.png, id=538, 404.51125pt x 392.46625pt>
 File: figures/user_document_data_model.png Graphic file (type png)
 
 <use figures/user_document_data_model.png>
 Package pdftex.def Info: figures/user_document_data_model.png used on input lin
-e 158.
+e 161.
 (pdftex.def)             Requested size: 222.48187pt x 215.85709pt.
 
-<figures/crawler_flowchart.png, id=517, 594.22pt x 219.82124pt>
+<figures/crawler_flowchart.png, id=541, 594.22pt x 219.82124pt>
 File: figures/crawler_flowchart.png Graphic file (type png)
 
 <use figures/crawler_flowchart.png>
-Package pdftex.def Info: figures/crawler_flowchart.png used on input line 177.
+Package pdftex.def Info: figures/crawler_flowchart.png used on input line 180.
 (pdftex.def)             Requested size: 326.822pt x 120.90204pt.
- [20 <./figures/user_document_data_model.png>]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 204.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+ [21
+
+] [22 <./figures/user_document_data_model.png> <./figures/crawler_flowchart.png
+>]
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 207.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 Package microtype Info: Loading generic settings for font family
@@ -1373,21 +1385,21 @@ Package microtype Info: Loading generic settings for font family
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.204     label=lst:interpret_id]
+l.207     label=lst:interpret_id]
                                  
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 )
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 205.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 208.
 LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 205.
+(Font)              Font shape `T1/pcr/b/n' tried instead on input line 208.
 
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.208 ...erpretovho mena,label=lst:interpret_name]
+l.211 ...erpretovho mena,label=lst:interpret_name]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -1396,25 +1408,25 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.212 ...retovho aliasu,label=lst:interpret_alias]
+l.215 ...retovho aliasu,label=lst:interpret_alias]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [21 <./figures/crawler_flowchart.png>]
+)
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.221     label=lst:regex_interpret_name]
+l.224     label=lst:regex_interpret_name]
                                          
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-)
+) [23]
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.240 ...e názvou piesni,label=lst:document_name]
+l.243 ... názvov piesní,label=lst:document_name]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -1423,7 +1435,7 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.244 ...nie názvou piesni,label=lst:document_id]
+l.247 ...ie názvov piesní,label=lst:document_id]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -1432,7 +1444,7 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.248 ...e názvou piesni,label=lst:document_type]
+l.251 ... názvov piesní,label=lst:document_type]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -1441,7 +1453,7 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.252 ...zvou piesni,label=lst:document_interpret]
+l.255 ...vov piesní,label=lst:document_interpret]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
@@ -1450,54 +1462,68 @@ File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 ! Misplaced alignment tab character &.
 <argument> ...rmusic.sk/skupina.php?action=piesen&
                                                   idpiesne=
-l.261 ...c.sk/skupina.php?action=piesen&idpiesne=}
+l.264 ...c.sk/skupina.php?action=piesen&idpiesne=}
                                                    a na jej
 ? 
-[22] [23] [24]
+[24] [25]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 342.
+(hyperref)                removing `\textasciicaron' on input line 345.
 
+[26]
 ! Undefined control sequence.
-l.353 u(d_i, u_k) = \sum\limit
+l.356 u(d_i, u_k) = \sum\limit
                               _{j = 0}^{j = N_{d_i u_k}} u(z_j)
 ? 
-<figures/casova_os.png, id=580, 815.045pt x 97.36375pt>
+<figures/casova_os.png, id=610, 815.045pt x 97.36375pt>
 File: figures/casova_os.png Graphic file (type png)
 
 <use figures/casova_os.png>
-Package pdftex.def Info: figures/casova_os.png used on input line 370.
+Package pdftex.def Info: figures/casova_os.png used on input line 373.
 (pdftex.def)             Requested size: 448.27612pt x 53.55022pt.
 
-Overfull \hbox (58.27612pt too wide) in paragraph at lines 370--371
+Overfull \hbox (58.27612pt too wide) in paragraph at lines 373--374
  [] 
  []
 
-[25]
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.386 ...tags, caption=Získanie značiek profilu]
+l.389 ...tags, caption=Získanie značiek profilu]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [26 <./figures/casova_os.png>]
+) [27 <./figures/casova_os.png>]
 ! Undefined control sequence.
-l.416 ...re ktorých chcem získať značky a \(\N
+l.419 ...re ktorých chcem získať značky a \(\N
                                                   _{z_i}\) je
 ? 
 ! Undefined control sequence.
-l.426 podobnost(d_i, d_j) = \sum\limit
+l.429 podobnost(d_i, d_j) = \sum\limit
                                       _{k = 0}^{N_{ij}} u(d_i, z_k) * u(d_j,...
 
 ? 
+[28]
 ! Undefined control sequence.
-l.439 vyhovuje(d_i, Z) = \sum\limit
+l.442 vyhovuje(d_i, Z) = \sum\limit
                                    _{k = 0}^{N_{z}} u(d_i, z_k) * qu(z_k)
 ? 
-) (./results.tex [27]
+) (./results.tex
+
+! Package inputenc Error: Unicode char \u8:﻿ not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 ﻿
+       \newpage
+? 
+[29] [30
+
+]
 
 LaTeX Warning: Command \v invalid in math mode on input line 23.
 
@@ -1525,7 +1551,7 @@ l.23 ...mit_{i=0}^{M} 1 +\sum\limit_{i=0}^{K}1}{3}
 l.23 ...mit_{i=0}^{M} 1 +\sum\limit_{i=0}^{K}1}{3}
                                                   
 ? 
-<figures/manual_testing_results.png, id=625, 455.45157pt x 255.95625pt>
+<figures/manual_testing_results.png, id=659, 455.45157pt x 255.95625pt>
 File: figures/manual_testing_results.png Graphic file (type png)
 
 <use figures/manual_testing_results.png>
@@ -1537,8 +1563,59 @@ Overfull \hbox (65.45045pt too wide) in paragraph at lines 34--35
  [] 
  []
 
-) (./conclusions.tex [28]) [29 <./figures/manual_testing_results.png (PNG copy)
->] (./main.bbl) (./appendix.tex [30]
+<figures/dotaznik.png, id=661, 455.45157pt x 255.95625pt>
+File: figures/dotaznik.png Graphic file (type png)
+
+<use figures/dotaznik.png>
+Package pdftex.def Info: figures/dotaznik.png used on input line 53.
+(pdftex.def)             Requested size: 455.45045pt x 255.95561pt.
+
+Overfull \hbox (65.45045pt too wide) in paragraph at lines 53--54
+ [] 
+ []
+
+[31] <figures/dotaznik_podobnost.png, id=669, 521.69907pt x 309.40594pt>
+File: figures/dotaznik_podobnost.png Graphic file (type png)
+
+<use figures/dotaznik_podobnost.png>
+Package pdftex.def Info: figures/dotaznik_podobnost.png used on input line 66.
+(pdftex.def)             Requested size: 417.35982pt x 247.52509pt.
+
+Overfull \hbox (27.35982pt too wide) in paragraph at lines 66--67
+ [] 
+ []
+
+) (./conclusions.tex
+
+! Package inputenc Error: Unicode char \u8:﻿ not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 ﻿
+       \newpage
+? 
+[32 <./figures/manual_testing_results.png (PNG copy)>] [33 <./figures/dotaznik.
+png (PNG copy)> <./figures/dotaznik_podobnost.png (PNG copy)>] [34
+
+]) [35]
+(./main.bbl [36]) (./appendix.tex
+
+! Package inputenc Error: Unicode char \u8:﻿ not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 ﻿
+       \newpage
+? 
+[37
+
+] [38
+
+]
 ! Undefined control sequence.
 l.12 \begine
             {itemize}
@@ -1567,7 +1644,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.17 \item{
-           \textbf{Bezpečnosť} je dôležita najmä skrs to že stránka b...
+           \textbf{Bezpečnosť} je dôležitá najmä skrz to, že stránka...
 
 ? 
 
@@ -1623,7 +1700,7 @@ l.23 \end{itemize}
 l.23 \end{itemize}
                   
 ? 
-[31]
+[39]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
 
@@ -1631,20 +1708,31 @@ See the xkeyval package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.62 ... dokumentu zo sadou ováhovaných značie]
+l.62 ...dokumentu so sadou ováhovaných značiek]
                                                   
 ? 
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
-l.62 ... dokumentu zo sadou ováhovaných značie]
+l.62 ...dokumentu so sadou ováhovaných značiek]
                                                   
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [32]
+) [40]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 ]
+      
+? 
+
+! Package xkeyval Error: `\IeC {\v z}e predpoklad\IeC {\'a} identifik\IeC {\'a}
+tor zna\IeC {\v c}iek namiesto mien' undefined in families `lst'.
 
 See the xkeyval package documentation for explanation.
 Type  H <return>  for immediate help.
@@ -1672,6 +1760,18 @@ Type  H <return>  for immediate help.
 l.103 ...rázu a vráti na základe nej dokumenty]
                                                   
 ? 
+
+! Package xkeyval Error: `ktor\IeC {\'a} zoberie vyh\IeC {\v l}ad\IeC {\'a}vaci
+u fr\IeC {\'a}zu a vr\IeC {\'a}ti na z\IeC {\'a}klade nej dokumenty' undefined 
+in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.103 ...rázu a vráti na základe nej dokumenty]
+                                                  
+? 
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1691,6 +1791,28 @@ Type  H <return>  for immediate help.
 l.113 ...načka sa nachádza v názve interpreta.]
                                                   
 ? 
+! Missing \endcsname inserted.
+<to be read again> 
+                   \protect 
+l.113 ...načka sa nachádza v názve interpreta.]
+                                                  
+? 
+
+! Package xkeyval Error: `ktor\IeC {\'a} vyhodnocuje typ zna\IeC {\v c}ky na z\
+IeC {\'a}klade pr\IeC {\'\i }znakov DN - zna\IeC {\v c}ka je n\IeC {\'a}zov dok
+umentu\tmspace +\thinmuskip {.1667em} IN - zna\IeC {\v c}ka je interpret dokume
+ntu\tmspace +\thinmuskip {.1667em} DT - zna\IeC {\v c}ka sa nach\IeC {\'a}dza v
+ n\IeC {\'a}zve dokumentu\tmspace +\thinmuskip {.1667em} IT - zna\IeC {\v c}ka 
+sa nach\IeC {\'a}dza v n\IeC {\'a}zve interpreta.' undefined in families `lst'.
+
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.113 ...načka sa nachádza v názve interpreta.]
+                                                  
+? 
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1699,9 +1821,21 @@ l.113 ...načka sa nachádza v názve interpreta.]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [33]
+) [41]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.130 ]
+       
+? 
+
+! Package xkeyval Error: `ktor\IeC {\'a} vr\IeC {\'a}ti spolo\IeC {\v c}n\IeC {
+\'e} zna\IeC {\v c}ky dokumentov dokument1 a dokument2' undefined in families `
+lst'.
 
 See the xkeyval package documentation for explanation.
 Type  H <return>  for immediate help.
@@ -1748,7 +1882,6 @@ Type  H <return>  for immediate help.
 l.166 ]
        
 ? 
-[34]
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1757,9 +1890,21 @@ l.166 ]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-)
+) [42]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
+
+See the xkeyval package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.185 ]
+       
+? 
+
+! Package xkeyval Error: `ktor\IeC {\'y} vr\IeC {\'a}ti dlhodob\IeC {\'e} zaujm
+y pou\IeC {\v z}it\IeC {\'\i }m delenia hist\IeC {\'o}rie na obdobia' undefined
+ in families `lst'.
 
 See the xkeyval package documentation for explanation.
 Type  H <return>  for immediate help.
@@ -1776,7 +1921,7 @@ l.185 ]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [35]
+) [43]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
 
@@ -1795,7 +1940,7 @@ l.241 ]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [36]
+) [44]
 
 ! Package xkeyval Error: `code' undefined in families `lst'.
 
@@ -1814,19 +1959,19 @@ l.265 ]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [37] [38]
+) [45] [46]
 
 Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 311.
 
 
-Overfull \hbox (5.10674pt too wide) in paragraph at lines 316--317
-[]\T1/ptm/m/n/12 (-20) Navigujem sa na ktor� ko�-vek str�nku, na-pr�-klad http:
-//bcmusic.yweb.sk/web/. 
+Overfull \hbox (8.04808pt too wide) in paragraph at lines 316--317
+[]\T1/ptm/m/n/12 (-20) Navigujeme sa na kto-r�-ko�-vek str�nku, na-pr�-klad htt
+p://bcmusic.yweb.sk/web/. 
  []
 
-<figures/tutorial_top_panel_register.png, id=880, 657.45625pt x 237.88875pt>
+<figures/tutorial_top_panel_register.png, id=938, 657.45625pt x 237.88875pt>
 File: figures/tutorial_top_panel_register.png Graphic file (type png)
 
 <use figures/tutorial_top_panel_register.png>
@@ -1834,7 +1979,7 @@ Package pdftex.def Info: figures/tutorial_top_panel_register.png used on input
 line 326.
 (pdftex.def)             Requested size: 361.60205pt x 130.8392pt.
 
-<figures/register_form.png, id=881, 710.655pt x 454.69875pt>
+<figures/register_form.png, id=939, 710.655pt x 454.69875pt>
 File: figures/register_form.png Graphic file (type png)
 
 <use figures/register_form.png>
@@ -1845,8 +1990,10 @@ Overfull \hbox (0.86145pt too wide) in paragraph at lines 334--335
  [] 
  []
 
-[39 <./figures/tutorial_top_panel_register.png (PNG copy)>]
-<figures/tutorial_top_panel_login.png, id=898, 657.45625pt x 237.88875pt>
+[47
+
+ <./figures/tutorial_top_panel_register.png (PNG copy)>]
+<figures/tutorial_top_panel_login.png, id=957, 657.45625pt x 237.88875pt>
 File: figures/tutorial_top_panel_login.png Graphic file (type png)
 
 <use figures/tutorial_top_panel_login.png>
@@ -1854,7 +2001,7 @@ Package pdftex.def Info: figures/tutorial_top_panel_login.png used on input lin
 e 353.
 (pdftex.def)             Requested size: 361.60205pt x 130.8392pt.
 
-<figures/login_form.png, id=899, 689.57625pt x 351.3125pt>
+<figures/login_form.png, id=958, 689.57625pt x 351.3125pt>
 File: figures/login_form.png Graphic file (type png)
 
 <use figures/login_form.png>
@@ -1866,7 +2013,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+l'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 367.
 
-<figures/search_screen.png, id=902, 985.6825pt x 338.26375pt>
+<figures/search_screen.png, id=961, 985.6825pt x 338.26375pt>
 File: figures/search_screen.png Graphic file (type png)
 
 <use figures/search_screen.png>
@@ -1877,9 +2024,9 @@ Overfull \hbox (43.70163pt too wide) in paragraph at lines 376--377
  [] 
  []
 
-[40 <./figures/register_form.png>] [41 <./figures/tutorial_top_panel_login.png 
+[48 <./figures/register_form.png>] [49 <./figures/tutorial_top_panel_login.png 
 (PNG copy)> <./figures/login_form.png>]
-<figures/obrazovka_songbook.png, id=920, 1183.42125pt x 492.84125pt>
+<figures/obrazovka_songbook.png, id=979, 1183.42125pt x 492.84125pt>
 File: figures/obrazovka_songbook.png Graphic file (type png)
 
 <use figures/obrazovka_songbook.png>
@@ -1909,7 +2056,7 @@ Package hyperref Warning: Glyph not defined in PD1 encoding,
 Package hyperref Warning: Glyph not defined in PD1 encoding,
 (hyperref)                removing `\crqq' on input line 405.
 
-<figures/recommend_my.png, id=922, 1183.42125pt x 630.355pt>
+<figures/recommend_my.png, id=981, 1183.42125pt x 630.355pt>
 File: figures/recommend_my.png Graphic file (type png)
 
 <use figures/recommend_my.png>
@@ -1925,9 +2072,9 @@ Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 419.
 
-[42 <./figures/search_screen.png>] [43 <./figures/obrazovka_songbook.png> <./fi
+[50 <./figures/search_screen.png>] [51 <./figures/obrazovka_songbook.png> <./fi
 gures/recommend_my.png>]
-<figures/song.png, id=937, 1181.41376pt x 868.24374pt>
+<figures/song.png, id=996, 1181.41376pt x 868.24374pt>
 File: figures/song.png Graphic file (type png)
  <use figures/song.png>
 Package pdftex.def Info: figures/song.png used on input line 435.
@@ -1937,7 +2084,7 @@ Overfull \hbox (23.501pt too wide) in paragraph at lines 435--436
  [] 
  []
 
-[44 <./figures/song.png>]
+[52 <./figures/song.png>]
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
@@ -1959,10 +2106,6 @@ l.461 príkaz 
                \ref{lst:composer_install}. V pripade že nemáte nainštalov...
 
 ? 
-
-LaTeX Warning: Reference `lst:composer_install' on page 45 undefined on input l
-ine 461.
-
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -1979,8 +2122,8 @@ See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.472 je v ukážke\ref{db_mysql} 
-                                   a príklad na nastavenie PostgreSQL je v ...
+l.472 je v ukážke \ref{db_mysql} 
+                                    a príklad na nastavenie PostgreSQL je v...
 
 ? 
 ! Undefined control sequence.
@@ -1991,7 +2134,7 @@ l.474 ...tion=Príklad nastavenia databázy MySQL]
 ? 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
-) [45]
+) [53]
 ! Undefined control sequence.
 \lst@basicstyle ...otesize \ttfamily \normalfonts 
                                                   
@@ -2006,40 +2149,36 @@ Overfull \hbox (45.52007pt too wide) in paragraph at lines 517--520
 e ^^Rsrc/tests/codeception/config/config.php^^P. 
  []
 
-[46]
+[54]
 ! Missing } inserted.
 <inserted text> 
                 }
 l.544 \end{itemize}
                    
 ? 
-[47])
+[55] [56])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 181.
+ [57
 
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-[48]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 181.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 182.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 181.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 181.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: FB73158A8E408243593A5E25947C4D14;2496.
 
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 182.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 181.
  ) 
 Here is how much of TeX's memory you used:
- 16381 strings out of 494994
- 250506 string characters out of 6180200
- 444437 words of memory out of 5000000
- 18486 multiletter control sequences out of 15000+600000
- 74717 words of font info for 198 fonts, out of 8000000 for 9000
+ 16389 strings out of 494994
+ 250766 string characters out of 6180200
+ 445617 words of memory out of 5000000
+ 18497 multiletter control sequences out of 15000+600000
+ 73406 words of font info for 183 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  55i,13n,92p,927b,1562s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/share/texmf/
@@ -2055,10 +2194,10 @@ ourier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (57 pages, 679696 bytes).
+Output written on main.pdf (71 pages, 702641 bytes).
 PDF statistics:
- 1158 PDF objects out of 1200 (max. 8388607)
- 1048 compressed objects within 11 object streams
- 496 named destinations out of 1000 (max. 500000)
- 34153 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1225 PDF objects out of 1440 (max. 8388607)
+ 1099 compressed objects within 11 object streams
+ 512 named destinations out of 1000 (max. 500000)
+ 34163 words of extra memory for PDF output out of 35830 (max. 10000000)
 

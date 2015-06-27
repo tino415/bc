@@ -1,4 +1,4 @@
-\newpage
+﻿\newpage
 \thispagestyle{plain}
 
 \section{Technická dokumentácia}\label{technical_documentation}
@@ -11,55 +11,55 @@ Na systém sú kladené nasledujúce nefunkčné požiadavky
 
 \begine{itemize}
 \item{\textbf{Rýchlosť} hlavným sledovaným parametrom pri webových aplikáciach 
-    čas načítania stránky, podľa štatystík, stránka ktorá sa náčíta nad 2 sekundy 
-    us má veľkú pravdepodobnosť že sa používateľ na ňu
+    je čas načítania stránky, podľa štatistík, stránka ktorá sa načíta nad 2 sekundy 
+    má veľkú pravdepodobnosť, že sa používateľ na ňu
     nevráti\footnote{http://www.mcrinc.com/Documents/Newsletters/201110\_why\_web\_performance\_matters.pdf},}
-\item{\textbf{Bezpečnosť} je dôležita najmä skrs to že stránka bude profilovať používateľov
+\item{\textbf{Bezpečnosť} je dôležitá najmä skrz to, že stránka bude profilovať používateľov,
     čo by sa mohlo dať zneužiť. Je potrebné použiť vhodný spôsob prihlasovania a 
-    uladania prihlasovacích údajov,}
+    ukladania prihlasovacích údajov,}
 \item{\textbf{Stabilita} aplikácia by mal vydržať fungovať dostačujúce časové obdobie bez výskytu
     väčšej chyby,}
 \item{\textbf{Modularita} by mala byť zabezpečená pre prípad budúcich úprav aplikácie.}
 \end{itemize}
 
-Aplikácia by mala ďalej byť schopná správe pracovať na platforme PHP verzie vyššej ako 5.4
-pričom je prdpokladaná prítomnosť GD a mcrypt rozšírenia. Po vizualnej stránke by sa plikácia
-mala dobre zobraziť vo všetkých moderných prehliadačoch a to responzívne. Ďalej by aplikácia
+Aplikácia by mala ďalej byť schopná správne pracovať na platforme PHP verzie vyššej ako 5.4
+pričom je predpokladaná prítomnosť GD a mcrypt rozšírenia. Po vizuálnej stránke by sa aplikácia
+mala dobre zobraziť vo všetkých moderných prehliadačoch a to responzívne. Ďalej aplikácia
 bude potrebovať prítomnosť databázy MySQL verzie aspoň 5.1, prípadne PostrgreSQL.
 
 \paragraph{Funkčné požiadavky}
 
 Aplikácia bude poskytovať možnosť vyhľadania piesne, pričom bude 
-následne poskytovať odporúčania, vďaka čomu umožni prieskumne vyhľadávanie.
-Ďalej bude používateľovy umožňovať nechať si odporúčiť dokumenty na základe 
+následne poskytovať odporúčania, vďaka čomu umožní prieskumné vyhľadávanie.
+Ďalej bude používateľovi umožňovať nechať si odporučiť dokumenty na základe 
 ním zobrazených dokumentov a vytvorenie spevníka pre kombináciu niekoľkých 
 používateľov.
 
-Aplikácia bude mať tak isto administračne rozhranie kde bude možne zobrazovať
-spravovať (mazať a upravovať zaregistrovaných používateľov).
+Aplikácia bude mať tak isto administračné rozhranie, kde bude možné zobrazovať a
+spravovať (mazať a upravovať) zaregistrovaných používateľov.
 
 \subsection{Návrh projektu}
 
-Projekt ja implementovaný vo aplikačnom rámci Yii2. V rámci tohoto aplikačného rámca 
+Projekt ja implementovaný v aplikačnom rámci Yii2. V rámci tohoto aplikačného rámca 
 je použitých niekoľko návrhových vzorov. Základom je návrhový vzor
-MVC\footnote{http://en.wikipedia.org/wiki/Model\%E2\%80\%93view\%E2\%80\%93controller} 
+MVC\footnote{http://en.wikipedia.org/wiki/Model\%E2\%80\%93view\%E2\%80\%93controller}, 
 ktorý následne na správu dát dopĺňa návrhovým vzorom
-ActiveRecord\footnote{http://en.wikipedia.org/wiki/Active\_record\_pattern} ktorý
-slúži na prácu z dátamy. Tak isto program umožňuje použiť buť LazyLoading\footnote{http://en.wikipedia.org/wiki/Lazy\_loading} alebo 
+ActiveRecord\footnote{http://en.wikipedia.org/wiki/Active\_record\_pattern}, ktorý
+slúži na prácu s dátami. Tak isto program umožňuje použiť buď LazyLoading\footnote{http://en.wikipedia.org/wiki/Lazy\_loading}, alebo 
 EagerLoading\footnote{Pravý opak LazyLoading kedy je snaha vybrať všetky data z databázy naraz}.
 
-Kód je napísaný tak že každý objekt má vlastný súbor a zdrojové súbory sú rozdelené podľa
-toho čo reprezentujú (modely, pohľady, kontrolery, widgety, asety, komponenty, kravlery,
+Kód je napísaný tak, že každý objekt má vlastný súbor a zdrojové súbory sú rozdelené podľa
+toho, čo reprezentujú (modely, pohľady, kontrolery, widgety, asety, komponenty, kravlery,
 migracie a testy).
 
 \subsection{Implementácia}
 
-\paragraph{Funkcie v modely dokumentu}
+\paragraph{Funkcie v modeli dokumentu}
 
 Tieto funkcie sa nachádzajú v súbore models/Document.php
 
 \begin{lstlisting}[code=php,
-caption=Funkdiac na porovnanie dokumentu zo sadou ováhovaných značie]
+caption=Funkcia na porovnanie dokumentu so sadou ováhovaných značiek]
 public static function match($tags, $exclude = false) {
     $case = Globals::sqlCase($tags,'tag.name');
 
@@ -84,7 +84,7 @@ public static function match($tags, $exclude = false) {
 
 \begin{lstlisting}[
     code=php,
-    caption=Porovnanie dokumentu zo sadov značiek\, akurát že predpokladá identifikátor
+    caption=Porovnanie dokumentu so sadou značiek\, akurát, že predpokladá identifikátor
     značiek namiesto mien
 ]
 public static function matchIds($tags) {
@@ -100,7 +100,7 @@ public static function matchIds($tags) {
 \end{lstlisting}
 
 \begin{lstlisting}[
-code=php,caption=Funkcia ktorá zoberie vyhľadávaciu frázu a vráti na základe nej dokumenty]
+code=php,caption=Funkcia, ktorá zoberie vyhľadávaciu frázu a vráti na základe nej dokumenty]
 public static function search($query)
 {
     $query_tags = array_count_values(Tag::escape($query));
@@ -108,7 +108,7 @@ public static function search($query)
 }
 \end{lstlisting}
 
-\begin{lstlisting}[code=php,caption=Funkcia ktorá vyhodnocuje typ značky na základe príznakov
+\begin{lstlisting}[code=php,caption=Funkcia, ktorá vyhodnocuje typ značky na základe príznakov
 DN - značka je názov dokumentu\, IN - značka je interpret dokumentu\, DT - značka sa nachádza
 v názve dokumentu\, IT - značka sa nachádza v názve interpreta.]
 public static function getTagType($IN, $DN, $IT, $DT) {
@@ -125,7 +125,7 @@ public static function getTagType($IN, $DN, $IT, $DT) {
 \end{lstlisting}
 
 \begin{lstlisting}[
-    code=php, caption=Funkcia ktorá vráti pre aktualny spoločné značky dokumentov
+    code=php, caption=Funkcia, ktorá vráti spoločné značky dokumentov
     dokument1 a dokument2
 ]
 public static function similiarTags($document1, $document2) {
@@ -181,7 +181,7 @@ public static function recommendFor($ids) {
 
 \begin{lstlisting}[
     code=php,
-    caption=Algoritmus ktorý vráti dlhodobé zaujmi použitím delenia histórie na obdobia
+    caption=Algoritmus, ktorý vráti dlhodobé zaujmy použitím delenia histórie na obdobia
 ]
 public function getTimeAwareRecommendDocuments($exclude = false) {
         $view_count = View::find()->where(['user_id' => $this->id])->count();
@@ -255,7 +255,7 @@ public function getRecommendDocuments() {
 }
 \end{lstlisting}
 
-\paragraph{Model relačnej tabuľky dokumentov a tagov aj z váhamy}
+\paragraph{Model relačnej tabuľky dokumentov a tagov aj s váhami}
 
 Táto trieda sa nachádza v súbore models/MapDocumentTag.php
 
@@ -313,12 +313,12 @@ public static function calculateWeights() {
 \subsection{Registrácia}
 
 \begin{enumerate}
-\item{Navigujem sa na ktorú koľvek stránku, napríklad http://bcmusic.yweb.sk/web/.}
-\item{Kliknem na tlačítko Register v pravom hornom rohu\ref{fig:register_button}.}
-\item{Následne sa mi zobrazí registračný formulár\ref{fig:register_form}}
-\item{Vyplním požadované údaje.}
-\item{Zvolím Register.}
-\item{Ak nevypísalo žiadnu chybu, mali by te byť zaregistrovaný a prihlásený.}
+\item{Navigujeme sa na ktorúkoľvek stránku, napríklad http://bcmusic.yweb.sk/web/.}
+\item{Klikneme na tlačítko Register v pravom hornom rohu\ref{fig:register_button}.}
+\item{Následne sa nám zobrazí registračný formulár\ref{fig:register_form}}
+\item{Vyplníme požadované údaje.}
+\item{Zvolíme Register.}
+\item{Ak nevypísalo žiadnu chybu, mali by ste byť zaregistrovaní a prihlásení.}
 \end{enumerate}
 
 \begin{figure}
@@ -332,7 +332,7 @@ public static function calculateWeights() {
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.55]{register_form}
-        \caption{Registračny formulár}
+        \caption{Registračný formulár}
         \label{fig:register_form}
     \end{center}
 \end{figure}
@@ -340,12 +340,12 @@ public static function calculateWeights() {
 \subsection{Prihlásenie}
 
 \begin{enumerate}
-\item{Navigujem na ktorúkoľvek podstránku aplikácie.}
-\item{Kliknem na tlačitko Sign In v pravo hore.}
-\item{Následne sa mi zobrazí registračný formulár \ref{fig:login_form}.}
-\item{Vyplním svoje prihlasovacie meno a heslo.}
+\item{Navigujeme sa na ktorúkoľvek podstránku aplikácie.}
+\item{Kliknem na tlačitko Sign In vpravo hore.}
+\item{Následne sa nám zobrazí registračný formulár \ref{fig:login_form}.}
+\item{Vyplníme svoje prihlasovacie meno a heslo.}
 \item{Klikne na Login.}
-\item{Ak nenastala žiadna chyba mali by ste byť prihláseny.}
+\item{Ak nenastala žiadna chyba mali by sme byť prihlásení.}
 \end{enumerate}
 
 \begin{figure}
@@ -366,10 +366,10 @@ public static function calculateWeights() {
 
 \subsection{Vyhľadávanie}\label{sec:search}
 
-Vyhľadáva sa pomovo textového poľa v hlavičke stránky \ref{fig:search_screen}(oblasť číslo 1)
-ktoré je dostupné na každej podstránke. V prípade že do neho zadáť vyhľadávací režazec, a
-stlačite buď modru lupu na pravo od poľa alebo enter, zobrazia sa výsledky ako na obrázku
-\ref{fig:search_screen}(oblasť číslo 2).
+Vyhľadáva sa pomocov textového poľa v hlavičke stránky \ref{fig:search_screen} (oblasť číslo 1),
+ktoré je dostupné na každej podstránke. V prípade, že sa do nedá zadať vyhľadávací reťazec a
+stlačí sa buď modrá lupa vpravo od poľa alebo enter, zobrazia sa výsledky ako na obrázku
+\ref{fig:search_screen} (oblasť číslo 2).
 
 \begin{figure}
     \begin{center}
@@ -382,10 +382,10 @@ stlačite buď modru lupu na pravo od poľa alebo enter, zobrazia sa výsledky a
 \subsection{Vytvorenie spevníku}
 
 \begin{enumerate}
-\item{Klinem na tlačidlo Songbook v menu \ref{fig:songbook} (oblasť 1).}
-\item{Zaškrtnem pre ktorých používateľov chcem generovať spevník \ref{fig:songbook} (oblasť 2).}
+\item{Klineme na tlačidlo Songbook v menu \ref{fig:songbook} (oblasť 1).}
+\item{Zaškrtneme, pre ktorých používateľov chceme generovať spevník \ref{fig:songbook} (oblasť 2).}
 \item{Kliknem na tlačidlo \uv{Create} \ref{fig:songbook} (oblasť 3).}
-\item{Na obrázku \ref{fig:songbook} (oblasť 4) by sa mi mal zobraziť zoznam odporúčaných
+\item{Na obrázku \ref{fig:songbook} (oblasť 4) by mali byť zobrazené zoznamy odporúčaných
     piesni do spevníku.}
 \end{enumerate}
 
@@ -399,13 +399,13 @@ stlačite buď modru lupu na pravo od poľa alebo enter, zobrazia sa výsledky a
 
 \subsection{Zobrazenie odporúčaní}
 
-Odporúčania sa zobrazujú na stránke v dvoch prípadoch, v prípade že navštívite 
+Odporúčania sa zobrazujú na stránke v dvoch prípadoch. V prípade, že navštívite 
 sekciu stránky \uv{Recommend My} alebo pri zobrazení dokumentu.
 
 \subsubsection{Zobrazenie odporúčaní \uv{Recommend My}}
 
 Na túto obrazovku sa dostaneme po kliknutí na \uv{Recommend My} v menu \ref{fig:recommendmy}
-(oblasť 1). Na obrazovke sa následne nachádzajú dve tabuľky reprezentujúci dva rôzne algoritmy
+(oblasť 1). Na obrazovke sa následne nachádzajú dve tabuľky reprezentujúce dva rôzne algoritmy
 na odporúčanie.
 
 \begin{figure}
@@ -418,15 +418,15 @@ na odporúčanie.
 
 \subsubsection{Zobrazenie odporúčaní pri zobrazení dokumentu}
 
-Na túto obrazovku sa môžeme dostať buď z vyhľadávania opsísanom vo Vyhľadávanie\ref{sec:search}.
-Obrazovka obsahuje prvky
+Na túto obrazovku sa môžeme dostať buď z vyhľadávania opísanom vo Vyhľadávanie\ref{sec:search}.
+Obrazovka obsahuje prvky:
 
 \begin{itemize}
-\item{Na obátku \ref{fig:song} na ľavo (oblasť 1) sa nachádza panel z tagmy dokumentu.}
-\item{V strede (oblasť 2) sa nachádza aktualny obsah dokumentu.}
-\item{Na pravo hore (oblasť 3) je panel ktorý zobrazuje dokumentu najviac podobný
+\item{Na obrázku \ref{fig:song} vľavo (oblasť 1) sa nachádza panel s tagmi dokumentu.}
+\item{V strede (oblasť 2) sa nachádza aktuálny obsah dokumentu.}
+\item{Vpravo hore (oblasť 3) je panel, ktorý zobrazuje dokumenty najviac podobné
     aktuálnemu dokumentu.}
-\item{Na pravo dole (oblast 4) je panel ktorý obsahuje odporúčania pre aktuálneho používateľa.}
+\item{Vpravo dole (oblast 4) je panel, ktorý obsahuje odporúčania pre aktuálneho používateľa.}
 \end{itemize}
 
 
@@ -443,33 +443,33 @@ Obrazovka obsahuje prvky
 \subsection{Inštalačná príručka}\label{install_guide}
 
 Zdrojové súbory sú na digitálnom nosiči v podpriečinku src/.
-Aby aplikácia mohla fungovať, potrebuje z webu prístupny podpriečinok src/web a
-potrebuje aby PHP skripty mohli zapisovať do priečinka src/runtime.
+Aby aplikácia mohla fungovať, potrebuje z webu prístupný podpriečinok src/web a
+potrebuje aby PHP skripty sa mohli zapisovať do priečinka src/runtime.
 
-\paragraph{Kontrolá minimálny požiadaviek}
+\paragraph{Kontrola minimálnych požiadaviek}
 
-Pre presne stanovenie splnenia minimálnych požiadaviek, je v 
-priečinku zo zdrojovými súbormy skript \uv{requirements.php}, tento skript
-je potrebne spustiť v konzole. Skript upozorní na prípadné možno 
-problémy z kompatibilitou. Ak vypíše upozornenia, znamená to že aplikácia bude
+Pre presné stanovenie splnenia minimálnych požiadaviek je v 
+priečinku so zdrojovými súbormi skript \uv{requirements.php}. Tento skript
+je potrebné spustiť v konzole. Skript upozornení na prípadné možné 
+problémy s kompatibilitou. Ak budú vypísané upozornenia znamená to, že aplikácia bude
 fungovať, avšak v niektorých situáciach môže nastať nedefinovaný stav.
 
 \paragraph{Inštalácia balíkov Composer-a}
 
-Na nainštalovanie všetkých knižníc použitých pri vývoji a závyslostiach aplikácie,
-je potrebne zo koreňového priečinka inštalácie (priečinok src/) spustiť
+Na nainštalovanie všetkých knižníc použitých pri vývoji a závislostiach aplikácie
+je potrebne z koreňového priečinka inštalácie (priečinok src/) spustiť
 príkaz \ref{lst:composer_install}. V pripade že nemáte nainštalovaný Composer,
-môžete postupovať podľa oficialneho návodu\footnote{https://getcomposer.org/doc/00-intro.md}.
+môžete postupovať podľa oficiálneho návodu\footnote{https://getcomposer.org/doc/00-intro.md}.
 
-\begin{lstlisting}[label=composer_install, caption=Inštalácia balíkov Composer-a]
+\begin{lstlisting}[label=lst:composer_install, caption=Inštalácia balíkov Composer-a]
 composer install
 \end{lstlisting}
 
 \paragraph{Inštalácia databázy}
 
-Prvý krok na pripojenie k databáze je nastavenie prístupových parametrov databázy,
-tie sa nastavujú v súbore \uv{src/config/db.php}. Príklad na nastavenie MySQL databázy
-je v ukážke\ref{db_mysql} a príklad na nastavenie PostgreSQL je v ukážke\ref{db_postgres}.
+Prvý krok na pripojenie k databáze je nastavenie prístupových parametrov databázy.
+Tieto sa nastavujú v súbore \uv{src/config/db.php}. Príklad na nastavenie MySQL databázy
+je v ukážke \ref{db_mysql} a príklad na nastavenie PostgreSQL je v ukážke \ref{db_postgres}.
 
 \begin{lstlisting}[label=db_mysql,caption=Príklad nastavenia databázy MySQL]
 <?php
@@ -514,7 +514,7 @@ v koreňovom priečinku aplikácie (\uv{src/}).
 
 \paragraph{Otestovanie funkčnosti súčiastok}
 
-V prípade potreby je možné v tomto bode spustiť automatizované testovanie, to však vyžaduje 
+V prípade potreby je možné v tomto bode spustiť automatizované testovanie, čo však vyžaduje 
 prítomnosť ďaľšej databázy (testovanie prepisuje základné dáta), prístupy k databáze pre 
 tester sa nastavujú v súbore \uv{src/tests/codeception/config/config.php}.
 
@@ -526,12 +526,12 @@ Codeception\footnote{http://codeception.com/install}.
 
 \paragraph{Príkazy pre manažéra úloh}
 
-Pokiaľ nechceme manuálne spúšťať indexovanie a prednačítanie externých databáz, je dobre 
+Pokiaľ nechceme manuálne spúšťať indexovanie a prednačítanie externých databáz je dobré 
 pridať tieto príkazy do manažéra úloh,
 
 \begin{itemize}
 \item{\textbf{./yii interpret/explore} - získava názvy a identifikátory interpretov zo stránok
-    ktoré obsahuju zoznamy interpretov}
+    ktoré obsahuju zoznamy interpretov,}
 \item{\textbf{./yii document/explore} - snaží sa získať identifikátory dokumentov,
     ich interpretov a typ,}
 \item{\textbf{./yii document/parallelnametags} - paralelne vygeneruje značky
@@ -539,8 +539,8 @@ pridať tieto príkazy do manažéra úloh,
 \item{\textbf{./yii document/lunloaded} - snaží sa stiahnuť obsahy dokumentov a značky
     z last.fm, tento príkaz sa dá spustiť aj paralelne ako
     \textbf{./yii document/parallelunloaded}, tento prístup však nemusí fungovať všade
-    a nie je spoľahlivý}
-\item{\textbf{./yii mapdocumenttag/weight} - vypočítava užitočnosť značiek,}
+    a nie je spoľahlivý,}
+\item{\textbf{./yii mapdocumenttag/weight} - vypočítava užitočnosť značiek.}
 \end{itemize}
 
 Aplikácia obsahuje aj ďaľšie príkazy:
@@ -549,24 +549,24 @@ Aplikácia obsahuje aj ďaľšie príkazy:
 \item{\textbf{./yii document/paralleltaglfm} - paralélne sťahuje značky z last.fm},
 \item{\textbf{./yii document/tagtype \$id} - \$id je parameter identifikátor dokumentu,
     vygeneruje značky pre dokument z jeho názvu, názvu jeho interpreta a typu dokumentu,}
-\item{\textbf{./yii document/tagtypes} - skontroluje či všetky značky priradené dokumentom
+\item{\textbf{./yii document/tagtypes} - skontroluje, či všetky značky priradené dokumentom
     sú správneho typu, existuje aj paralelna verzia \textbf{./yii document/paralleltagtypes},}
 \end{itemize}
 
 \paragraph{Nastavenia}
 
-Aplikácia po nainštalovaní bude bežať v vývojovom móde, pre produkčne nastavenie je 
+Aplikácia po nainštalovaní bude bežať vo vývojovom móde. Pre produkčné nastavenie je 
 potrebné zmeniť nastavenia v \uv{src/web/index.php}. V danom súbore je potrebné zmeniť
 zakomentovať riadky 4 a 5 a odkomentovať riadky 8 a 9.
 
-Ďalej aplikácia obsahuje nastavenia v súbore \uv{src/config/params.php}
+Ďalej aplikácia obsahuje nastavenia v súbore \uv{src/config/params.php}.
 
 \begin{itemize}
 \item{\textbf{tag\_appereance\_weights} - váhy jednotlivých domén značiek,}
 \item{\textbf{min\_tag\_lenght} - minimálna dĺžka slova aby sa mohlo stať značkou,}
-\item{\textbf{time\_aware\_recomendation} - ak je nastavený na \uv{true}, pri zo brazení
-    piesne sa na paneli z odporúčaniamy zobrazujú výsledky nášho algoritmu, ak
-    je hodnota \uv{false}, zobrazujú sa výsledky agregačného algorimtu.}
+\item{\textbf{time\_aware\_recomendation} - ak je nastavený na \uv{true}, pri zobrazení
+    piesne sa na paneli z odporúčaniami zobrazujú výsledky nášho algoritmu, ak
+    je hodnota \uv{false}, zobrazujú sa výsledky agregačného algoritmu.}
 \end{itemize}
 
 \section{Elektronické médium}
@@ -594,3 +594,4 @@ K dokumentu priložené elektronické médium má nasledovnú štruktúru:
     \myitem popis obsahu média v slovenskom a anglickom jazyku
     \end{my_itemize}
 \end{my_itemize}
+

@@ -34,17 +34,17 @@
 % Language
 \ifthenelse {\boolean{english}}
 {
-	\usepackage[english]{babel}
+    \usepackage[english]{babel}
 
-	\renewcommand{\lstlistingname}{Example}
-	\renewcommand{\lstlistlistingname}{List of Examples}
+    \renewcommand{\lstlistingname}{Example}
+    \renewcommand{\lstlistlistingname}{List of Examples}
 }
 {
-	%\usepackage[slovak]{babel}
-	%\usepackage[IL2]{fontenc}
+    %\usepackage[slovak]{babel}
+    %\usepackage[IL2]{fontenc}
 
-	\renewcommand{\lstlistingname}{Ukážka}
-	\renewcommand{\lstlistlistingname}{Zoznam ukážok}
+    \renewcommand{\lstlistingname}{Ukážka}
+    \renewcommand{\lstlistlistingname}{Zoznam ukážok}
 }
 
 % Section rules
@@ -71,31 +71,31 @@
 
 % Listings settings
 \lstdefinelanguage{lua}{
-	morekeywords={and,break,do,else,elseif,end,false,for,function,if,in,local,nil,not,or,repeat,return,then,true,until,while},
-	morekeywords={[2]arg,assert,collectgarbage,dofile,error,_G,getfenv,getmetatable,ipairs,load,loadfile,loadstring,next,pairs,pcall,print,rawequal,rawget,rawset,select,setfenv,setmetatable,tonumber,tostring,type,unpack,_VERSION,xpcall},
-	morekeywords={[2]coroutine.create,coroutine.resume,coroutine.running,coroutine.status,coroutine.wrap,coroutine.yield},
-	morekeywords={[2]module,require,package.cpath,package.load,package.loaded,package.loaders,package.loadlib,package.path,package.preload,package.seeall},
-	morekeywords={[2]string.byte,string.char,string.dump,string.find,string.format,string.gmatch,string.gsub,string.len,string.lower,string.match,string.rep,string.reverse,string.sub,string.upper},
-	morekeywords={[2]table.concat,table.insert,table.maxn,table.remove,	table.sort},
-	morekeywords={[2]math.abs,math.acos,math.asin,math.atan,math.atan2,math.ceil,math.cos,math.cosh,math.deg,math.exp,math.floor,math.fmod,math.frexp,math.huge,math.ldexp,math.log,math.log10,math.max,math.min,math.modf,math.pi,math.pow,math.rad,math.random,math.randomseed,math.sin,math.sinh,math.sqrt,math.tan,math.tanh},
-	morekeywords={[2]io.close,io.flush,io.input,io.lines,io.open,io.output,io.popen,io.read,io.tmpfile,io.type,io.write,file:close,file:flush,file:lines,file:read,file:seek,file:setvbuf,file:write},
-	morekeywords={[2]os.clock,os.date,os.difftime,os.execute,os.exit,os.getenv,os.remove,os.rename,os.setlocale,os.time,os.tmpname},
-	keywordstyle=\color{black},
-	ndkeywordstyle=\color{black},
-	commentstyle=\color{black},
-	stringstyle=\color{gray},
-	identifierstyle=\color{black},
-	sensitive=true,
-	morecomment=[l]{--},
-	morecomment=[s]{--[[}{]]--},
-	morestring=[b]",
-	morestring=[d]',
+    morekeywords={and,break,do,else,elseif,end,false,for,function,if,in,local,nil,not,or,repeat,return,then,true,until,while},
+    morekeywords={[2]arg,assert,collectgarbage,dofile,error,_G,getfenv,getmetatable,ipairs,load,loadfile,loadstring,next,pairs,pcall,print,rawequal,rawget,rawset,select,setfenv,setmetatable,tonumber,tostring,type,unpack,_VERSION,xpcall},
+    morekeywords={[2]coroutine.create,coroutine.resume,coroutine.running,coroutine.status,coroutine.wrap,coroutine.yield},
+    morekeywords={[2]module,require,package.cpath,package.load,package.loaded,package.loaders,package.loadlib,package.path,package.preload,package.seeall},
+    morekeywords={[2]string.byte,string.char,string.dump,string.find,string.format,string.gmatch,string.gsub,string.len,string.lower,string.match,string.rep,string.reverse,string.sub,string.upper},
+    morekeywords={[2]table.concat,table.insert,table.maxn,table.remove, table.sort},
+    morekeywords={[2]math.abs,math.acos,math.asin,math.atan,math.atan2,math.ceil,math.cos,math.cosh,math.deg,math.exp,math.floor,math.fmod,math.frexp,math.huge,math.ldexp,math.log,math.log10,math.max,math.min,math.modf,math.pi,math.pow,math.rad,math.random,math.randomseed,math.sin,math.sinh,math.sqrt,math.tan,math.tanh},
+    morekeywords={[2]io.close,io.flush,io.input,io.lines,io.open,io.output,io.popen,io.read,io.tmpfile,io.type,io.write,file:close,file:flush,file:lines,file:read,file:seek,file:setvbuf,file:write},
+    morekeywords={[2]os.clock,os.date,os.difftime,os.execute,os.exit,os.getenv,os.remove,os.rename,os.setlocale,os.time,os.tmpname},
+    keywordstyle=\color{black},
+    ndkeywordstyle=\color{black},
+    commentstyle=\color{black},
+    stringstyle=\color{gray},
+    identifierstyle=\color{black},
+    sensitive=true,
+    morecomment=[l]{--},
+    morecomment=[s]{--[[}{]]--},
+    morestring=[b]",
+    morestring=[d]',
     showstringspaces=false,
-	backgroundcolor=\color{white},
-	frame=single,
-	frameround=ffff,
-	captionpos=b,
-	basicstyle=\scriptsize
+    backgroundcolor=\color{white},
+    frame=single,
+    frameround=ffff,
+    captionpos=b,
+    basicstyle=\scriptsize
 }
 
 \lstdefinelanguage{nil}{
@@ -118,19 +118,19 @@
   morestring=[b]',
   morestring=[b]",
   keywordstyle=\color{blue}\normalfont,
-	ndkeywordstyle=\color{black}\normalfont,
-	commentstyle=\color{red}\ttfamily,
-	stringstyle=\color{green}\ttfamily,
-	identifierstyle=\color{gray},
-	backgroundcolor=\color{white},
-	frame=single,
-	frameround=ffff,
-	captionpos=b,
-	basicstyle=\scriptsize
+    ndkeywordstyle=\color{black}\normalfont,
+    commentstyle=\color{red}\ttfamily,
+    stringstyle=\color{green}\ttfamily,
+    identifierstyle=\color{gray},
+    backgroundcolor=\color{white},
+    frame=single,
+    frameround=ffff,
+    captionpos=b,
+    basicstyle=\scriptsize
 }
 
 \lstdefinestyle{color}
-	{identifierstyle=\color{green}\bfseries, commentstyle=\color{yellow}\bfseries, stringstyle=\color{blue}, keywordstyle=\color{red}\bfseries,morecomment=[l]{\#}}
+    {identifierstyle=\color{green}\bfseries, commentstyle=\color{yellow}\bfseries, stringstyle=\color{blue}, keywordstyle=\color{red}\bfseries,morecomment=[l]{\#}}
 
 \lstset{postbreak=\small>>\space,prebreak=\small>>,breakindent=13pt,breaklines=true,inputencoding=utf8,tabsize=2,showtabs=false,tab=$\to$,style=color,basicstyle=\footnotesize\ttfamily\normalfonts,frame=lines,frameround=tttt,extendedchars=\true,literate={š}{{\v{s}}}1{č}{{\v{c}}}1}
 

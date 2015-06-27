@@ -1,21 +1,21 @@
-\newpage
+﻿\newpage
 
 \section{Testovanie}
 
-Cieľom overovania bolo zistiť či algoritmus na odhalovanie dlhodobých 
+Cieľom overovania bolo zistiť či algoritmus na odhaľovanie dlhodobých 
 preferencií postavený na obdobiach dokáže poskytnúť lepšie výsledky ako 
-agrgácia hodnôt.
+agregácia hodnôt.
 
 \paragraph{Vlastné testovanie}
 
 Preto som sa rozhodol najskôr vytvoriť jedného testovacieho požívateľa a sledovať 
-ako sa s časom bude menit účinnosť obydvoch algorimtov. 
+ako sa s časom bude menit účinnosť oboch algorimtov. 
 
-Pri tomto testovaní sa porovnával používateľov zámer z niekoľkými odporučeniami algoritmov.
-Támer bol tvorený skupinov kapiel alebo typov dokumentov. Vzhľadom na unikatnosť piesni
-som sa rozhodol nepoužiť pri testovani tento parameter.
+Pri tomto testovaní sa porovnával používateľov zámer s niekoľkými odporučeniami algoritmov.
+Zámer bol tvorený skupinou kapiel alebo typov dokumentov. Vzhľadom na unikátnosť piesní
+sme sa rozhodoli nepoužiť pri testovani tento parameter.
 
-Podobnosť užitočnosť odporúčaní som hodnotil podľa toho, koľko kapiel a typov dokumentu
+Podobnosť užitočnosti odporúčaní sme hodnotili podľa toho, koľko kapiel a typov dokumentov
 sa nachádza aj v zámere aj vo výsledku. Tento prístup je vyjadrený matematicky 
 rovnicou \ref{eq:result_set_utility}.
 
@@ -24,10 +24,10 @@ užitočnosť(R) = \frac{\sum\limit_{i=0}^{N}1 + \sum\limit_{i=0}^{M} 1 +\sum\li
 \end{equation}
 
 Rovnica obsahuje \(R\) čo je množina odporúčaní, \(N\), čo je počet piesni ktoré sú aj v
-zámere aj v odporúčaní, \(M\) je počet interpretov ktorý sú aj v zámere aj v odporúčaní a 
-\(K\) je počet typov dokumentov ktoré su tiež prienikom odporúčaní a zámeru.
+zámere aj v odporúčaní, \(M\) je počet interpretov, ktorí sú aj v zámere aj v odporučení a 
+\(K\) je počet typov dokumentov, ktoré su tiež prienikom odporučení a zámeru.
 
-Na obrázky \ref{fig:manual_testing_results} môžeme vydieť výsledok tohoto testu.
+Na obrázku \ref{fig:manual_testing_results} môžeme vidieť výsledok tohoto testu.
 
 \begin{figure}
     \begin{center}
@@ -37,15 +37,34 @@ Na obrázky \ref{fig:manual_testing_results} môžeme vydieť výsledok tohoto t
     \end{center}
 \end{figure}
 
-Pokračovať v testoch nemalo zmysel vzhľadom na to že agregačný algoritmus v predposlednom
-aj v poslednom teste vrátil rovnaké výsledky. Čo vzhľadom na jeho povahu znamená že 
-menšie zámery už nemajú vpliv na jeho výsledok.
+Pokračovať v testoch nemalo zmysel vzhľadom na to, že agregačný algoritmus v predposlednom
+aj v poslednom teste vrátil rovnaké výsledky. Čo vzhľadom na jeho povahu znamená, že 
+menšie zámery už nemajú vplyv na jeho výsledok.
 
 \subsection{Dotazník}
 
 Ďaľšie testovanie prebehlo formov testovania aplikácie na webe pomocov respondentov, ktorý 
 používali aplikáciu rôzne časove obdobia, následne sa im boli ponúknute odporúčania z obidvoch 
-algoritmov a oni vyhodnotili ktorí im viacej vyhovuje.
+algoritmov a oni vyhodnotili ktorí im viacej vyhovuje. Na obrázku \ref{fig:dotaznik} môžeme 
+vydieť výsledky dotazníku.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics{dotaznik}
+        \caption{Graf výsledkov pre dotazník}
+        \label{fig:dotaznik}
+    \end{center}
+\end{figure}
+
+Okrem tohoto porovnávania som ešte zisťoval či na stránke dokumentu používatelia viac preferovali
+panel s podobnými dokumentamy alebo panel z odporúčaním na báze obdobý. Výsledky môžeme
+vidieť na obrázku \ref{fig:dotaznik_podobnost}
 
 
-
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.80]{dotaznik_podobnost}
+        \caption{Graf výsledkov pre dotazník}
+        \label{fig:dotaznik_podobnost}
+    \end{center}
+\end{figure}

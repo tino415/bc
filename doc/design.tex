@@ -2,77 +2,77 @@
 
 \section{Návrh aplikácie}
 
-V tejto kapitole sa budeme zaoberať zvolenými technológiamy a abstraktným návrhom 
+V tejto kapitole sa budeme zaoberať zvolenými technológiami a abstraktným návrhom 
 aplikácie.
 
 \subsection{Platforma}
 
-Prácu som sa rozhodol vypracovať vo forme webovej aplikácie.
-Túto formu som zvolili najmä pre väčšiu dostupnosť pre koncového používateľa.
-Tak isto veľkým plus je že celá aplikácie beží na strane tvorcu takže prípadne zmeny 
-v systéme nebude potrebne synchronizovať naprieč viacerímy zariadeniamy. 
-Ďaľšou výhodou je redukovanie problémov zo synchronizáciou databáza medzi koncovímy
-zariadeniamy.
+Prácu sme sa rozhodoli vypracovať vo forme webovej aplikácie.
+Daná forma bola zvolená najmä pre väčšiu dostupnosť pre koncového používateľa.
+Tak isto veľkým plus je, že celá aplikácie beží na strane tvorcu, takže prípadné zmeny 
+v systéme nebude potrebne synchronizovať naprieč viacerými zariadeniami. 
+Ďaľšou výhodou je redukovanie problémov so synchronizáciou databáz medzi koncovými
+zariadeniami.
 
-Tak isto protabilita riešenia je pomerne dobrá, nepotrebujem sa zaoberať rôznymi verziamy
-operačných systémov. Proti tomuto by sa dalo argumentovať rozdielmy medzi 
-internetovými prehliadačmy a potrebu responzívneho dizajnu pre mobilné zariadenia,
-ale toto všetko sa dá jednoducho vyriešiť voľbou správny grafických knižníc.
+Taktež protabilita riešenia je pomerne dobrá, nepotrebujeme sa zaoberať rôznymi verziami
+operačných systémov. Proti tomuto by sa dalo argumentovať rozdielmi medzi 
+internetovými prehliadačmi a potrebu responzívneho dizajnu pre mobilné zariadenia,
+ale toto všetko sa dá jednoducho vyriešiť voľbou správnach grafických knižníc.
 
-Keďže sa jedná o webovú aplikáciu, bude bežať čiastočne vo forme klient serve ako 
-html, css a javascript kód bežiaci vo vyhľadávači používateľa a php kód bežiaci na strane.
+Keďže sa jedná o webovú aplikáciu, bude bežať čiastočne vo forme klient server ako 
+html, css a javascript kód bežiaci vo vyhľadávači používateľa a php kód bežiaci na strane servera.
 
 \paragraph{Klient}
 
-Klientska časť je postavená na JavaScripte, HTML a CSS3. Aby som zabezpečil responzívny 
-dyzajn a portabilitu naprieč prehliadačmy, rozhodol som sa použiť knižnicu
+Klientská časť je postavená na JavaScripte, HTML a CSS3. Aby bol zabezpečený responzívny 
+dizajn a portabilitu naprieč prehliadačmiy, rozhodoli sme sa použiť knižnicu
 Bootstrap\footnote{http://getbootstrap.com/},
-ktorá ja postavená na CSS3 a jQuery. Vďaka nej nemusím kontrolovať vyzualnu stránku v 
-rôznych prehliadačoch a vytvorenie dizajnu, ktorý dobre spolupracuje z rôznimy rozmermy
-obrazoviek a rozlíšení, ma stojí pomerne málo námahy. Tak isto plánujem použiť 
+ktorá ja postavená na CSS3 a jQuery. Vďaka nej nie je potrebné kontrolovať vizuálnu stránku v 
+rôznych prehliadačoch a vytvorenie dizajnu, ktorý dobre spolupracuje s rôznymi rozmermi
+obrazoviek a rozlíšení je pomerne málo námahavé. Taktiež plánujeme použiť 
 jQuery\footnote{https://jquery.com/} v prípade potreby implementácie logiky na klientskej strane
 a CSS3\footnote{http://www.css3.info/} v prípade potreby hlbších zásahov do grafiky.
 
 \paragraph{Server}
 
-Na strane servera som sa rozhodol použiť jazyk PHP5\footnote{http://php.net/}
-najmä z dôvodu že s ním mám predošlé 
-skúsenosti, tak isto pre tento jazyk sa dá ľahko vyhladať hosting a má veľmi rozsiahlu 
-dokumentáciu. Avšak v tomto jazyku je nedostatok štruktúri čo niekedy môže viesť k veľkým
-neudržateľným aplikáciam, preto som sa rozhodol použiť aplikačný rámec (angl. framework) 
-Yii2\footnote{http://www.yiiframework.com/} ktorý má sadú odporúčaných praktík vďaka
-ktorím je aplikácia dlhodobo udržateľná.
-Ďaľšou výhodou je že tento aplikačný rámec má v sebe zapracované všetky hore uvedené
-klientské knižnice, čím uľahčuje prácu s nimy.
+Na strane servera sme sa rozhodoli použiť jazyk PHP5\footnote{http://php.net/}
+najmä z dôvodu doterajších  
+skúseností, tak isto pre tento jazyk sa dá ľahko vyhľadať hosting a má veľmi rozsiahlu 
+dokumentáciu. Avšak v tomto jazyku je nedostatok štruktúry, čo niekedy môže viesť k veľkým
+neudržateľným aplikáciam, preto sme sa rozhodoli použiť aplikačný rámec (angl. framework) 
+Yii2\footnote{http://www.yiiframework.com/}, ktorý má sadú odporúčaných praktík vďaka
+ktorým je aplikácia dlhodobo udržateľná.
+Ďaľšou výhodou je, že tento aplikačný rámec má v sebe zapracované všetky hore uvedené
+klientské knižnice, čím uľahčuje prácu s nimi.
 Tak isto nám tento aplikačný rámec umožňuje používať rôzne databázy vďaka svojmu modulu 
 DAO\footnote{https://github.com/yiisoft/yii2/blob/master/docs/guide/db-dao.md}
-pomocou ktorý modeluje SQL dotazy. Avšak niektoré zložitejšie dotazy sa v ňom nedajú
-namodelovať. Ako databázu som zvolil MySQL\footnote{https://www.mysql.com/}
-vďaka jej rýchlosti, popularite ale najmä dostupnosti.
+pomocou ktorého modeluje SQL dotazy. Avšak niektoré zložitejšie dotazy sa v ňom nedajú
+namodelovať. Ako databázu sme zvolili MySQL\footnote{https://www.mysql.com/}
+vďaka jej rýchlosti, popularite, ale najmä dostupnosti.
 
 \paragraph{Vývojová platforma}
 
-Ako správcu verzí som sa rozhodol použiť git\footnote{http://git-scm.com/}.
+Ako správcu verzií sme sa rozhodoli použiť git\footnote{http://git-scm.com/}.
 Tento nástroj je pomerne jednoduchý na 
-ovládanie a spoľahlivý. Tak isto existuje množstvo internetových služieb kde sa pomocov
-neho dá zálohovať. Verziovanie dopĺňam správou balíkov pomocov manažéra balíkov 
+ovládanie a spoľahlivý. Tak isto existuje množstvo internetových služieb, kde sa pomocou
+neho dá zálohovať. Verziovanie dopĺňam správou balíkov pomocou manažéra balíkov 
 Composer\footnote{https://getcomposer.org/}
 
-Na testovanie som sa rozhodol použíť na PHPUnit postavený Codeception, ktorý 
+Na testovanie sme použili na PHPUnit postavený Codeception, ktorý 
 je integrovaný do Yii2.
 
-Ako editor používam Vim z množstvom prídavných modulov.
+Ako editor používame Vim s množstvom prídavných modulov.
 
 \subsection{Základné rozvrhnutie aplikácie}
 
 Keďže ide o webovskú aplikáciu, na najvyššej úrovni bude postavená na vzore 
-Klient-Server. Avšak z dôvodu bezpečnosti sa bude väčšina úloh vykonávať na servery.
-Aplikácia bude získavať dáta z už existujúce databázy
+Klient-Server. Avšak z dôvodu bezpečnosti sa bude väčšina úloh vykonávať na serveri.
+Aplikácia bude získavať dáta z už existujúcej databázy
 hudobných dokumentov\footnote{http://www.supermusic.sk/}.
-Tieto dáta chcem doplniť o socialne tagy zo služby
+Tieto dáta budú doplnené o sociálne tagy zo služby
 last.fm\footnote{http://www.last.fm/home}.
 Nad týmito dátamy sa bude vykonávať vyhľadávanie, ale najmä 
-odporúčanie. Základný náčrt aplikácie môžeme vydieť na 
+odporúčanie. Základný náčrt aplikácie môžeme vidieť na 
 obrázku \ref{fig:app_structure}.
 
 
@@ -84,7 +84,7 @@ obrázku \ref{fig:app_structure}.
     \end{center}
 \end{figure}
 
-Aplikácia sa bude skladať z dôch hlavný oddelených subsystémov
+Aplikácia sa bude skladať z dvôch hlavných oddelených subsystémov
 
 \begin{itemize}
 \item{odporúčanie (spúšťané používateľom cez prehliadač),}
@@ -93,25 +93,25 @@ Aplikácia sa bude skladať z dôch hlavný oddelených subsystémov
 
 \subsection{Špecifikácia služieb}
 
-Aplikácia by mala poskytovať niekoľko základných služieb
+Aplikácia by mala poskytovať niekoľko základných služieb:
 
 \begin{itemize}
 \item{vyhľadávanie dokumentov,}
-\item{najdenie podobných dokumentov aktuálne zobrazenému dokumentu,}
+\item{nájdenie podobných dokumentov aktuálne zobrazenému dokumentu,}
 \item{odporúčanie dokumentov,}
 \item{zostavenie spevníka.}
 \end{itemize}
 
-Prvé dve funkcionality sú vytvorené najmä z dôvodu že v danej doméne 
-sa ťažko získavajú preferencie, ich jedinou úlohou je získanie základných
+Prvé dve funkcionality sú vytvorené najmä z dôvodu, že v danej doméne 
+sa ťažko získavajú preferencie. Ich jedinou úlohou je získanie základných
 preferencií používateľa na základe ktorých budeme vytvárať odporúčania.
 
-Pre zabezpečenie týchto funkcií bude potrebované udržiavať databázu dokumentov
-ktorá sa bude pravidelne aktualizovať. Toto bude zabepečovať Kravler (angl. crawler)
-ktorý bude vykonávať činnosti
+Pre zabezpečenie týchto funkcií bude potrebované udržiavať databázu dokumentov,
+ktorá sa bude pravidelne aktualizovať. Toto bude zabepečovať Kravler (angl. crawler),
+ktorý bude vykonávať činnosti:
 
 \begin{itemize}
-\item{prehľadávanie supermusic po nových dokuemntoch,}
+\item{prehľadávanie supermusic po nových dokumentoch,}
 \item{prehľadávanie supermusic po nových interprétoch,}
 \item{sťahovanie dokumentov zo supermusic,}
 \item{sťahovanie značiek z last.fm,}
@@ -119,13 +119,16 @@ ktorý bude vykonávať činnosti
 \end{itemize}
 
 Kravler bude implementovaný ako aplikácia pre príkazový riadok
-aby sa dal použiť z manažérom úloh.
+aby sa dal použiť s manažérom úloh.
 
 \paragraph{Odporúčanie}
 
-Na odporúčanie by som chcel využiť filtrovanie na základe obsahu
-spolú z vlastným algoritmom na určenie dlhodobých, krátkodobých a
-sezonných záujmov.
+Na odporúčanie by sme chceli využiť filtrovanie na základe obsahu
+spolu s vlastným algoritmom na určenie dlhodobých, krátkodobých a
+sezónnych záujmov.
+
+
+\newpage
 
 \section{Implementácia}
 
@@ -133,9 +136,9 @@ sezonných záujmov.
 
 \paragraph{Model dokumentu}
 
-Dokument bude reprezentovaný svojím názvom, typom a značkamy,
-pričom zančky budú mať doménu na základe toho či vznikli
-z názvu dokumentu, jeho typu, názvu interpréta alebo alebo
+Dokument bude reprezentovaný svojím názvom, typom a značkami,
+pričom značky budú mať doménu na základe toho, či vznikli
+z názvu dokumentu, jeho typu, názvu interpréta, alebo
 boli získane zo služby last.fm.
 
 Čiže dokument bude uložený v trojrozmernom vektorovom priestore,
@@ -148,9 +151,9 @@ súradnica budú domény \(D = {d_{názov}, d_{interpret}, d_{typ}, d_{tag}}\).
 Používateľov profil bude reprezentovaný históriou navštívených značiek.
 Bude sa ukladať pre každú navštívenu značku a jeden riadok bude obsahovať 
 informácie \(row = {d_i, u_j, z_l, čas}\) kde \(d_i\) je zobrazený dokument,
-\(u_j\) je používateľ ktorý dokument zobrazil, \(z_l\) je značka ktorá bola zobrazená.
+\(u_j\) je používateľ, ktorý dokument zobrazil, \(z_l\) je značka ktorá bola zobrazená.
 
-Celú túto schému môžeme vydieť na obrázku \ref{fig:user_document_data_model}.
+Celú túto schému môžeme vidieť na obrázku \ref{fig:user_document_data_model}.
 
 
 \begin{figure}
@@ -165,11 +168,11 @@ Celú túto schému môžeme vydieť na obrázku \ref{fig:user_document_data_mod
 
 \paragraph{Kravler}
 
-Kravler (angl. crawler) je program slúžiacy na prehľadávanie webu za účelom
+Kravler (angl. crawler) je program slúžiaci na prehľadávanie webu za účelom
 indexovania\footnote{http://en.wikipedia.org/wiki/Web\_crawler}. Kravler vykonáva niekoľko
 operácií v rámci aplikácie, je implementovaný ako jednoduchý program príkazového riadku.
-Každá z jeho operáci sa v prípade potreby dá vykonať osobytne. Toto je hlavne potrebné ak by
-sa zmenili parametre indexovania. Na obrázku \ref{fig:crawler_flowchart} môžeme vydieť digram
+Každá z jeho operácií sa v prípade potreby dá vykonať osobitne. Toto je hlavne potrebné ak by
+sa zmenili parametre indexovania. Na obrázku \ref{fig:crawler_flowchart} môžeme vidieť diagram
 akcií kravleru.
 
 \begin{figure}
@@ -182,18 +185,18 @@ akcií kravleru.
 
 \paragraph{Vyhľadanie nových interpretov}
 
-Táto akcia využíva spôsob akým sú na super music triedený interpreti.
+Táto akcia využíva spôsob, akým sú na super music triedení interpreti.
 Interpreti sa zobrazujú na stránke \uv{http://www.supermusic.sk/skupiny.php?od=}
-pričom parameter \(od\) sú počiatošné písmena názvu kapely. Experimentálne 
-som overil, že na prejdenie celej databázy potrebujem vygenerovať všetky trojpísmenové
-začiatky názvou, pričom nezáleží na malích a veľkých písmenách. Pre generovaní používam 
-anglickú abecedu až na prvé písmeno kde musím brať do úvahy aj niektorú diakritiku.
+pričom parameter \(od\) sú počiatočné písmena názvu kapely. Experimentálne 
+sme overili, že na prejdenie celej databázy potrebujem vygenerovať všetky trojpísmenové
+začiatky názvov, pričom nezáleží na malých a veľkých písmenách. Pre generovanie používame 
+anglickú abecedu až na prvé písmeno, kde musím brať do úvahy aj niektorú diakritiku.
 
 Prvé písmeno sa vyberá z množiny 
 \uv{A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, R, S, T, U, V, X, Y, *, Ž, Ť, Č}.
-Tento príkaz sa dá spustiť aj paralélne, kedy vytvorí niekoľko 
- procesov, avšak príkaz nieje spoľahlivý, vzhľadom na to že v rámci zachovania portability 
-som použil iba základnu knižnicu pcntl. Táto knižnica neobsahuje zámky, ani iný spôsob ako 
+Tento príkaz sa dá spustiť aj paralelne, kedy vytvorí niekoľko 
+ procesov, avšak príkaz nie je spoľahlivý, vzhľadom na to, že v rámci zachovania portability 
+sme použili iba základnu knižnicu pcntl. Táto knižnica neobsahuje zámky, ani iný spôsob ako 
 ošetriť prítupy ku zdrojom.
 
 Kravler pre interpretov využíva XPath výrazy
@@ -224,54 +227,54 @@ získame url z ktorej musíme aktuálne meno získať pomocou regulárneho výra
 
 \paragraph{Vyhľadanie nových dokumentov}
 
-Táto akcia funguje podobne ako akcia akcia Vyhľadanie nových interpretov. Tiež genreuje adresy
+Táto akcia funguje podobne ako akcia Vyhľadanie nových interpretov. Tiež generuje adresy
 z abecedy a adresy \uv{http://www.supermusic.sk/piesne.php?od=}.
 pričom dopĺňa písmená na koniec adresy.
 
-Prvý znak je anglická abeceda rozšírená o niekoľko slovenský a českých interpunkčný písmen
-plus hviezda. Teda v provom rade sú písmená z množiny \uv{A, B, C, D, E, F, G, H, I, J, K, L, M,
+Prvý znak je anglická abeceda rozšírená o niekoľko slovenský a českých interpunkčných písmen
+plus hviezda. Teda v prvom rade sú písmená z množiny \uv{A, B, C, D, E, F, G, H, I, J, K, L, M,
 N, O, P, Q, R, S, T, U, V, X, Y, Z, Č. Ď, Ľ, Ř, Š, Ť, Ž, *},
 v druhej rade už je anglická abeceda.
 
-Následne sa snaží získať zoznam piesni zo staihnutej stránky, za týmto účelom používam
+Následne sa snaží získať zoznam piesní zo stiahnutej stránky, za týmto účelom používame
 XPath výrazy [\ref{lst:document_id}, \ref{lst:document_name}, \ref{lst:document_interpret}, 
 \ref{lst:document_type}].
 
-\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_name]
+\begin{lstlisting}[caption=XPath na vyhľadanie názvov piesní,label=lst:document_name]
 //table[@width=740]//td/a/text()
 \end{lstlisting}
 
-\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_id]
+\begin{lstlisting}[caption=XPath na vyhľadanie názvov piesní,label=lst:document_id]
 //table[@width=740]//td/a/@href
 \end{lstlisting}
 
-\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_type]
+\begin{lstlisting}[caption=XPath na vyhľadanie názvov piesní,label=lst:document_type]
 //table[@width=740]//td/imt/@src
 \end{lstlisting}
 
-\begin{lstlisting}[caption=XPath na vyhľadanie názvou piesni,label=lst:document_interpret]
+\begin{lstlisting}[caption=XPath na vyhľadanie názvov piesní,label=lst:document_interpret]
 //table[@width=740]//td/text()
 \end{lstlisting}
 
 \paragraph{Stiahnutie nových dokumentov}
 
 Počas hľadania nových dokumentov sa ešte nesťahujú obsahy dokumentov. Takže 
-všetky nové dokumenty ešte nemajú žiadný obsah, táto akcia si vyberie nové dokumenty
-a následne ich sťahuj, url dokumenty sa dá získať tak že zoberiem url
+všetky nové dokumenty ešte nemajú žiadny obsah, táto akcia si vyberie nové dokumenty
+a následne ich sťahuje, url dokumenty sa dájú získať tak, že zoberieme url
 \uv{http://www.supermusic.sk/skupina.php?action=piesen&idpiesne=} a na jej
 koniec pridám identifikátor dokumentu.
 
-Následne sa dokument spracuje, a ak to je potrebné prispôsobý sa aplikácií.
+Následne sa dokument spracuje a ak to je potrebné, prispôsobí sa aplikácii.
 
 \paragraph{Vygenerovanie značiek}
 
 Aby bolo možné odporúčať, je potrebné vygenerovať značky pre dokumenty. Značky
-sa generujú z názvu dokument, názvu interpréta a typu dokumentu tak, že sa rozdelia na
-slová. Následne sa odstrania slová zo slabou semantickou 
+sa generujú z názvu dokumentu, názvu interpréta a typu dokumentu tak, že sa rozdelia na
+slová. Následne sa odstránia slová so slabou semantickou 
 silou\footnote{http://en.wikipedia.org/wiki/Stop\_words}  (angl. stopwords).
-Na filtrovanie takýchto slóv používa už hotový zoznam slóv vytvorený v rámci 
+Na filtrovanie takýchto slov použije sa už hotový zoznam slóv vytvorený v rámci 
 projektu stop-words\footnote{https://code.google.com/p/stop-words/}
-Z tohoto projekty využívam sady
+Z tohoto projektu využívame sady:
 
 \begin{itemize}
 \item{stop-words\_czech\_3\_cz,}
@@ -279,40 +282,40 @@ Z tohoto projekty využívam sady
 \item{stop-words\_slovak\_2\_sk.}
 \end{itemize}
 
-Text sa ešte pre tým normalizuje a tak isto sa určí doména značky, pre jednoduchosť 
-ukladania neukladám značku pre každú doménu osobytne, ale mám vytvorený číselník
-ktorý priradzuje presné domény značkám. 
+Text sa ešte predtým normalizuje a tak isto sa určí doména značky, pre jednoduchosť 
+ukladania neukladáme značku pre každú doménu osobitne, ale máme vytvorený číselník,
+ktorý priraďuje presné domény značkám: 
 
 \begin{itemize}
-\item{\(8\) znamená že značka je názov dokumentu aj názvo interpreta,}
-\item{\(7\) znamená že značka je názov dokumentu a značka z názvu interpreta,}
-\item{\(6\) znamená že značka je názov interpreta a značkou z názvu dokumentu,}
-\item{\(5\) znamená že značka je názov dokumentu,}
-\item{\(4\) znamená že značka je názov interpreta,}
-\item{\(3\) znamená že značka je značkou v názve dokumentu aj interpreta,}
-\item{\(2\) znamená že značka je značkou v názve dokumentu,}
-\item{\(1\) znamená že značka je značkou v názve interpreta,}
-\item{\(0\) znamená že značka je buď značka získana z typu dokumentu alebo služby last.fm.}
+\item{\(8\) znamená, že značka je názov dokumentu aj názov interpreta,}
+\item{\(7\) znamená, že značka je názov dokumentu a značka z názvu interpreta,}
+\item{\(6\) znamená, že značka je názov interpreta a značkou z názvu dokumentu,}
+\item{\(5\) znamená, že značka je názov dokumentu,}
+\item{\(4\) znamená, že značka je názov interpreta,}
+\item{\(3\) znamená, že značka je značkou v názve dokumentu aj interpreta,}
+\item{\(2\) znamená, že značka je značkou v názve dokumentu,}
+\item{\(1\) znamená, že značka je značkou v názve interpreta,}
+\item{\(0\) znamená, že značka je buď značka získaná z typu dokumentu alebo služby last.fm.}
 \end{itemize}
 
 \paragraph{Doplnenie značiek z last.fm}
 
-Na dopĺňanie značiek používam službu track.getTopTags z last.fm apy. Ktorá 
-vráti pre interpreta a názvo piesne najčastejšie prideľované značky. Tie následne
-pridám k danej piesni. Keďže počet pridelení vrátených z last.fm vysoko prebíjal
-počty vytvorené z názvu dokumentu a interpreta, rozhodol som sa túto hodnotu 
+Na dopĺňanie značiek používam službu track.getTopTags z last.fm apy, ktorá 
+vráti pre interpreta a názvu piesne najčastejšie prideľované značky. Tie následne
+pridáme k danej piesni. Keďže počet pridelení vrátených z last.fm vysoko prebíja
+počty vytvorené z názvu dokumentu a interpreta, rozhodoli sme sa túto hodnotu 
 nevyužiť.
 
 \paragraph{Váhovanie značiek dokumentov}
 
-Tento model sa v MySQL nazýva model prírodzeného jazyka (angl. Natural Language Model),
+Tento model sa v MySQL nazýva model prirodzeného jazyka (angl. Natural Language Model),
 ktorý porovnáva vlastnosti dokumentov na základe abstrakcie priestoru,
-v ktorom sú jednou dimenziou vlastnosti jedného dokuemntu a druhou vlastností druhého
-dokumentu, prípade vyhľadávacieho reťazca alebo používateľský profil.
-Následne sa vracajú dokumenty ktoré majú najpodobnejší smer vektora k požadovanej fráze.
+v ktorom sú jednou dimenziou vlastnosti jedného dokumentu a druhou vlastnosti druhého
+dokumentu, prípadne vyhľadávacieho reťazca, alebo používateľský profil.
+Následne sa vracajú dokumenty, ktoré majú najpodobnejší smer vektora k požadovanej fráze.
 
 V MySQL\footnote{http://dev.mysql.com/doc/internals/en/full-text-search.html}
-je tento prístup implementovaný pomocov nasledujúcej 
+je tento prístup implementovaný pomocou nasledujúcej 
 rovnice \ref{eq:mysql_language_model}.
 
 \begin{equation}\label{eq:mysql_language_model}
@@ -321,22 +324,22 @@ rovnice \ref{eq:mysql_language_model}.
         \log \frac {N}{nf}
 \end{equation}
 
-Rovnica obsahuje
+Rovnica obsahuje:
 \begin{itemize}
-\item{\(dtf_d\) je množstvo koľko krát sa nachádza značka v dokumente,}
+\item{\(dtf_d\) je množstvo koľkokrát sa nachádza značka v dokumente,}
 \item{\(dtf_i\) množstvo i-tej značky dokument,}
 \item{\(U\) počet unikátnych značiek dokumentu, }
 \item{\(N\) počet všetkých dokumentov, }
-\item{\(nf\) je počet dokumentov ktoré obsahuje danú značku}
+\item{\(nf\) je počet dokumentov, ktoré obsahujú danú značku}
 \end{itemize}
 
 Rovnica sa dá rozdeliť na tri časti:
 
 \begin{itemize}
-\item{\textbf{Základná časť} je to primárna rovnica určujúca váhu pojmu,}
-\item{\textbf{Normalizačný faktor} spôsobý, že ak je dokument kratší ako preiemerná dĺžka
-dokuemntu, jeho relevancia stúpa. \cite{pivoted_doc_len}}
-\item{\textbf{Inverzná frequencia} zabezpečuje že menej časté pojmy majú vyššiu váhu.}
+\item{\textbf{základná časť} je to primárna rovnica určujúca váhu pojmu,}
+\item{\textbf{normalizačný faktor} spôsobí, že ak je dokument kratší ako priemerná dĺžka
+dokumentu, jeho relevancia stúpa, \cite{pivoted_doc_len}}
+\item{\textbf{inverzná frekvencia} zabezpečuje, že menej časté pojmy majú vyššiu váhu.}
 \end{itemize}
 
 \subsection{Odporúčanie}
@@ -345,8 +348,8 @@ V rámci odporúčania je vytvorených niekoľko algoritmov.
 
 \paragraph{Agregované odporúčanie}
 
-Ako referenčné odporúčanie som zvolil agregovanie všetkých zobrazených značiek, a vátenie
-tých ktoré používateľ navštevoval najčastejšie. Matematicky je tento algoritmus vyjadrený
+Ako referenčné odporúčanie sme zvolili agregovanie všetkých zobrazených značiek, a vrátenie
+tých, ktoré používateľ navštevoval najčastejšie. Matematicky je tento algoritmus vyjadrený
 rovnicou \ref{eq:aggregated_recommendation},
 
 \begin{equation}\label{eq:aggregated_recommendation}
@@ -355,31 +358,31 @@ u(d_i, u_k) = \sum\limit_{j = 0}^{j = N_{d_i u_k}} u(z_j)
 
 kde \(u(d_i, u_k)\) je užitočnosť dokumentu \(d_i\) pre používateľa \(u_k\),
 ďalej \(N_{d_i u_k}\) čo je spoločný počet značiek dokumentu \(d_i\) a používateľa
-\(u_k\) a \(u(z_j, d_i)\), čo je užitočnosť zančky \(z_j\) vzhľadom na dokument 
+\(u_k\) a \(u(z_j, d_i)\), čo je užitočnosť značky \(z_j\) vzhľadom na dokument 
 \(d_i\).
 
 \paragraph{Vlastné odporúčanie}
 
-Pri agregovanom odporúčaní však ale nastáva jeden zásadný problém, 
-ak používateľ v istom čase zobrázy jeden dokument veľa krát, môže to tak ovplivniť 
-jeho záujmi na dlhší čas. Napríklad na obrázku \ref{fig:casova_os} by značka 1 aj
+Pri agregovanom odporúčaní však nastáva jeden zásadný problém, 
+ak používateľ v istom čase zobrazí jeden dokument veľakrát, môže to tak ovplyvniť 
+jeho záujmy na dlhší čas. Napríklad na obrázku \ref{fig:casova_os} by značka 1 aj
 značka 2 mala rovnakú váhu.
 
 \begin{figure}
     \begin{center}
         \includegraphics[scale=0.55]{casova_os}
-        \caption{Zobrazenia značiek na časovej osy.}
+        \caption{Zobrazenia značiek na časovej osi.}
         \label{fig:casova_os}
     \end{center}
 \end{figure}
 
-Na vyriešenie tohoto problému som sa rozhodol implementovať algoritmus, pri ktorom si 
-rozdelím históriu zobrazení značiek na \(n\) rovnakých častí, značky v každej časti 
-si zoradím podľa počtu zobrazení a vrátim si \(i\) najzobrazovanejších značiek. 
-Pri každej časti považujem pozíciu na ktorej sa značka umiestnila za jej váhu.
+Na vyriešenie tohoto problému sme sa rozhodoli implementovať algoritmus, pri ktorom si 
+rozdelíme históriu zobrazení značiek na \(n\) rovnakých častí, značky v každej časti 
+si zoradíme podľa počtu zobrazení a vrátim si \(i\) najzobrazovanejších značiek. 
+Pri každej časti považujeme pozíciu, na ktorej sa značka umiestnila za jej váhu.
 
-Následne pre každú značku spočítam jej váhy zo všetkých skupín v ktorých sa vyskytla. 
-Túto váhu nakoniec ešte zlogaritmuje z dôvodu že značky ktoré boli na prvých priečkach 
+Následne pre každú značku spočítame jej váhy zo všetkých skupín, v ktorých sa vyskytla. 
+Túto váhu nakoniec ešte zlogaritmuje z dôvodu, že značky, ktoré boli na prvých priečkach 
 zvykli mať obrovský náskok oprotí nižším. Na ukážke \ref{lst:profile_tags} môžeme
 vidieť pseudo kód tohoto algoritmu.
 
@@ -403,7 +406,7 @@ Znacky ziskajZnackyProfilu(zobrazeneZnacky):
 
 \paragraph{Skupinové odporúčanie}
 
-Aplikácia tak isto umožňuje vytváranie spevníkov pre viacerích používateľov. Pre zjednodušenie
+Aplikácia tak isto umožňuje vytváranie spevníkov pre viacerých používateľov. Pre zjednodušenie
 táto funkcionalita je implementovaná v dvoch krokoch. V prvom kroku sa získaju a ováhujú značky
 vybranej skupiny používateľov, v druhom sa vrátia najužitočnejšie dokumenty na základe značiek.
 Vyhodnotenie užitočnosti tagov zo zobrazení sa vypočítava podľa rovnice \ref{eq:group_recommend},
@@ -412,14 +415,14 @@ Vyhodnotenie užitočnosti tagov zo zobrazení sa vypočítava podľa rovnice \r
 u(z_i) = \frac{N_{u_i}}{N_u} * \log (N_{z_i} + 1)
 \end{equation}
 
-kde \(u(z_i)\) je užitočnosť, \(N_{u_i}\) je počet používateľov ktorý už zobrazili značku
+kde \(u(z_i)\) je užitočnosť, \(N_{u_i}\) je počet používateľov, ktorí už zobrazili značku
 \(z_i\), \(N_u\) je počet používateľov pre ktorých chcem získať značky a \(\N_{z_i}\) je 
 celkový počet zobrazení značky.
 
 \paragraph{Podobnosť dokumentov}
 
-Pre vylepšenie odporúčanií počas prieskumného vyhľadávania, beriem do úvahy aj dokument ktorý
-sa najviac podobá na aktuálny dokument. Podobnosť dokumentov je vyhodnotená pomocov rovnice
+Pre vylepšenie odporúčaní počas prieskumného vyhľadávania, berieme do úvahy aj dokument, ktorý
+sa najviac podobá na aktuálny dokument. Podobnosť dokumentov je vyhodnotená pomocou rovnice
 \ref{eq:doc_similiarity}.
 
 \begin{equation}\label{eq:doc_similiarity}
@@ -429,25 +432,25 @@ podobnost(d_i, d_j) = \sum\limit_{k = 0}^{N_{ij}} u(d_i, z_k) * u(d_j, z_k)
 kde \(N_{ij}\) je počet spoločných značiek dokumentu \(d_i\) a dokumentu \(d_j\) a 
 \(d_i, z_k\) je užitočnosť značky \(z_k\) vzhľadom na dokument \(d_i\).
 
-\paragraph{Porovnávanie z dokumentom}
+\paragraph{Porovnávanie s dokumentom}
 
-Dokument môžem porovnať z akou koľvek sadou ováhovaných značiek, či už vytvorenej z profilu 
-používateľa alebo z vyhľadávacieho reťazca. Toto porovnávanie je vyjadrené rovnicou
+Dokument môžem porovnať s akoukoľvek sadou ováhovaných značiek, či už vytvorenej z profilu 
+používateľa, alebo z vyhľadávacieho reťazca. Toto porovnávanie je vyjadrené rovnicou
 \ref{eq:document_match}.
 
 \begin{equation}\label{eq:document_match}
 vyhovuje(d_i, Z) = \sum\limit_{k = 0}^{N_{z}} u(d_i, z_k) * qu(z_k)
 \end{equation}
 
-kde \(Z\) je sada značiek pre ktorú sa snažím najsť vyhovujúci dokument. \(N_z\) je počet značiek
+kde \(Z\) je sada značiek, pre ktorú sa snažím nájsť vyhovujúci dokument. \(N_z\) je počet značiek,
 ktoré má dokument a sada značiek na porovnanie rovnaké, \(u(d_i, z_k)\) je užitočnosť značky
 \(k\) vzhľadom na dokument \(d_i\) a \(qu(z_k)\) je užitočnosť značky \(z_k\) v sade značiek
 \(Z\).
 
 %\paragraph{Priama tagovacia tabuľka}
 %
-%Vytvoril som tabuľku tagov, kde bol každý tag fyzický priamo vložený spolu z id dokumentu ku ktoremu sa viaže,
-%tento prístup ale nebol dostatočne rýchli na vygenerovanie, ani na vyhľadávanie. Pri vyhľadávaní nad 118989 značkamy 
+%Vytvorili som tabuľku tagov kde bol každý tag fyzicky priamo vložený spolu s id dokumentu, ku ktoremu sa viaže.
+%Tento prístup ale nebol dostatočne rýchli na vygenerovanie, ani na vyhľadávanie. Pri vyhľadávaní nad 118989 značkami 
 %označujúcimi 47002 dokumentov zabral 44.6984 sekúnd. Nepomohlo ani zindexovanie podľa mena.
 %
 %\subsection{Váhovanie Dokumentu}

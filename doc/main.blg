@@ -3,16 +3,15 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 Database file #1: references.bib.bib
-I was expecting a `,' or a `}'---line 219 of file references.bib.bib
+I was expecting a `,' or a `}'---line 83 of file references.bib.bib
  :     
  :     author = {Wei Chu and Seung-Taek Park},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Unbalanced braces---line 287 of file references.bib.bib
+Unbalanced braces---line 151 of file references.bib.bib
  :     note="[navštívené 1 mája 2015
  :                                      }",
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "achemoukh"
 Warning--empty booktitle in basic_user_profiles
 Warning--empty journal in modified_bm25
 Warning--empty journal in music_genres_problematics
@@ -27,7 +26,7 @@ Warning--empty journal in semantic_networks
 Warning--empty year in semantic_networks
 You've used 11 entries,
             2118 wiz_defined-function locations,
-            557 strings with 5919 characters,
+            556 strings with 5910 characters,
 and the built_in function-call counts, 2773 in all, are:
 = -- 258
 > -- 127
