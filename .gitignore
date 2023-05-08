@@ -3,3 +3,5 @@ lfm.log
 .phpcomplete_extended
 /vendor/
 vendor/
+.phpcomplete_extended
+.idea
