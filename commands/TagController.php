@@ -136,11 +136,6 @@ class TagController extends Controller {
                                 (   
                                     SELECT COUNT(*) 
                                     FROM document
-                                ) - 
-                                (
-                                    SELECT COUNT(*) 
-                                    FROM map_document_tag 
-                                    WHERE tag_id = a.tag_id
                                 )
                             ) / (
                                 SELECT COUNT(*) 
@@ -177,5 +172,32 @@ class TagController extends Controller {
         print_r(Document::match($tags));
         
         return 0;
+    }
+
+    public function actionLfm($id = false, $id_bigger = false) {
+        if(!$id) $documents = Document::find()->all();
+        elseif($id_bigger) $documents = Document::find()->where(
+            "id > :id_bigger",
+            [':id_bigger' => $id_bigger]
+        )->all();
+        else $documents = [Document::findOne($id)];
+
+        foreach($documents as $document) {
+            echo "Requesting $document->id $document->name :".$document->interpret->name."\n";
+            $url = 
+                "http://bcmusic.yweb.sk/web/document/loadtags?".
+                "id=$document->id&".
+                "api=true";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $data = curl_exec($ch);
+            curl_close($ch);
+
+            echo "$data\n";
+
+            echo "Done\n";
+        }
     }
 }

@@ -1,0 +1,76 @@
+\begin{thebibliography}{10}
+
+\bibitem{14}
+{\em Mysql developers documentation, 10.7 Full-Text Search}.
+
+\bibitem{8}
+Amr Ahmed, Yucheng Low, Mohamed Aly, Vanja Josifovski, and Alexander~J. Smola.
+\newblock Scalable distributed inference of dynamic user interests for
+  behavioral targeting.
+\newblock august 2011.
+
+\bibitem{4}
+Peter Brusilovsky.
+\newblock User profiles for personalized information access.
+
+\bibitem{modified_bm25}
+S.~Cronen-Townsend and W.~B. Croft.
+\newblock Quantifying query ambiguity.
+\newblock 2002.
+
+\bibitem{5}
+Karin Kosina.
+\newblock Music genre recognition.
+\newblock 2002.
+
+\bibitem{9}
+DIK~L. LEE.
+\newblock Document ranking and the vector-space model.
+\newblock 1997.
+
+\bibitem{1}
+Namunu~C. Maddage, Li~Haithou, and Mohan~S. Kankanhalli.
+\newblock Music structure analysis statistics for popular songs.
+\newblock November 2009.
+
+\bibitem{11}
+Prem Melville, Raymond~J. Mooney, and Ramadass Nagarajan.
+\newblock Content-boosted collaborative filtering for improved recommendations.
+\newblock júl 2002.
+
+\bibitem{10}
+Gašpar Peter.
+\newblock Odporúčanie s využitím osobných vyjadrení.
+\newblock 2014.
+
+\bibitem{3}
+Yves Raimond, Samer Abdallah, and Mark Sandler.
+\newblock The music ontology.
+\newblock 2007.
+
+\bibitem{12}
+Arnold Schoenberg.
+\newblock {\em Fundamentalls of musical composition}.
+\newblock Faber and Faber Limited, 1967.
+
+\bibitem{vector_space_model}
+Hinrich Sch¨utze.
+\newblock Introduction to information retrieval.
+\newblock 2011.
+
+\bibitem{pivoted_doc_len}
+Amit Singhal, Chris Buckley, and Mandar Mitra.
+\newblock Pivoted document length normalization.
+\newblock 1996.
+
+\bibitem{7}
+Kiryl Tsishchanka.
+\newblock Exponential growth and decay.
+\newblock 2010.
+
+\bibitem{6}
+Tong Zhu.
+\newblock Nonlinear p´olya urn models and self-organizing processes.
+\newblock 2009.
+
+\end{thebibliography}

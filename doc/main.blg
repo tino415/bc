@@ -1,0 +1,72 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+Database file #1: references.bib.bib
+I was expecting a `,' or a `}'---line 199 of file references.bib.bib
+ :     
+ :     author = {Wei Chu and Seung-Taek Park}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 213 of file references.bib.bib
+ :     
+ :     url = {http://dev.mysql.com/doc/internals/en/full-text-search.html}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--to sort, need author, organization, or key in 14
+Warning--empty journal in 8
+Warning--empty journal in 4
+Warning--empty year in 4
+Warning--empty journal in modified_bm25
+Warning--empty journal in 5
+Warning--empty journal in 9
+Warning--empty journal in 1
+Warning--empty journal in 11
+Warning--empty journal in 10
+Warning--empty journal in 3
+Warning--empty note in vector_space_model
+Warning--empty journal in pivoted_doc_len
+Warning--empty journal in 7
+Warning--empty journal in 6
+You've used 15 entries,
+            2118 wiz_defined-function locations,
+            554 strings with 5380 characters,
+and the built_in function-call counts, 3418 in all, are:
+= -- 307
+> -- 170
+< -- 0
++ -- 69
+- -- 54
+* -- 187
+:= -- 632
+add.period$ -- 42
+call.type$ -- 15
+change.case$ -- 70
+chr.to.int$ -- 0
+cite$ -- 30
+duplicate$ -- 146
+empty$ -- 257
+format.name$ -- 54
+if$ -- 666
+int.to.chr$ -- 0
+int.to.str$ -- 15
+missing$ -- 14
+newline$ -- 75
+num.names$ -- 28
+pop$ -- 102
+preamble$ -- 1
+purify$ -- 57
+quote$ -- 0
+skip$ -- 100
+stack$ -- 0
+substring$ -- 75
+swap$ -- 2
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 58
+warning$ -- 15
+while$ -- 28
+width$ -- 17
+write$ -- 132
+(There were 2 error messages)
